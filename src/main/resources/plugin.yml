@@ -1,0 +1,21 @@
+name: Prison
+version: '${version}'
+main: me.d1lta.prison.Main
+api-version: '1.20'
+libraries:
+  - 'org.apache.commons:commons-pool2:2.9.0'
+  - 'redis.clients:jedis:4.3.1'
+commands:
+  config:
+  wcreate:
+  wtp:
+  giveitem:
+  sell:
+  autosell:
+  upgrade:
+  admjedis:
+  lvl:
+    aliases: ["level"]
+  spawn:
+  mine:
+  debug:

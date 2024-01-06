@@ -1,0 +1,907 @@
+prices:
+  dirt: 0.2
+  gravel: 0.3
+  sand: 0.2
+  stone: 0.4
+  coal_ore: 1
+  iron_ore: 1.5
+  gold_ore: 2
+  gray_concrete_powder: 1
+  white_concrete_powder: 1
+  netherrack: 1
+  soul_sand: 1
+  nether_quartz_ore: 1
+  sandstone: 1
+  quartz_block: 1
+  prismarine_bricks: 1
+  purpur_block: 1
+  end_stone_bricks: 1
+  white_wool: 1
+  cobweb: 1
+  terracotta: 1
+  brown_glazed_terracotta: 1
+  ice: 1
+  packed_ice: 1
+  purple_terracotta: 1
+  obsidian: 2000
+spawnpoints:
+  hub:
+    x: 0.5
+    y: 65.0
+    z: 0.5
+    yaw: 0.0
+    pitch: 0.0
+  stonemine:
+    x: 0.5
+    y: 65.0
+    z: 0.5
+    yaw: 0.0
+    pitch: 0.0
+  concrete:
+    x: 0.5
+    y: 65.0
+    z: 0.5
+    yaw: 0.0
+    pitch: 0.0
+  hell:
+    x: 0.5
+    y: 65.0
+    z: 0.5
+    yaw: 0.0
+    pitch: 0.0
+  desert:
+    x: 0.5
+    y: 65.0
+    z: 0.5
+    yaw: 0.0
+    pitch: 0.0
+  quartzmine:
+    x: 0.5
+    y: 65.0
+    z: 0.5
+    yaw: 0.0
+    pitch: 0.0
+  end:
+    x: 0.5
+    y: 65.0
+    z: 0.5
+    yaw: 0.0
+    pitch: 0.0
+  spider:
+    x: 0.5
+    y: 65.0
+    z: 0.5
+    yaw: 0.0
+    pitch: 0.0
+  quarry:
+    x: 0.5
+    y: 65.0
+    z: 0.5
+    yaw: 0.0
+    pitch: 0.0
+  icehills:
+    x: 0.5
+    y: 65.0
+    z: 0.5
+    yaw: 0.0
+    pitch: 0.0
+  obsmine:
+    x: 0.5
+    y: 65.0
+    z: 0.5
+    yaw: 0.0
+    pitch: 0.0
+mines:
+  dirtmine:
+    world: hub
+    loc1:
+      x: 32
+      y: 49
+      z: 13
+    loc2:
+      x: 47
+      y: 63
+      z: 28
+  stonemine:
+    world: stonemine
+    loc1:
+      x: -11
+      y: 43
+      z: 13
+    loc2:
+      x: 11
+      y: 63
+      z: 35
+  concrete:
+    world: concrete
+    loc1:
+      x: -9
+      y: 48
+      z: 10
+    loc2:
+      x: 9
+      y: 63
+      z: 28
+  hell:
+    world: hell
+    loc1:
+      x: -9
+      y: 49
+      z: 12
+    loc2:
+      x: 9
+      y: 63
+      z: 30
+  desert:
+    world: desert
+    loc1:
+      x: -9
+      y: 49
+      z: 13
+    loc2:
+      x: 9
+      y: 63
+      z: 31
+  quartzmine:
+    world: quartzmine
+    loc1:
+      x: -19
+      y: 44
+      z: 12
+    loc2:
+      x: 19
+      y: 63
+      z: 50
+  end:
+    world: end
+    loc1:
+      x: -9
+      y: 49
+      z: 9
+    loc2:
+      x: 9
+      y: 62
+      z: 27
+  spider:
+    world: spider
+    loc1:
+      x: -14
+      y: 38
+      z: 10
+    loc2:
+      x: 14
+      y: 62
+      z: 38
+  quarry:
+    world: quarry
+    loc1:
+      x: -14
+      y: 34
+      z: 9
+    loc2:
+      x: 14
+      y: 63
+      z: 37
+  icehills:
+    world: icehills
+    loc1:
+      x: -19
+      y: 48
+      z: 16
+    loc2:
+      x: 19
+      y: 62
+      z: 54
+  obsmine:
+    world: obsmine
+    loc1:
+      x: -14
+      y: 48
+      z: 8
+    loc2:
+      x: 14
+      y: 62
+      z: 36
+levels:
+  level_1:
+    requirements:
+      - MONEY:15
+      - BLOCKS:500
+  level_2:
+    requirements:
+      - MONEY:50
+      - BLOCKS:2000
+  level_3:
+    requirements:
+      - MONEY:100
+      - BLOCKS:5500
+  level_4:
+    requirements:
+      - MONEY:200
+      - BLOCKS:15000
+  level_5:
+    requirements:
+      - MONEY:350
+      - BLOCKS:2000
+  level_6:
+    requirements:
+      - MONEY:435
+      - BLOCKS:60000
+  level_7:
+    requirements:
+      - MONEY:500
+      - BLOCKS:80000
+  level_8:
+    requirements:
+      - MONEY:1000
+      - BLOCKS:130000
+  level_9:
+    requirements:
+      - MONEY:2200
+      - BLOCKS:200000
+  level_10:
+    requirements:
+      - MONEY:4000
+      - BLOCKS:250000
+  level_11:
+    requirements:
+      - MONEY:9000
+      - BLOCKS:400000
+  level_12:
+    requirements:
+      - MONEY:17000
+      - BLOCKS:620000
+  level_13:
+    requirements:
+      - MONEY:35000
+      - BLOCKS:2000
+  level_14:
+    requirements:
+      - MONEY:70000
+      - BLOCKS:1000000
+  level_15:
+    requirements:
+      - MONEY:100000
+      - BLOCKS:1200000
+  level_16:
+    requirements:
+      - MONEY:112000
+      - BLOCKS:1600000
+  level_17:
+    requirements:
+      - MONEY:220000
+      - BLOCKS:2150000
+  level_18:
+    requirements:
+      - MONEY:450000
+      - BLOCKS:2400000
+  level_19:
+    requirements:
+      - MONEY:880000
+      - BLOCKS:3000000
+  level_20:
+    requirements:
+      - MONEY:1000000
+      - BLOCKS:3250000
+  level_21:
+    requirements:
+      - MONEY:1500000
+      - BLOCKS:4000000
+  level_22:
+    requirements:
+      - MONEY:2250000
+      - BLOCKS:5150000
+  level_23:
+    requirements:
+      - MONEY:2250000
+      - BLOCKS:5150000
+  level_24:
+    requirements:
+      - MONEY:2250000
+      - BLOCKS:5150000
+  level_25:
+    requirements:
+      - MONEY:2250000
+      - BLOCKS:5150000
+upgrades:
+  shovel:
+    level_1:
+      displayName: Лопата
+      displayLevel: 1 уровень
+      level: 1
+      type: WOODEN_SHOVEL
+      requirements:
+        - MONEY:15
+        - GRAVEL:40
+        - SAND:40
+        - DIRT:40
+    level_2:
+      displayName: Лопата
+      displayLevel: 2 уровень
+      level: 2
+      type: WOODEN_SHOVEL
+      enchants:
+        - efficiency:1
+      requirements:
+        - MONEY:15
+        - GRAVEL:40
+        - SAND:40
+        - DIRT:40
+    level_3:
+      displayName: Лопата
+      displayLevel: 3 уровень
+      level: 3
+      type: WOODEN_SHOVEL
+      enchants:
+        - efficiency:2
+      requirements:
+        - MONEY:20
+        - GRAVEL:70
+        - SAND:70
+        - DIRT:70
+    level_4:
+      displayName: Лопата
+      displayLevel: 4 уровень
+      level: 4
+      type: WOODEN_SHOVEL
+      enchants:
+        - efficiency:3
+      requirements:
+        - MONEY:30
+        - GRAVEL:150
+        - SAND:140
+        - DIRT:135
+    level_5:
+      displayName: Лопата
+      displayLevel: 5 уровень
+      level: 5
+      type: STONE_SHOVEL
+      requirements:
+        - MONEY:50
+        - GRAVEL:520
+        - SAND:450
+        - DIRT:480
+    level_6:
+      displayName: Лопата
+      displayLevel: 6 уровень
+      level: 6
+      type: STONE_SHOVEL
+      enchants:
+        - efficiency:1
+      requirements:
+        - MONEY:65
+        - GRAVEL:1100
+        - SAND:1050
+        - DIRT:980
+    level_7:
+      displayName: Лопата
+      displayLevel: 7 уровень
+      level: 7
+      type: STONE_SHOVEL
+      enchants:
+        - efficiency:2
+      requirements:
+        - MONEY:110
+        - GRAVEL:2222
+        - SAND:2111
+        - DIRT:1999
+    level_8:
+      displayName: Лопата
+      displayLevel: 8 уровень
+      level: 8
+      type: STONE_SHOVEL
+      enchants:
+        - efficiency:3
+      requirements:
+        - MONEY:140
+        - GRAVEL:3555
+        - SAND:3223
+        - DIRT:2980
+    level_9:
+      displayName: Лопата
+      displayLevel: 9 уровень
+      level: 9
+      type: IRON_SHOVEL
+      requirements:
+        - MONEY:410
+        - GRAVEL:5240
+        - SAND:4700
+        - DIRT:4300
+    level_10:
+      displayName: Лопата
+      displayLevel: 10 уровень
+      level: 10
+      type: IRON_SHOVEL
+      enchants:
+        - efficiency:1
+      requirements:
+        - MONEY:495
+        - GRAVEL:7000
+        - SAND:6500
+        - DIRT:5900
+    level_11:
+      displayName: Лопата
+      displayLevel: 11 уровень
+      level: 11
+      type: IRON_SHOVEL
+      enchants:
+        - efficiency:2
+      requirements:
+        - MONEY:600
+        - GRAVEL:8000
+        - SAND:7300
+        - DIRT:6666
+    level_12:
+      displayName: Лопата
+      displayLevel: 12 уровень
+      level: 12
+      type: IRON_SHOVEL
+      enchants:
+        - efficiency:3
+      requirements:
+        - MONEY:600
+        - GRAVEL:10000
+        - SAND:8900
+        - DIRT:8000
+    level_13:
+      displayName: Лопата
+      displayLevel: 13 уровень
+      level: 13
+      type: DIAMOND_SHOVEL
+      requirements:
+        - MONEY:888
+        - GRAVEL:11500
+        - SAND:11550
+        - DIRT:10600
+    level_14:
+      displayName: Лопата
+      displayLevel: 14 уровень
+      level: 14
+      type: DIAMOND_SHOVEL
+      enchants:
+        - efficiency:1
+      requirements:
+        - MONEY:1000
+        - GRAVEL:14444
+        - SAND:13000
+        - DIRT:12222
+    level_15:
+      displayName: Лопата
+      displayLevel: 15 уровень
+      level: 15
+      type: DIAMOND_SHOVEL
+      enchants:
+        - efficiency:2
+      requirements:
+        - MONEY:1150
+        - GRAVEL:16466
+        - SAND:14850
+        - DIRT:14000
+    level_16:
+      displayName: Лопата
+      displayLevel: 16 уровень
+      level: 16
+      type: DIAMOND_SHOVEL
+      enchants:
+        - efficiency:3
+      requirements:
+        - MONEY:2500
+        - GRAVEL:19000
+        - SAND:19500
+        - DIRT:15000
+    level_17:
+      displayName: Лопата
+      displayLevel: 17 уровень
+      level: 17
+      type: DIAMOND_SHOVEL
+      enchants:
+        - efficiency:4
+      requirements:
+        - MONEY:3000
+        - GRAVEL:21000
+        - SAND:21500
+        - DIRT:21000
+  pickaxe:
+    level_1:
+      displayName: Кирка
+      displayLevel: 1 уровень
+      level: 1
+      type: WOODEN_PICKAXE
+      requirements:
+        - MONEY:15
+        - STONE:40
+    level_2:
+      displayName: Кирка
+      displayLevel: 2 уровень
+      level: 2
+      type: WOODEN_PICKAXE
+      enchants:
+        - efficiency:1
+      requirements:
+        - MONEY:15
+        - STONE:40
+    level_3:
+      displayName: Кирка
+      displayLevel: 3 уровень
+      level: 3
+      type: WOODEN_PICKAXE
+      enchants:
+        - efficiency:2
+      requirements:
+        - MONEY:20
+        - STONE:40
+        - COAL_ORE:10
+    level_4:
+      displayName: Кирка
+      displayLevel: 4 уровень
+      level: 4
+      type: WOODEN_PICKAXE
+      enchants:
+        - efficiency:3
+      requirements:
+        - MONEY:30
+        - STONE:40
+        - COAL_ORE:10
+    level_5:
+      displayName: Кирка
+      displayLevel: 5 уровень
+      level: 5
+      type: STONE_PICKAXE
+      requirements:
+        - MONEY:50
+        - STONE:4000
+        - COAL_ORE:10
+        - IRON_ORE:10
+    level_6:
+      displayName: Кирка
+      displayLevel: 6 уровень
+      level: 6
+      type: STONE_PICKAXE
+      enchants:
+        - efficiency:1
+      requirements:
+        - MONEY:65
+        - STONE:40
+        - COAL_ORE:10
+        - IRON_ORE:10
+    level_7:
+      displayName: Кирка
+      displayLevel: 7 уровень
+      level: 7
+      type: STONE_PICKAXE
+      enchants:
+        - efficiency:2
+      requirements:
+        - MONEY:110
+        - STONE:40
+        - COAL_ORE:10
+        - IRON_ORE:10
+    level_8:
+      displayName: Кирка
+      displayLevel: 8 уровень
+      level: 8
+      type: STONE_PICKAXE
+      enchants:
+        - efficiency:3
+      requirements:
+        - MONEY:140
+        - STONE:40
+        - COAL_ORE:10
+        - IRON_ORE:10
+    level_9:
+      displayName: Кирка
+      displayLevel: 9 уровень
+      level: 9
+      type: IRON_PICKAXE
+      requirements:
+        - MONEY:410
+        - STONE:40
+        - COAL_ORE:10
+        - IRON_ORE:10
+    level_10:
+      displayName: Кирка
+      displayLevel: 10 уровень
+      level: 10
+      type: IRON_PICKAXE
+      enchants:
+        - efficiency:1
+      requirements:
+        - MONEY:495
+        - STONE:40
+        - COAL_ORE:10
+        - IRON_ORE:10
+        - GOLD_ORE:10
+    level_11:
+      displayName: Кирка
+      displayLevel: 11 уровень
+      level: 11
+      type: IRON_PICKAXE
+      enchants:
+        - efficiency:2
+      requirements:
+        - MONEY:600
+        - STONE:40
+        - COAL_ORE:10
+        - IRON_ORE:10
+        - GOLD_ORE:10
+    level_12:
+      displayName: Кирка
+      displayLevel: 12 уровень
+      level: 12
+      type: IRON_PICKAXE
+      enchants:
+        - efficiency:3
+      requirements:
+        - MONEY:600
+        - STONE:40
+        - COAL_ORE:10
+        - IRON_ORE:10
+        - GOLD_ORE:10
+    level_13:
+      displayName: Кирка
+      displayLevel: 13 уровень
+      level: 13
+      type: DIAMOND_PICKAXE
+      requirements:
+        - MONEY:888
+        - STONE:40
+        - COAL_ORE:10
+        - IRON_ORE:10
+        - GOLD_ORE:10
+    level_14:
+      displayName: Кирка
+      displayLevel: 14 уровень
+      level: 14
+      type: DIAMOND_PICKAXE
+      enchants:
+        - efficiency:1
+      requirements:
+        - MONEY:1000
+        - STONE:40
+        - COAL_ORE:10
+        - IRON_ORE:10
+        - GOLD_ORE:10
+    level_15:
+      displayName: Кирка
+      displayLevel: 15 уровень
+      level: 15
+      type: DIAMOND_PICKAXE
+      enchants:
+        - efficiency:2
+      requirements:
+        - MONEY:1150
+        - STONE:40
+        - COAL_ORE:10
+        - IRON_ORE:10
+        - GOLD_ORE:10
+    level_16:
+      displayName: Кирка
+      displayLevel: 16 уровень
+      level: 16
+      type: DIAMOND_PICKAXE
+      enchants:
+        - efficiency:3
+      requirements:
+        - MONEY:2500
+        - STONE:40
+        - COAL_ORE:10
+        - IRON_ORE:10
+        - GOLD_ORE:10
+    level_17:
+      displayName: Кирка
+      displayLevel: 17 уровень
+      level: 17
+      type: DIAMOND_PICKAXE
+      enchants:
+        - efficiency:4
+      requirements:
+        - MONEY:3000
+        - STONE:40
+        - COAL_ORE:10
+        - IRON_ORE:10
+        - GOLD_ORE:10
+  axe:
+    level_1:
+      displayName: Топор
+      displayLevel: 1 уровень
+      level: 1
+      type: WOODEN_AXE
+      requirements:
+        - MONEY:15
+    level_2:
+      displayName: Топор
+      displayLevel: 2 уровень
+      level: 2
+      type: WOODEN_AXE
+      enchants:
+        - efficiency:1
+      requirements:
+        - MONEY:15
+    level_3:
+      displayName: Топор
+      displayLevel: 3 уровень
+      level: 3
+      type: WOODEN_AXE
+      enchants:
+        - efficiency:2
+      requirements:
+        - MONEY:20
+    level_4:
+      displayName: Кирка
+      displayLevel: 4 уровень
+      level: 4
+      type: WOODEN_AXE
+      enchants:
+        - efficiency:3
+      requirements:
+        - MONEY:30
+    level_5:
+      displayName: Топор
+      displayLevel: 5 уровень
+      level: 5
+      type: STONE_AXE
+      requirements:
+        - MONEY:50
+    level_6:
+      displayName: Топор
+      displayLevel: 6 уровень
+      level: 6
+      type: STONE_AXE
+      enchants:
+        - efficiency:1
+      requirements:
+        - MONEY:65
+    level_7:
+      displayName: Топор
+      displayLevel: 7 уровень
+      level: 7
+      type: STONE_AXE
+      enchants:
+        - efficiency:2
+      requirements:
+        - MONEY:110
+    level_8:
+      displayName: Топор
+      displayLevel: 8 уровень
+      level: 8
+      type: STONE_AXE
+      enchants:
+        - efficiency:3
+      requirements:
+        - MONEY:140
+    level_9:
+      displayName: Топор
+      displayLevel: 9 уровень
+      level: 9
+      type: IRON_AXE
+      requirements:
+        - MONEY:410
+    level_10:
+      displayName: Топор
+      displayLevel: 10 уровень
+      level: 10
+      type: IRON_AXE
+      enchants:
+        - efficiency:1
+      requirements:
+        - MONEY:495
+    level_11:
+      displayName: Топор
+      displayLevel: 11 уровень
+      level: 11
+      type: IRON_AXE
+      enchants:
+        - efficiency:2
+      requirements:
+        - MONEY:600
+    level_12:
+      displayName: Топор
+      displayLevel: 12 уровень
+      level: 12
+      type: IRON_AXE
+      enchants:
+        - efficiency:3
+      requirements:
+        - MONEY:600
+    level_13:
+      displayName: Топор
+      displayLevel: 13 уровень
+      level: 13
+      type: DIAMOND_AXE
+      requirements:
+        - MONEY:888
+    level_14:
+      displayName: Топор
+      displayLevel: 14 уровень
+      level: 14
+      type: DIAMOND_AXE
+      enchants:
+        - efficiency:1
+      requirements:
+        - MONEY:1000
+    level_15:
+      displayName: Топор
+      displayLevel: 15 уровень
+      level: 15
+      type: DIAMOND_AXE
+      enchants:
+        - efficiency:2
+      requirements:
+        - MONEY:1150
+    level_16:
+      displayName: Топор
+      displayLevel: 16 уровень
+      level: 16
+      type: DIAMOND_AXE
+      enchants:
+        - efficiency:3
+      requirements:
+        - MONEY:2500
+    level_17:
+      displayName: Топор
+      displayLevel: 17 уровень
+      level: 17
+      type: DIAMOND_AXE
+      enchants:
+        - efficiency:4
+      requirements:
+        - MONEY:3000
+  shears:
+    level_1:
+      displayName: Ножницы
+      displayLevel: 1 уровень
+      level: 1
+      type: SHEARS
+      requirements:
+        - MONEY:15
+        - WHITE_WOOL:20
+    level_2:
+      displayName: Ножницы
+      displayLevel: 2 уровень
+      level: 2
+      type: SHEARS
+      enchants:
+        - efficiency:1
+      requirements:
+        - MONEY:15
+        - WHITE_WOOL:20
+    level_3:
+      displayName: Ножницы
+      displayLevel: 3 уровень
+      level: 3
+      type: SHEARS
+      enchants:
+        - efficiency:2
+      requirements:
+        - MONEY:15
+        - WHITE_WOOL:20
+    level_4:
+      displayName: Ножницы
+      displayLevel: 4 уровень
+      level: 4
+      type: SHEARS
+      enchants:
+        - efficiency:3
+      requirements:
+        - MONEY:15
+        - WHITE_WOOL:20
+    level_5:
+      displayName: Ножницы
+      displayLevel: 5 уровень
+      level: 5
+      type: SHEARS
+      enchants:
+        - efficiency:4
+      requirements:
+        - MONEY:15
+        - WHITE_WOOL:20
+    level_6:
+      displayName: Ножницы
+      displayLevel: 6 уровень
+      level: 6
+      type: SHEARS
+      enchants:
+        - efficiency:5
+      requirements:
+        - MONEY:15
+        - WHITE_WOOL:20
