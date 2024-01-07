@@ -1,6 +1,7 @@
 package me.d1lta.prison.commands;
 
 import me.d1lta.prison.items.Tools;
+import me.d1lta.prison.utils.LittlePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -11,7 +12,8 @@ public class GiveItem implements CommandExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (sender instanceof Player pl) {
+        if (sender instanceof Player) {
+            LittlePlayer pl = new LittlePlayer(((Player) sender).getUniqueId());
             if (args.length == 1) {
                 switch (args[0]) {
                     case "shovel" -> pl.getInventory().addItem(Tools.shovel());

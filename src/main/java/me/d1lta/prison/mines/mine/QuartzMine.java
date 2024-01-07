@@ -12,7 +12,8 @@ public class QuartzMine {
                 Mine.getLocation("quartzmine", 2),
                 Map.of(
                         "1:85", Material.QUARTZ_BLOCK,
-                        "86:100", Material.PRISMARINE_BRICKS
+                        "86:93", Material.PRISMARINE,
+                        "94:100", Material.PRISMARINE_BRICKS
                 ));
     }
 

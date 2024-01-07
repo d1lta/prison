@@ -12,6 +12,8 @@ import me.d1lta.prison.mines.mine.QuarryMine;
 import me.d1lta.prison.mines.mine.QuartzMine;
 import me.d1lta.prison.mines.mine.SpiderMine;
 import me.d1lta.prison.mines.mine.StoneMine;
+import me.d1lta.prison.mines.mine.VaultDirtMine;
+import me.d1lta.prison.mines.mine.VaultJewelryMine;
 import org.bukkit.Bukkit;
 
 public class MinesTimer {
@@ -30,6 +32,8 @@ public class MinesTimer {
         QuarryMine.fill();
         IceMine.fill();
         ObsMine.fill();
+        VaultDirtMine.fill();
+        VaultJewelryMine.fill();
         Bukkit.getScheduler().runTaskTimer(Main.plugin, () -> {
             i++;
             if (i % 180 == 0) {
@@ -64,6 +68,12 @@ public class MinesTimer {
             }
             if (i % 3000 == 0) {
                 ObsMine.fill();
+            }
+            if (i % 300 == 0) {
+                VaultDirtMine.fill();
+            }
+            if (i % 600 == 0) {
+                VaultJewelryMine.fill();
             }
         }, 20L, 20L);
     }

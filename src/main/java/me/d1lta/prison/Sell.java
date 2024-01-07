@@ -1,13 +1,14 @@
 package me.d1lta.prison;
 
-import net.md_5.bungee.api.ChatMessageType;
+import me.d1lta.prison.mines.AllowedBlocks;
+import me.d1lta.prison.utils.LittlePlayer;
 import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.entity.Player;
+import org.bukkit.Bukkit;
 import org.bukkit.inventory.ItemStack;
 
 public class Sell {
 
-    public static void sell(Player pl) {
+    public static void sell(LittlePlayer pl) {
         double money = 0;
         for (ItemStack i : pl.getInventory()) {
             if (i != null) {
@@ -19,8 +20,8 @@ public class Sell {
                 }
             }
         }
-        Jedis.set(pl.getUniqueId() + ".money", String.valueOf(Double.parseDouble(Jedis.get(pl.getUniqueId() + ".money")) + money));
-        pl.spigot().sendMessage( ChatMessageType.ACTION_BAR, new TextComponent("Вы продали блоков на " + money + " монет."));
+        Jedis.set(pl.uuid + ".money", String.valueOf(Double.parseDouble(Jedis.get(pl.uuid + ".money")) + money));
+        pl.sendLittleTitle(new TextComponent("Вы продали блоков на " + money + " монет."));
     }
 
 }

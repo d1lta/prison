@@ -11,7 +11,8 @@ public class DesertMine {
                 Mine.getLocation("desert", 1),
                 Mine.getLocation("desert", 2),
                 Map.of(
-                        "1:100", Material.SANDSTONE
+                        "1:67", Material.SANDSTONE,
+                        "68:100", Material.RED_SANDSTONE
                 ));
     }
 

@@ -10,6 +10,7 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 import me.d1lta.prison.Jedis;
 import me.d1lta.prison.Main;
+import me.d1lta.prison.utils.LittlePlayer;
 import me.d1lta.prison.utils.NBT;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
@@ -42,18 +43,26 @@ public class Upgrade implements CommandExecutor, Listener {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (sender instanceof Player pl) {
-            if (pl.getInventory().getItemInMainHand().getType() == Material.AIR) {
+        if (sender instanceof Player) {
+            LittlePlayer pl = new LittlePlayer(((Player) sender).getUniqueId());
+            if (pl.getItemInMainHand().getType() == Material.AIR) {
                 return false;
             }
             tools.forEach((k,v) -> {
-                if (!NBT.getStringNBT(pl.getInventory().getItemInMainHand(), "type").equals(k)) {
+                if (!NBT.getStringNBT(pl.getItemInMainHand(), "type").equals(k)) {
                     return;
                 }
-                int clvl = NBT.getIntNBT(pl.getInventory().getItemInMainHand(), "level");
-                if (clvl == 17) {
-                    pl.sendMessage("Ваша " + v + " максимального уровня.");
-                    return;
+                int clvl = NBT.getIntNBT(pl.getItemInMainHand(), "level");
+                if (v.equals(tools.get("shears"))) {
+                    if (clvl == 6) {
+                        pl.sendMessage("Ваша " + v + " максимального уровня.");
+                        return;
+                    }
+                } else {
+                    if (clvl == 17) {
+                        pl.sendMessage("Ваша " + v + " максимального уровня.");
+                        return;
+                    }
                 }
                 openUpgradeUI(pl, getUpgradedTool(clvl + 1, k), k, clvl + 1);
             });
@@ -70,7 +79,7 @@ public class Upgrade implements CommandExecutor, Listener {
             }
             AtomicBoolean upgrade = new AtomicBoolean(true);
             e.setCancelled(true);
-            Player pl = (Player) e.getWhoClicked();
+            LittlePlayer pl = new LittlePlayer(e.getWhoClicked().getUniqueId());
             ItemStack stack = e.getCurrentItem();
             tools.keySet().forEach(k -> {
                 if (NBT.getStringNBT(stack, "type").equals(k)) {
@@ -81,7 +90,7 @@ public class Upgrade implements CommandExecutor, Listener {
                         ).forEach(it -> {
                             String[] parts = it.split(":");
                             if (s.equals(parts[0].toLowerCase())) {
-                                if (Integer.parseInt(Jedis.get(pl.getUniqueId() + ".blocks." + s)) < NBT.getIntNBT(stack,  s)) {
+                                if (Integer.parseInt(Jedis.get(pl.uuid + ".blocks." + s)) < NBT.getIntNBT(stack,  s)) {
                                     pl.sendMessage("Недостаточно блоков.");
                                     upgrade.set(false);
                                     pl.closeInventory();
@@ -90,15 +99,15 @@ public class Upgrade implements CommandExecutor, Listener {
                         });
 
                     }
-                    if (Double.parseDouble(Jedis.get(pl.getUniqueId() + ".money")) >= NBT.getIntNBT(stack, "money")) {
+                    if (Double.parseDouble(Jedis.get(pl.uuid + ".money")) >= NBT.getIntNBT(stack, "money")) {
                         if (upgrade.get()) {
-                            Jedis.set(pl.getUniqueId() + ".money", String.valueOf(Double.parseDouble(Jedis.get(pl.getUniqueId() + ".money")) - NBT.getIntNBT(stack, "money")));
-                            pl.getInventory().setItem(pl.getInventory().getHeldItemSlot(), getUpgradedTool(NBT.getIntNBT(pl.getInventory().getItemInMainHand(), "level") + 1, k));
+                            Jedis.set(pl.uuid + ".money", String.valueOf(Double.parseDouble(Jedis.get(pl.uuid + ".money")) - NBT.getIntNBT(stack, "money")));
+                            pl.getInventory().setItem(pl.getHeldItemSlot(), getUpgradedTool(NBT.getIntNBT(pl.getItemInMainHand(), "level") + 1, k));
                             pl.closeInventory();
                         }
                     } else {
                         upgrade.set(false);
-                        pl.sendMessage("Недостаточно блоков.");
+                        pl.sendMessage("Недостаточно денег.");
                         pl.closeInventory();
                     }
                 }
@@ -106,7 +115,7 @@ public class Upgrade implements CommandExecutor, Listener {
         }
     }
 
-    private void openUpgradeUI(Player pl, ItemStack item, String type, int lvl) {
+    private void openUpgradeUI(LittlePlayer pl, ItemStack item, String type, int lvl) {
         Inventory UI = Bukkit.createInventory(null, InventoryType.HOPPER, "Улучшение");
         ItemMeta meta = item.getItemMeta();
         List<Component> lore = new ArrayList<>();
@@ -126,17 +135,17 @@ public class Upgrade implements CommandExecutor, Listener {
         pl.openInventory(UI);
     }
 
-    private String makeColor(Player pl, String s, int v) {
+    private String makeColor(LittlePlayer pl, String s, int v) {
         switch (s.toLowerCase()) {
             case "денег": {
-                if (Double.parseDouble(Jedis.get(pl.getUniqueId() + ".money")) < v) {
+                if (Double.parseDouble(Jedis.get(pl.uuid + ".money")) < v) {
                     return ChatColor.RED + s;
                 } else {
                     return ChatColor.GREEN + s;
                 }
             }
             default:
-                if (Integer.parseInt(Jedis.get(pl.getUniqueId() + ".blocks." + retranslate(s)))
+                if (Integer.parseInt(Jedis.get(pl.uuid + ".blocks." + retranslate(s)))
                         < v) {
                     return ChatColor.RED + s;
                 } else {
@@ -185,6 +194,7 @@ public class Upgrade implements CommandExecutor, Listener {
         ItemStack tool = new ItemStack(Objects.requireNonNull(Material.getMaterial(Objects.requireNonNull(Main.config.getConfig().getString("upgrades." + type + ".level_" + lvl + ".type")))));
         tool = NBT.addNBT(tool, "level", Integer.valueOf(Objects.requireNonNull(Main.config.getConfig().getString("upgrades." + type + ".level_" + lvl + ".level"))));
         tool = NBT.addNBT(tool, "type", type);
+        tool = NBT.addNBT(tool, "safe", "true");
         ItemMeta meta = tool.getItemMeta();
         meta.displayName(Component.text(Objects.requireNonNull(Main.config.getConfig().getString("upgrades." + type + ".level_" + lvl + ".displayName"))));
         meta.lore(List.of(Component.text(Objects.requireNonNull(Main.config.getConfig().getString("upgrades." + type + ".level_" + lvl + ".displayLevel")))));

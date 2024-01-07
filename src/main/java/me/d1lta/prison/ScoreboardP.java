@@ -1,9 +1,9 @@
 package me.d1lta.prison;
 
+import me.d1lta.prison.utils.LittlePlayer;
 import me.d1lta.prison.utils.NumberUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
@@ -12,7 +12,7 @@ import org.bukkit.scoreboard.Team;
 
 public class ScoreboardP {
 
-    public void scoreboard(Player player) {
+    public void scoreboard(LittlePlayer player) {
         ScoreboardManager scoreboardManager = Bukkit.getServer().getScoreboardManager();
         Scoreboard scoreboard = scoreboardManager.getNewScoreboard();
         Objective objective = scoreboard.registerNewObjective("Test", "Dummy");
@@ -22,15 +22,15 @@ public class ScoreboardP {
 
         Team blocks = scoreboard.registerNewTeam("blocks");
         blocks.addEntry("Кол-во блоков: §b");
-        blocks.suffix(Component.text(NumberUtils.withK(Integer.parseInt(Jedis.get(player.getUniqueId() + ".blocks")))));
+        blocks.suffix(Component.text(NumberUtils.withK(Integer.parseInt(Jedis.get(player.uuid + ".blocks")))));
 
         Team money = scoreboard.registerNewTeam("money");
         money.addEntry("Баланс: §b");
-        money.suffix(Component.text(String.format("%.2f", Double.valueOf(Jedis.get(player.getUniqueId() + ".money"))) + "$"));
+        money.suffix(Component.text(String.format("%.2f", Double.valueOf(Jedis.get(player.uuid + ".money"))) + "$"));
 
         Team level = scoreboard.registerNewTeam("level");
         level.addEntry("Уровень: §b");
-        level.suffix(Component.text(Jedis.get(player.getUniqueId() + ".lvl")));
+        level.suffix(Component.text(Jedis.get(player.uuid + ".lvl")));
 
 
         objective.getScore("Игрок").setScore(8);

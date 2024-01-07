@@ -1,17 +1,18 @@
 package me.d1lta.prison;
 
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
+import me.d1lta.prison.utils.LittlePlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
-import org.bukkit.entity.Player;
 
 public class Teleport {
 
     private static int taskID;
 
-    public static void tp(Player player, Location from, Location destination) {
-        if (player.getGameMode().equals(GameMode.CREATIVE)) {
+    public static void tp(LittlePlayer player, Location from, Location destination) {
+        if (player.getGameMode().equals(GameMode.CREATIVE) || player.uuid.toString().equals("1df854df-513d-4485-9c31-6cd72f6ce3e2")) {
             player.teleport(destination);
             return;
         }

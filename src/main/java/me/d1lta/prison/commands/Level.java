@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import me.d1lta.prison.Jedis;
 import me.d1lta.prison.Main;
+import me.d1lta.prison.utils.LittlePlayer;
 import me.d1lta.prison.utils.NBT;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
@@ -27,8 +28,9 @@ public class Level implements CommandExecutor, Listener {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (sender instanceof Player pl) {
-            openUI(pl, Integer.parseInt(Jedis.get(pl.getUniqueId() + ".lvl")));
+        if (sender instanceof Player) {
+            LittlePlayer pl = new LittlePlayer(((Player) sender).getUniqueId());
+            openUI(pl, Integer.parseInt(Jedis.get(pl.uuid + ".lvl")));
         }
         return false;
     }
@@ -41,20 +43,20 @@ public class Level implements CommandExecutor, Listener {
                 return;
             }
             if (NBT.getStringNBT(e.getCurrentItem(), "type").equalsIgnoreCase("lvlup")) {
-                levelUp((Player) e.getWhoClicked());
+                levelUp(new LittlePlayer(e.getWhoClicked().getUniqueId()));
             }
         }
     }
 
-    private boolean levelUp(Player pl) {
+    private boolean levelUp(LittlePlayer pl) {
         int moneyreq = 0;
-        int lvl = Integer.parseInt(Jedis.get(pl.getUniqueId() + ".lvl"));
+        int lvl = Integer.parseInt(Jedis.get(pl.uuid + ".lvl"));
         List<String> requirements = Main.config.getConfig().getStringList("levels.level_" + (lvl + 1) + ".requirements");
         String[] parts;
         for (String it : requirements) {
             parts = it.split(":");
             if (parts[0].equalsIgnoreCase("money")) {
-                if (Double.parseDouble(Jedis.get(pl.getUniqueId() + "." + parts[0].toLowerCase())) < Integer.parseInt(parts[1])) {
+                if (Double.parseDouble(Jedis.get(pl.uuid + "." + parts[0].toLowerCase())) < Integer.parseInt(parts[1])) {
                     pl.sendMessage("Требования не выполнены");
                     pl.closeInventory();
                     return false;
@@ -62,22 +64,22 @@ public class Level implements CommandExecutor, Listener {
                     moneyreq = Integer.parseInt(parts[1]);
                 }
             } else {
-                if (Integer.parseInt(Jedis.get(pl.getUniqueId() + "." + parts[0].toLowerCase())) < Integer.parseInt(parts[1])) {
+                if (Integer.parseInt(Jedis.get(pl.uuid + "." + parts[0].toLowerCase())) < Integer.parseInt(parts[1])) {
                     pl.sendMessage("Требования не выполнены");
                     pl.closeInventory();
                     return false;
                 }
             }
         }
-        Jedis.set(pl.getUniqueId() + ".money", String.valueOf(Double.parseDouble(Jedis.get(pl.getUniqueId() + ".money")) - moneyreq));
+        Jedis.set(pl.uuid + ".money", String.valueOf(Double.parseDouble(Jedis.get(pl.uuid + ".money")) - moneyreq));
 
-        Jedis.set(pl.getUniqueId() + ".lvl", String.valueOf((Integer.parseInt(Jedis.get(pl.getUniqueId() + ".lvl")) + 1)));
+        Jedis.set(pl.uuid + ".lvl", String.valueOf((Integer.parseInt(Jedis.get(pl.uuid + ".lvl")) + 1)));
         pl.sendMessage("lvlUP!");
         pl.closeInventory();
         return true;
     }
 
-    private void openUI(Player pl, int lvl) {
+    private void openUI(LittlePlayer pl, int lvl) {
         Inventory UI = Bukkit.createInventory(null, InventoryType.HOPPER, "Уровень");
         List<String> requirements = Main.config.getConfig().getStringList("levels.level_" + (lvl + 1) + ".requirements");
         String[] parts;
@@ -96,15 +98,15 @@ public class Level implements CommandExecutor, Listener {
         pl.openInventory(UI);
     }
 
-    private String makeColor(String s, Player pl, String type, int req) {
+    private String makeColor(String s, LittlePlayer pl, String type, int req) {
         if (type.equalsIgnoreCase("money")){
-            if (Double.parseDouble(Jedis.get(pl.getUniqueId() + "." + type)) < req) {
+            if (Double.parseDouble(Jedis.get(pl.uuid + "." + type)) < req) {
                 return ChatColor.RED + s;
             } else {
                 return ChatColor.GREEN + s;
             }
         } else {
-            if (Integer.parseInt(Jedis.get(pl.getUniqueId() + "." + type)) < req) {
+            if (Integer.parseInt(Jedis.get(pl.uuid + "." + type)) < req) {
                 return ChatColor.RED + s;
             } else {
                 return ChatColor.GREEN + s;

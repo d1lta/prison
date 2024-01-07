@@ -10,9 +10,9 @@ public class LocationUtils {
         String cfg = "spawnpoints." + name + ".";
         return new Location(
                 Bukkit.getWorld(name),
-                Main.config.getConfig().getInt(cfg + "x"),
-                Main.config.getConfig().getInt(cfg + "y"),
-                Main.config.getConfig().getInt(cfg + "z"),
+                Main.config.getConfig().getDouble(cfg + "x"),
+                Main.config.getConfig().getDouble(cfg + "y"),
+                Main.config.getConfig().getDouble(cfg + "z"),
                 Main.config.getConfig().getInt(cfg + "yaw"),
                 Main.config.getConfig().getInt(cfg + "pitch")
         );

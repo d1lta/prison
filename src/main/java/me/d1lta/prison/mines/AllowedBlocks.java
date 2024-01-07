@@ -1,4 +1,4 @@
-package me.d1lta.prison;
+package me.d1lta.prison.mines;
 
 import java.awt.Color;
 import java.util.Arrays;
@@ -21,13 +21,14 @@ public class AllowedBlocks {
             stone(), coal_ore(), iron_ore(), gold_ore(),
             white_concrete_block(), light_gray_concrete_powder(),
             nether_quartz_ore(), soul_sand(), netherrack(),
-            sandstone(),
-            quartz_block(), prismarine_bricks(),
-            purpur_block(), end_stone_bricks(),
+            sandstone(), red_sandstone(),
+            quartz_block(), prismarine_bricks(), prismarine(),
+            purpur_block(), purpur_pillar(), end_stone_bricks(),
             white_wool(), cobweb(),
             terracotta(), brown_glazed_terracotta(),
             ice(), packed_ice(),
-            purple_terracotta(), obsidian());
+            purple_terracotta(), obsidian(),
+            lapis_block(), iron_block(), gold_block(), diamond_block());
 
     public static ItemStack dirt() {
         ItemStack dirt =  new ItemStack(Material.DIRT);
@@ -93,7 +94,7 @@ public class AllowedBlocks {
     }
 
     public static ItemStack light_gray_concrete_powder() {
-        ItemStack light_gray_concrete_powder =  new ItemStack(Material.GRAY_CONCRETE_POWDER);
+        ItemStack light_gray_concrete_powder =  new ItemStack(Material.LIGHT_GRAY_CONCRETE_POWDER);
         ItemMeta meta = light_gray_concrete_powder.getItemMeta();
         meta.addItemFlags(ItemFlag.HIDE_ITEM_SPECIFICS);
         meta.displayName(Component.text("Серый цемент").color(TextColor.color(gold)));
@@ -146,6 +147,15 @@ public class AllowedBlocks {
         return sandstone;
     }
 
+    public static ItemStack red_sandstone() {
+        ItemStack red_sandstone =  new ItemStack(Material.RED_SANDSTONE);
+        ItemMeta meta = red_sandstone.getItemMeta();
+        meta.addItemFlags(ItemFlag.HIDE_ITEM_SPECIFICS);
+        meta.displayName(Component.text("Красный песчаник").color(TextColor.color(gold)));
+        red_sandstone.setItemMeta(meta);
+        return red_sandstone;
+    }
+
     public static ItemStack quartz_block() {
         ItemStack quartz_block =  new ItemStack(Material.QUARTZ_BLOCK);
         ItemMeta meta = quartz_block.getItemMeta();
@@ -159,9 +169,18 @@ public class AllowedBlocks {
         ItemStack prismarine_bricks =  new ItemStack(Material.PRISMARINE_BRICKS);
         ItemMeta meta = prismarine_bricks.getItemMeta();
         meta.addItemFlags(ItemFlag.HIDE_ITEM_SPECIFICS);
-        meta.displayName(Component.text("Призмарин").color(TextColor.color(gold)));
+        meta.displayName(Component.text("Призмариновый кирпич").color(TextColor.color(gold)));
         prismarine_bricks.setItemMeta(meta);
         return prismarine_bricks;
+    }
+
+    public static ItemStack prismarine() {
+        ItemStack prismarine =  new ItemStack(Material.PRISMARINE);
+        ItemMeta meta = prismarine.getItemMeta();
+        meta.addItemFlags(ItemFlag.HIDE_ITEM_SPECIFICS);
+        meta.displayName(Component.text("Призмарин").color(TextColor.color(gold)));
+        prismarine.setItemMeta(meta);
+        return prismarine;
     }
 
     public static ItemStack purpur_block() {
@@ -171,6 +190,15 @@ public class AllowedBlocks {
         meta.displayName(Component.text("Пурпур").color(TextColor.color(gold)));
         purpur_block.setItemMeta(meta);
         return purpur_block;
+    }
+
+    public static ItemStack purpur_pillar() {
+        ItemStack purpur_pillar =  new ItemStack(Material.PURPUR_PILLAR);
+        ItemMeta meta = purpur_pillar.getItemMeta();
+        meta.addItemFlags(ItemFlag.HIDE_ITEM_SPECIFICS);
+        meta.displayName(Component.text("Резной пурпур").color(TextColor.color(gold)));
+        purpur_pillar.setItemMeta(meta);
+        return purpur_pillar;
     }
 
     public static ItemStack end_stone_bricks() {
@@ -252,5 +280,41 @@ public class AllowedBlocks {
         meta.displayName(Component.text("Обсидиан").color(TextColor.color(gold)));
         obsidian.setItemMeta(meta);
         return obsidian;
+    }
+
+    public static ItemStack lapis_block() {
+        ItemStack lapis_block =  new ItemStack(Material.LAPIS_BLOCK);
+        ItemMeta meta = lapis_block.getItemMeta();
+        meta.addItemFlags(ItemFlag.HIDE_ITEM_SPECIFICS);
+        meta.displayName(Component.text("Лазуритовый блок").color(TextColor.color(gold)));
+        lapis_block.setItemMeta(meta);
+        return lapis_block;
+    }
+
+    public static ItemStack iron_block() {
+        ItemStack iron_block =  new ItemStack(Material.IRON_BLOCK);
+        ItemMeta meta = iron_block.getItemMeta();
+        meta.addItemFlags(ItemFlag.HIDE_ITEM_SPECIFICS);
+        meta.displayName(Component.text("Железный блок").color(TextColor.color(gold)));
+        iron_block.setItemMeta(meta);
+        return iron_block;
+    }
+
+    public static ItemStack gold_block() {
+        ItemStack gold_block =  new ItemStack(Material.GOLD_BLOCK);
+        ItemMeta meta = gold_block.getItemMeta();
+        meta.addItemFlags(ItemFlag.HIDE_ITEM_SPECIFICS);
+        meta.displayName(Component.text("Золотой блок").color(TextColor.color(gold)));
+        gold_block.setItemMeta(meta);
+        return gold_block;
+    }
+
+    public static ItemStack diamond_block() {
+        ItemStack diamond_block =  new ItemStack(Material.DIAMOND_BLOCK);
+        ItemMeta meta = diamond_block.getItemMeta();
+        meta.addItemFlags(ItemFlag.HIDE_ITEM_SPECIFICS);
+        meta.displayName(Component.text("Алмазный блок").color(TextColor.color(gold)));
+        diamond_block.setItemMeta(meta);
+        return diamond_block;
     }
 }

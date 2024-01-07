@@ -1,6 +1,7 @@
 package me.d1lta.prison.commands;
 
 import me.d1lta.prison.Main;
+import me.d1lta.prison.utils.LittlePlayer;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -12,7 +13,8 @@ public class Config implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (sender instanceof Player pl) {
+        if (sender instanceof Player) {
+            LittlePlayer pl = new LittlePlayer(((Player) sender).getUniqueId());
             if (!pl.isOp()) {
                 pl.sendMessage("?");
                 return true;
