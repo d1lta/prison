@@ -36,43 +36,43 @@ public class MinesTimer {
         VaultJewelryMine.fill();
         Bukkit.getScheduler().runTaskTimer(Main.plugin, () -> {
             i++;
-            if (i % 180 == 0) {
+            if (i % (3 * 60) == 0) {
                 DirtMine.fill();
             }
-            if (i % 420 == 0) {
+            if (i % (5 * 60) == 0) {
                 StoneMine.fill();
             }
-            if (i % 180 == 0) {
+            if (i % (7 * 60) == 0) {
                 ConcreteMine.fill();
             }
-            if (i % 240 == 0) {
+            if (i % (14 * 60) == 0) {
                 HellMine.fill();
             }
-            if (i % 360 == 0) {
+            if (i % (20 * 60) == 0) {
                 DesertMine.fill();
             }
-            if (i % 540 == 0) {
+            if (i % (40 * 60) == 0) {
                 QuartzMine.fill();
             }
-            if (i % 480 == 0) {
+            if (i % (37 * 60) == 0) {
                 EndMine.fill();
             }
-            if (i % 320 == 0) {
+            if (i % (70 * 60) == 0) {
                 SpiderMine.fill();
             }
-            if (i % 900 == 0) {
+            if (i % (110 * 60) == 0) {
                 QuarryMine.fill();
             }
-            if (i % 2400 == 0) {
+            if (i % (130 * 60) == 0) {
                 IceMine.fill();
             }
-            if (i % 3000 == 0) {
+            if (i % (300 * 60) == 0) {
                 ObsMine.fill();
             }
-            if (i % 300 == 0) {
+            if (i % (6 * 60) == 0) {
                 VaultDirtMine.fill();
             }
-            if (i % 600 == 0) {
+            if (i % (15 * 60) == 0) {
                 VaultJewelryMine.fill();
             }
         }, 20L, 20L);

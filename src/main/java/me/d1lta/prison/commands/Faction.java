@@ -112,15 +112,15 @@ public class Faction implements CommandExecutor, Listener {
     }
 
     private static Factions getPlayerFaction(LittlePlayer pl) {
-        return Factions.getFaction(Jedis.get(pl.uuid + ".faction"));
+        return pl.getFaction();
     }
 
     private static boolean isPlayerNoFaction(LittlePlayer pl) {
-        return Jedis.get(pl.uuid + ".faction").equals("Без фракции");
+        return pl.getFaction().getName().equals("Без фракции");
     }
 
     private static boolean isPlayerFaction(LittlePlayer pl, Factions faction) {
-        return Jedis.get(pl.uuid + ".faction").equals(faction.getName());
+        return pl.getFaction().getName().equals(faction.getName());
 
     }
 }

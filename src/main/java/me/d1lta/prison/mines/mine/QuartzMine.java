@@ -14,7 +14,7 @@ public class QuartzMine {
                         "1:85", Material.QUARTZ_BLOCK,
                         "86:93", Material.PRISMARINE,
                         "94:100", Material.PRISMARINE_BRICKS
-                ));
+                ), false);
     }
 
 }

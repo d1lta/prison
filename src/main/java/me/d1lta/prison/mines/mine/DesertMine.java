@@ -13,7 +13,7 @@ public class DesertMine {
                 Map.of(
                         "1:67", Material.SANDSTONE,
                         "68:100", Material.RED_SANDSTONE
-                ));
+                ), false);
     }
 
 }

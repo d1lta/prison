@@ -14,7 +14,7 @@ public class VaultDirtMine {
                         "1:40", Material.DIRT,
                         "41:80", Material.SAND,
                         "81:100", Material.GRAVEL
-                ));
+                ), false);
     }
 
 }

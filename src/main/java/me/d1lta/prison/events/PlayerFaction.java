@@ -1,6 +1,6 @@
 package me.d1lta.prison.events;
 
-import me.d1lta.prison.Jedis;
+import me.d1lta.prison.utils.LittlePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -12,7 +12,7 @@ public class PlayerFaction implements Listener {
     public void onDamage(EntityDamageByEntityEvent e) {
         if (e.getDamager() instanceof Player) {
             if (e.getEntity() instanceof Player) {
-                if (Jedis.get(((Player) e.getDamager()).getPlayer().getUniqueId() + ".faction").equals(Jedis.get(((Player) e.getEntity()).getPlayer().getUniqueId() + ".faction"))) {
+                if (new LittlePlayer(e.getDamager().getUniqueId()).getFaction().equals(new LittlePlayer(e.getEntity().getUniqueId()).getFaction())) {
                     e.setCancelled(true);
                 }
             }

@@ -13,6 +13,6 @@ public class IceMine {
                 Map.of(
                         "1:50", Material.ICE,
                         "51:100", Material.PACKED_ICE
-                ));
+                ), false);
     }
 }

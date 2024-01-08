@@ -15,6 +15,6 @@ public class StoneMine {
                         "71:84", Material.COAL_ORE,
                         "85:94", Material.IRON_ORE,
                         "95:100", Material.GOLD_ORE
-                ));
+                ), false);
     }
 }

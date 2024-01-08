@@ -14,7 +14,7 @@ public class EndMine {
                         "1:50", Material.PURPUR_BLOCK,
                         "51:60", Material.PURPUR_PILLAR,
                         "61:100", Material.END_STONE_BRICKS
-                ));
+                ), false);
     }
 
 }

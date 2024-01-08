@@ -47,7 +47,7 @@ public class Mine implements CommandExecutor, Listener {
                 if (isAllowed(e.getCurrentItem(), pl)) {
                     String nbt = NBT.getStringNBT(e.getCurrentItem(), "nbt");
                     if (nbt.equals("vault")) {
-                        if (Jedis.get(pl.uuid + ".vault").equals("false")) {
+                        if (!pl.hasVaultAccess()) {
                             pl.sendMessage("У вас нет доступа!");
                             pl.closeInventory();
                             return;
@@ -64,9 +64,7 @@ public class Mine implements CommandExecutor, Listener {
     }
 
     private boolean isAllowed(ItemStack stack, LittlePlayer pl) {
-        Bukkit.broadcastMessage(Main.config.getConfig().getInt("minelore." + NBT.getStringNBT(stack, "nbt") + ".reqlvl")
-                + "<=" + Integer.parseInt(Jedis.get(pl.uuid + ".lvl")));
-        return Main.config.getConfig().getInt("minelore." + NBT.getStringNBT(stack, "nbt") + ".reqlvl") <= Integer.parseInt(Jedis.get(pl.uuid + ".lvl"));
+        return Main.config.getConfig().getInt("minelore." + NBT.getStringNBT(stack, "nbt") + ".reqlvl") <= pl.getLevel();
     }
 
     private void openUI(LittlePlayer pl) {

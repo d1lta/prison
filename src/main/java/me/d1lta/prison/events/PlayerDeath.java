@@ -7,8 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import me.d1lta.prison.Jedis;
 import me.d1lta.prison.Main;
+import me.d1lta.prison.utils.LittlePlayer;
 import me.d1lta.prison.utils.LocationUtils;
 import me.d1lta.prison.utils.NBT;
 import org.bukkit.Bukkit;
@@ -35,9 +35,9 @@ public class PlayerDeath implements Listener {
             }
         }
         Bukkit.getScheduler().runTaskLater(Main.plugin, () -> {
-            Jedis.set(e.getPlayer().getUniqueId() + ".deaths", String.valueOf(Integer.parseInt(Jedis.get(e.getPlayer().getUniqueId() + ".deaths")) + 1));
+            new LittlePlayer(e.getPlayer().getUniqueId()).addDeath();
             if (e.getPlayer().getKiller() != null) {
-                Jedis.set(e.getPlayer().getKiller().getUniqueId() + ".kills", String.valueOf(Integer.parseInt(Jedis.get(e.getPlayer().getKiller().getUniqueId() + ".kills")) + 1));
+                new LittlePlayer(e.getPlayer().getKiller().getUniqueId()).addKill();
             }
             e.getPlayer().spigot().respawn();
             e.getPlayer().teleport(LocationUtils.spawnPoint("hub"));

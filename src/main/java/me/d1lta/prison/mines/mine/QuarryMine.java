@@ -13,7 +13,7 @@ public class QuarryMine {
                 Map.of(
                         "1:97", Material.TERRACOTTA,
                         "98:100", Material.BROWN_GLAZED_TERRACOTTA
-                ));
+                ), false);
     }
 
 }

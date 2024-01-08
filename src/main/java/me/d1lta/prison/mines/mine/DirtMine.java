@@ -14,6 +14,6 @@ public class DirtMine {
                         "1:33", Material.DIRT,
                         "34:70", Material.SAND,
                         "71:100", Material.GRAVEL
-                ));
+                ), false);
     }
 }

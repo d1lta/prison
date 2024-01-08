@@ -1,5 +1,6 @@
 package me.d1lta.prison.utils;
 
+import java.util.Objects;
 import java.util.UUID;
 import me.d1lta.prison.Jedis;
 import me.d1lta.prison.enums.Factions;
@@ -9,6 +10,7 @@ import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -29,28 +31,53 @@ public class LittlePlayer {
         this.getItemInMainHand().setAmount(0);
     }
 
+    public void giveItem(ItemStack stack) {
+        Bukkit.getPlayer(uuid).getInventory().addItem(stack);
+    }
+
+    public void addKill() { Jedis.set(uuid + ".kills", String.valueOf(this.getKills() + 1));  }
+
+    public int getKills() { return Integer.parseInt(Jedis.get(uuid + ".kills"));  }
+
+    public void addDeath() { Jedis.set(uuid + ".deaths", String.valueOf(this.getDeaths() + 1));  }
+
+    public int getDeaths() { return Integer.parseInt(Jedis.get(uuid + ".deaths"));  }
+
+    public int getBlocks(String blockType) { return Integer.parseInt(Jedis.get(uuid + ".blocks." + blockType.toLowerCase())); }
+
+    public int getBlocks() { return Integer.parseInt(Jedis.get(uuid + ".blocks")); }
+
+    public boolean hasVaultAccess() { return Jedis.get(uuid + ".vault").equals("true"); }
+
     public double getMoney() {
         return Double.parseDouble(Jedis.get(uuid + ".money"));
     }
 
-    public void addMoney(double amount) {
-        Jedis.set(uuid + ".money", String.valueOf(Double.parseDouble(Jedis.get(uuid + ".money")) + amount));
+    public int getIntMoney() {
+        return (int) Double.parseDouble(Jedis.get(uuid + ".money"));
     }
 
-    public void addMoney(int amount) {
-        Jedis.set(uuid + ".money", String.valueOf(Double.parseDouble(Jedis.get(uuid + ".money")) + amount));
+    public int getRats() { return Integer.parseInt(Jedis.get(uuid + ".rats")); }
+
+    public void addRat() { Jedis.set(uuid + ".rats", String.valueOf(this.getRats() + 1)); }
+
+    public void addBlock(Material mat) {
+        Jedis.set(uuid + ".blocks." + mat.name().toLowerCase(), String.valueOf(this.getBlocks(mat.name()) + 1));
     }
 
-    public void removeMoney(double amount) {
-        Jedis.set(uuid + ".money", String.valueOf(Double.parseDouble(Jedis.get(uuid + ".money")) - amount));
-    }
+    public void addBlock() { Jedis.set(uuid + ".blocks", String.valueOf(this.getBlocks() + 1)); }
 
-    public void removeMoney(int amount) {
-        Jedis.set(uuid + ".money", String.valueOf(Double.parseDouble(Jedis.get(uuid + ".money")) - amount));
-    }
+    public void addMoney(double amount) { Jedis.set(uuid + ".money", String.valueOf(Double.parseDouble(Jedis.get(uuid + ".money")) + amount)); }
 
+    public void addMoney(int amount) { Jedis.set(uuid + ".money", String.valueOf(Double.parseDouble(Jedis.get(uuid + ".money")) + amount)); }
+
+    public void removeMoney(double amount) { Jedis.set(uuid + ".money", String.valueOf(Double.parseDouble(Jedis.get(uuid + ".money")) - amount)); }
+
+    public void removeMoney(int amount) { Jedis.set(uuid + ".money", String.valueOf(Double.parseDouble(Jedis.get(uuid + ".money")) - amount)); }
 
     public int getLevel() { return Integer.parseInt(Jedis.get(uuid + ".lvl")); }
+
+    public void lvlUp() { Jedis.set(uuid + ".lvl", String.valueOf(this.getLevel() + 1)); }
 
     public Factions getFaction() { return Factions.getFaction(Jedis.get(uuid + ".faction")); }
 

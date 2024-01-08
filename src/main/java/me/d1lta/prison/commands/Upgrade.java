@@ -99,9 +99,9 @@ public class Upgrade implements CommandExecutor, Listener {
         for (String it : Main.config.getConfig().getStringList("upgrades." + type + ".level_" + lvl + ".requirements")) {
             String[] parts = it.split(":");
             Object query = switch (parts[0].toLowerCase()) {
-                case "money" -> (int) Double.parseDouble(Jedis.get(pl.uuid + ".money"));
-                case "rats" -> Jedis.get(pl.uuid + ".rats");
-                default -> Integer.parseInt(Jedis.get(pl.uuid + ".blocks." + parts[0].toLowerCase()));
+                case "money" -> pl.getIntMoney();
+                case "rats" -> pl.getRats();
+                default -> pl.getBlocks(parts[0]);
             };
             if (Double.parseDouble(String.valueOf(query)) < Double.parseDouble(parts[1])) {
                 return false;
@@ -144,7 +144,7 @@ public class Upgrade implements CommandExecutor, Listener {
     }
 
     public static ItemStack getPrisonItem(LittlePlayer pl, String type, int lvl, boolean upgrade) {
-        ItemStack tool = new ItemStack(Objects.requireNonNull(Material.getMaterial(ConfigUtils.getString("upgrades." + type + ".level_" + lvl + ".type"))));
+        ItemStack tool = new ItemStack(Objects.requireNonNull(Material.getMaterial(Main.config.getConfig().getString("upgrades." + type + ".level_" + lvl + ".type"))));
         tool = NBT.addNBT(tool, "level", Integer.valueOf(Objects.requireNonNull(Main.config.getConfig().getString("upgrades." + type + ".level_" + lvl + ".level"))));
         tool = NBT.addNBT(tool, "type", type);
         tool = NBT.addNBT(tool, "safe", "true");
@@ -180,9 +180,9 @@ public class Upgrade implements CommandExecutor, Listener {
         for (String it : Main.config.getConfig().getStringList("upgrades." + type + ".level_" + lvl + ".requirements")) {
             String[] parts = it.split(":");
             Object query = switch (parts[0].toLowerCase()) {
-                case "money" -> (int) Double.parseDouble(Jedis.get(pl.uuid + ".money"));
-                case "rats" -> Jedis.get(pl.uuid + ".rats");
-                default -> Integer.parseInt(Jedis.get(pl.uuid + ".blocks." + parts[0].toLowerCase()));
+                case "money" -> pl.getIntMoney();
+                case "rats" -> pl.getRats();
+                default -> pl.getBlocks(parts[0]);
             };
             Component can;
             if (Double.parseDouble(String.valueOf(query)) < Double.parseDouble(parts[1])) {

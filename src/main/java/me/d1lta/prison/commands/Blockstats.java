@@ -42,7 +42,7 @@ public class Blockstats implements CommandExecutor, Listener {
             meta.displayName(meta.displayName().color(TextColor.color(255, 255, 255)));
             meta.lore(
                     List.of(Component.text("Всего вскопано ").color(TextColor.color(170,170,170))
-                    .append(Component.text(Jedis.get(pl.uuid + ".blocks." + it.getType().name().toLowerCase())).color(TextColor.color(255,255,255))
+                    .append(Component.text(pl.getBlocks(it.getType().name())).color(TextColor.color(255,255,255))
                     .append(Component.text(" блоков").color(TextColor.color(170,170,170))))));
             it.setItemMeta(meta);
             inv.addItem(it);

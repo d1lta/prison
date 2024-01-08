@@ -13,7 +13,7 @@ public class SpiderMine {
                 Map.of(
                         "1:85", Material.WHITE_WOOL,
                         "86:100", Material.COBWEB
-                ));
+                ), false);
     }
 
 }

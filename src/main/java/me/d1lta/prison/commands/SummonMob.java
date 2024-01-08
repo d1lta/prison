@@ -2,6 +2,8 @@ package me.d1lta.prison.commands;
 
 import me.d1lta.prison.mobs.Rat;
 import me.d1lta.prison.mobs.bosses.Vindicator;
+import me.d1lta.prison.mobs.traders.ElderVillager;
+import me.d1lta.prison.mobs.traders.StartVillager;
 import me.d1lta.prison.utils.LittlePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -16,9 +18,10 @@ public class SummonMob implements CommandExecutor {
         if (args.length == 1 && sender instanceof Player) {
             LittlePlayer pl = new LittlePlayer(((Player) sender).getUniqueId());
             switch (args[0]) {
-                case "rat": new Rat(pl.getLocation());
-                case "vindicator": new Vindicator(pl.getLocation());
-
+                case "rat" -> new Rat(pl.getLocation());
+                case "vindicator" -> new Vindicator(pl.getLocation());
+                case "startvillager" -> new StartVillager(pl.getLocation());
+                case "eldervillager" -> new ElderVillager(pl.getLocation());
             }
         }
         return false;

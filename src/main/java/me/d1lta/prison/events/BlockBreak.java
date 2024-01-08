@@ -20,12 +20,13 @@ public class BlockBreak implements Listener {
     @EventHandler
     public void onBlockBreak(BlockBreakEvent e) {
         if (MineUtils.isAllowedToBreakBlock(e.getBlock().getLocation())) {
-            e.getPlayer().getInventory().addItem(MineUtils.getPrisonBlock(e.getBlock().getType()));
-            if (AutoSell.uuids.contains(e.getPlayer().getUniqueId())) {
-                Sell.sell(new LittlePlayer(e.getPlayer().getUniqueId()));
+            LittlePlayer pl = new LittlePlayer(e.getPlayer().getUniqueId());
+            pl.getInventory().addItem(MineUtils.getPrisonBlock(e.getBlock().getType()));
+            if (AutoSell.uuids.contains(pl.uuid)) {
+                Sell.sell(pl);
             }
-            Jedis.set(e.getPlayer().getUniqueId() + ".blocks." + e.getBlock().getType().name().toLowerCase(), String.valueOf(Integer.parseInt(Jedis.get(e.getPlayer().getUniqueId() + ".blocks." + e.getBlock().getType().name().toLowerCase())) + 1));
-            Jedis.set(e.getPlayer().getUniqueId() + ".blocks", String.valueOf(Integer.parseInt(Jedis.get(e.getPlayer().getUniqueId() + ".blocks")) + 1));
+            pl.addBlock();
+            pl.addBlock(e.getBlock().getType());
             if (new Random().nextInt(1,301) == 100) {
                 e.getPlayer().getInventory().addItem(Key.getKey());
                 e.getPlayer().sendMessage("Вы нашли ключ!");

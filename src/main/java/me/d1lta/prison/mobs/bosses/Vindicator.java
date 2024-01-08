@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
-import java.util.stream.Collectors;
-import me.d1lta.prison.Jedis;
 import me.d1lta.prison.utils.ComponentUtils;
 import me.d1lta.prison.utils.LittlePlayer;
 import net.kyori.adventure.text.Component;
@@ -72,7 +70,7 @@ public class Vindicator implements Listener {
                 }
             });
             for (UUID uuid : dealDamagers.keySet()) {
-                Jedis.set(uuid.toString() + ".money", String.valueOf((int) (Double.parseDouble(Jedis.get(uuid + ".money")) + Double.parseDouble(String.valueOf(dealDamagers.get(uuid) * multiplier)))));
+                new LittlePlayer(uuid).addMoney(dealDamagers.get(uuid) * multiplier);
             }
             e.getDrops().clear();
             e.setDroppedExp(0);

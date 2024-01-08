@@ -13,7 +13,7 @@ public class ObsMine {
                 Map.of(
                         "1:90", Material.PURPLE_TERRACOTTA,
                         "91:100", Material.OBSIDIAN
-                ));
+                ), false);
     }
 
 }

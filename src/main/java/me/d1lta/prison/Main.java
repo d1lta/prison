@@ -4,12 +4,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import me.d1lta.prison.chests.DefaultChest;
+import me.d1lta.prison.chests.EnderChest;
 import me.d1lta.prison.commands.AdmJedis;
 import me.d1lta.prison.commands.AutoSell;
 import me.d1lta.prison.commands.Base;
 import me.d1lta.prison.commands.Blockstats;
 import me.d1lta.prison.commands.Debug;
 import me.d1lta.prison.commands.Faction;
+import me.d1lta.prison.commands.Gift;
 import me.d1lta.prison.commands.GiveItem;
 import me.d1lta.prison.commands.Level;
 import me.d1lta.prison.commands.Mine;
@@ -24,6 +26,7 @@ import me.d1lta.prison.events.DisableBlockPhysics;
 import me.d1lta.prison.events.BlockBreak;
 import me.d1lta.prison.events.BlockPlace;
 import me.d1lta.prison.events.EntityDeath;
+import me.d1lta.prison.events.ItemDrop;
 import me.d1lta.prison.events.PlayerDeath;
 import me.d1lta.prison.events.PlayerFaction;
 import me.d1lta.prison.events.onInteract;
@@ -32,6 +35,8 @@ import me.d1lta.prison.events.onSpawnEntity;
 import me.d1lta.prison.items.VaultAccess;
 import me.d1lta.prison.mines.MinesTimer;
 import me.d1lta.prison.mobs.bosses.Vindicator;
+import me.d1lta.prison.mobs.traders.ElderVillager;
+import me.d1lta.prison.mobs.traders.StartVillager;
 import me.d1lta.prison.utils.LittlePlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.WorldCreator;
@@ -87,6 +92,8 @@ public final class Main extends JavaPlugin {
                 config.getConfig().getConfigurationSection("worlds").getKeys(false).forEach(it -> { new WorldCreator(it).createWorld(); });
                 DefaultChest.initLoc();
                 DefaultChest.spawnChest();
+                EnderChest.initLoc();
+                EnderChest.spawnChest();
             }
         },100L);
     }
@@ -106,11 +113,15 @@ public final class Main extends JavaPlugin {
                 new Upgrade(),
                 new Upgrades(),
                 new EntityDeath(),
-                new Vindicator(null),
                 new DefaultChest(),
+                new EnderChest(),
                 new VaultAccess(),
                 new Faction(),
-                new PlayerFaction());
+                new PlayerFaction(),
+                new ItemDrop(),
+                new Vindicator(null),
+                new StartVillager(null),
+                new ElderVillager(null));
         Bukkit.getPluginManager().registerEvents(config, plugin);
         events.forEach(it -> Bukkit.getPluginManager().registerEvents(it, plugin));
     }
@@ -134,7 +145,8 @@ public final class Main extends JavaPlugin {
                 "upgrades", new Upgrades(),
                 "summonmob", new SummonMob(),
                 "faction", new Faction(),
-                "base", new Base()));
+                "base", new Base(),
+                "gift", new Gift()));
         commands.forEach((cmd, executor) -> getServer().getPluginCommand(cmd).setExecutor(executor));
     }
 }

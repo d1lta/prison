@@ -15,6 +15,6 @@ public class HellMine {
                         "71:80", Material.LAVA,
                         "81:90", Material.NETHER_QUARTZ_ORE,
                         "91:100", Material.SOUL_SAND
-                ));
+                ), true);
     }
 }

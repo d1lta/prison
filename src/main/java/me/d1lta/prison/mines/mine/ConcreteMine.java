@@ -15,7 +15,7 @@ public class ConcreteMine {
                         "46:85", Material.WHITE_CONCRETE_POWDER,
                         "86:95", Material.IRON_ORE,
                         "96:100", Material.GOLD_ORE
-                ));
+                ), false);
     }
 
 }

@@ -1,9 +1,7 @@
 package me.d1lta.prison.commands;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import me.d1lta.prison.Jedis;
 import me.d1lta.prison.Main;
 import me.d1lta.prison.utils.ComponentUtils;
 import me.d1lta.prison.utils.LittlePlayer;
@@ -33,7 +31,7 @@ public class Level implements CommandExecutor, Listener {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (sender instanceof Player) {
             LittlePlayer pl = new LittlePlayer(((Player) sender).getUniqueId());
-            openUI(pl, Integer.parseInt(Jedis.get(pl.uuid + ".lvl")));
+            openUI(pl, pl.getLevel());
         }
         return false;
     }
@@ -53,13 +51,13 @@ public class Level implements CommandExecutor, Listener {
 
     private boolean levelUp(LittlePlayer pl) {
         int moneyreq = 0;
-        int lvl = Integer.parseInt(Jedis.get(pl.uuid + ".lvl"));
+        int lvl = pl.getLevel();
         List<String> requirements = Main.config.getConfig().getStringList("levels.level_" + (lvl + 1) + ".requirements");
         String[] parts;
         for (String it : requirements) {
             parts = it.split(":");
             if (parts[0].equalsIgnoreCase("money")) {
-                if (Double.parseDouble(Jedis.get(pl.uuid + "." + parts[0].toLowerCase())) < Integer.parseInt(parts[1])) {
+                if (pl.getMoney() < Integer.parseInt(parts[1])) {
                     pl.sendMessage("Требования не выполнены");
                     pl.closeInventory();
                     return false;
@@ -67,16 +65,15 @@ public class Level implements CommandExecutor, Listener {
                     moneyreq = Integer.parseInt(parts[1]);
                 }
             } else {
-                if (Integer.parseInt(Jedis.get(pl.uuid + "." + parts[0].toLowerCase())) < Integer.parseInt(parts[1])) {
+                if (pl.getBlocks() < Integer.parseInt(parts[1])) {
                     pl.sendMessage("Требования не выполнены");
                     pl.closeInventory();
                     return false;
                 }
             }
         }
-        Jedis.set(pl.uuid + ".money", String.valueOf(Double.parseDouble(Jedis.get(pl.uuid + ".money")) - moneyreq));
-
-        Jedis.set(pl.uuid + ".lvl", String.valueOf((Integer.parseInt(Jedis.get(pl.uuid + ".lvl")) + 1)));
+        pl.removeMoney(moneyreq);
+        pl.lvlUp();
         pl.sendMessage("lvlUP!");
         pl.closeInventory();
         return true;
@@ -103,13 +100,13 @@ public class Level implements CommandExecutor, Listener {
 
     private String makeColor(String s, LittlePlayer pl, String type, int req) {
         if (type.equalsIgnoreCase("money")){
-            if (Double.parseDouble(Jedis.get(pl.uuid + "." + type)) < req) {
+            if (pl.getMoney() < req) {
                 return ChatColor.RED + s;
             } else {
                 return ChatColor.GREEN + s;
             }
         } else {
-            if (Integer.parseInt(Jedis.get(pl.uuid + "." + type)) < req) {
+            if (pl.getBlocks() < req) {
                 return ChatColor.RED + s;
             } else {
                 return ChatColor.GREEN + s;

@@ -11,10 +11,14 @@ import org.jetbrains.annotations.NotNull;
 
 public class Mine {
 
-    public static void fill(@NotNull Location loc1, @NotNull Location loc2, @NotNull Map<String, Material> materials) {
+    public static void fill(@NotNull Location loc1, @NotNull Location loc2, @NotNull Map<String, Material> materials, boolean yummy) {
         for (int x = (int) loc1.getX(); x <= loc2.getX(); x++) {
             for (int z = (int) loc1.getZ(); z <= loc2.getZ(); z++) {
                 for (int y = (int) loc1.getY(); y <= loc2.getY(); y++) {
+                    if (yummy && y == loc2.getY()) {
+                        Objects.requireNonNull(loc1.getWorld()).getBlockAt(x, y, z).setType(materials.get(materials.keySet().stream().findFirst().get()));
+                        continue;
+                    }
                     Objects.requireNonNull(loc1.getWorld()).getBlockAt(x, y, z).setType(getMaterial(materials));
                 }
             }

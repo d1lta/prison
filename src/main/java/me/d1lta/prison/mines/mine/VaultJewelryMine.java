@@ -15,7 +15,7 @@ public class VaultJewelryMine {
                         "71:84", Material.IRON_BLOCK,
                         "85:93", Material.GOLD_BLOCK,
                         "94:100", Material.DIAMOND_BLOCK
-                ));
+                ), false);
     }
 
 }

@@ -3,7 +3,6 @@ package me.d1lta.prison;
 import me.d1lta.prison.mines.AllowedBlocks;
 import me.d1lta.prison.utils.LittlePlayer;
 import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.Bukkit;
 import org.bukkit.inventory.ItemStack;
 
 public class Sell {

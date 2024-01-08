@@ -9,7 +9,7 @@ import org.bukkit.event.block.BlockPhysicsEvent;
 public class DisableBlockPhysics implements Listener {
 
     List<String> disabledWorlds = List.of(
-            "hub", "concrete", "icehills"
+            "hub", "concrete", "icehills", "vault", "hell"
     );
 
     @EventHandler

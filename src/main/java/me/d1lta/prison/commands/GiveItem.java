@@ -1,6 +1,8 @@
 package me.d1lta.prison.commands;
 
 import me.d1lta.prison.items.Armor;
+import me.d1lta.prison.items.ElderKey;
+import me.d1lta.prison.items.ElderStar;
 import me.d1lta.prison.items.Key;
 import me.d1lta.prison.items.ToiletPaper;
 import me.d1lta.prison.items.Tool;
@@ -38,6 +40,9 @@ public class GiveItem implements CommandExecutor {
                     case "key" -> pl.getInventory().addItem(Key.getKey());
                     case "vault" -> pl.getInventory().addItem(VaultAccess.getAccess());
                     case "paper" -> pl.getInventory().addItem(ToiletPaper.getPaper());
+
+                    case "elderstar" -> pl.getInventory().addItem(ElderStar.getStar());
+                    case "elderkey" -> pl.getInventory().addItem(ElderKey.getKey());
                 }
             }
         }

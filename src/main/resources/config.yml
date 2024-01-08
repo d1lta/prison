@@ -6,7 +6,7 @@ prices:
   coal_ore: 1
   iron_ore: 1.5
   gold_ore: 2
-  gray_concrete_powder: 1
+  light_gray_concrete_powder: 1
   white_concrete_powder: 1
   netherrack: 1
   soul_sand: 1
@@ -581,11 +581,14 @@ levels:
     requirements:
       - MONEY:2250000
       - BLOCKS:5150000
+  level_26:
+    requirements:
+      - MONEY:999999999
+      - BLOCKS:999999999
 upgrades:
   shovel:
     level_1:
       displayName: Деревянная лопата
-      displayLevel: 1 уровень
       level: 1
       type: WOODEN_SHOVEL
       requirements:
@@ -595,7 +598,6 @@ upgrades:
         - DIRT:40
     level_2:
       displayName: Деревянная лопата
-      displayLevel: 2 уровень
       level: 2
       type: WOODEN_SHOVEL
       enchants:
@@ -607,7 +609,6 @@ upgrades:
         - DIRT:40
     level_3:
       displayName: Деревянная лопата
-      displayLevel: 3 уровень
       level: 3
       type: WOODEN_SHOVEL
       enchants:
@@ -619,7 +620,6 @@ upgrades:
         - DIRT:70
     level_4:
       displayName: Деревянная лопата
-      displayLevel: 4 уровень
       level: 4
       type: WOODEN_SHOVEL
       enchants:
@@ -631,7 +631,6 @@ upgrades:
         - DIRT:135
     level_5:
       displayName: Каменная лопата
-      displayLevel: 5 уровень
       level: 5
       type: STONE_SHOVEL
       requirements:
@@ -641,7 +640,6 @@ upgrades:
         - DIRT:480
     level_6:
       displayName: Каменная лопата
-      displayLevel: 6 уровень
       level: 6
       type: STONE_SHOVEL
       enchants:
@@ -653,7 +651,6 @@ upgrades:
         - DIRT:980
     level_7:
       displayName: Каменная лопата
-      displayLevel: 7 уровень
       level: 7
       type: STONE_SHOVEL
       enchants:
@@ -665,7 +662,6 @@ upgrades:
         - DIRT:1999
     level_8:
       displayName: Каменная лопата
-      displayLevel: 8 уровень
       level: 8
       type: STONE_SHOVEL
       enchants:
@@ -677,7 +673,6 @@ upgrades:
         - DIRT:2980
     level_9:
       displayName: Железная лопата
-      displayLevel: 9 уровень
       level: 9
       type: IRON_SHOVEL
       requirements:
@@ -687,7 +682,6 @@ upgrades:
         - DIRT:4300
     level_10:
       displayName: Железная лопата
-      displayLevel: 10 уровень
       level: 10
       type: IRON_SHOVEL
       enchants:
@@ -699,7 +693,6 @@ upgrades:
         - DIRT:5900
     level_11:
       displayName: Железная лопата
-      displayLevel: 11 уровень
       level: 11
       type: IRON_SHOVEL
       enchants:
@@ -711,7 +704,6 @@ upgrades:
         - DIRT:6666
     level_12:
       displayName: Железная лопата
-      displayLevel: 12 уровень
       level: 12
       type: IRON_SHOVEL
       enchants:
@@ -723,7 +715,6 @@ upgrades:
         - DIRT:8000
     level_13:
       displayName: Алмазная лопата
-      displayLevel: 13 уровень
       level: 13
       type: DIAMOND_SHOVEL
       requirements:
@@ -733,7 +724,6 @@ upgrades:
         - DIRT:10600
     level_14:
       displayName: Алмазная лопата
-      displayLevel: 14 уровень
       level: 14
       type: DIAMOND_SHOVEL
       enchants:
@@ -745,7 +735,6 @@ upgrades:
         - DIRT:12222
     level_15:
       displayName: Алмазная лопата
-      displayLevel: 15 уровень
       level: 15
       type: DIAMOND_SHOVEL
       enchants:
@@ -757,7 +746,6 @@ upgrades:
         - DIRT:14000
     level_16:
       displayName: Алмазная лопата
-      displayLevel: 16 уровень
       level: 16
       type: DIAMOND_SHOVEL
       enchants:
@@ -769,7 +757,6 @@ upgrades:
         - DIRT:15000
     level_17:
       displayName: Алмазная лопата
-      displayLevel: 17 уровень
       level: 17
       type: DIAMOND_SHOVEL
       enchants:
@@ -782,7 +769,6 @@ upgrades:
   pickaxe:
     level_1:
       displayName: Деревянная кирка
-      displayLevel: 1 уровень
       level: 1
       type: WOODEN_PICKAXE
       requirements:
@@ -790,7 +776,6 @@ upgrades:
         - STONE:40
     level_2:
       displayName: Деревянная кирка
-      displayLevel: 2 уровень
       level: 2
       type: WOODEN_PICKAXE
       enchants:
@@ -800,7 +785,6 @@ upgrades:
         - STONE:40
     level_3:
       displayName: Деревянная кирка
-      displayLevel: 3 уровень
       level: 3
       type: WOODEN_PICKAXE
       enchants:
@@ -811,7 +795,6 @@ upgrades:
         - COAL_ORE:10
     level_4:
       displayName: Деревянная кирка
-      displayLevel: 4 уровень
       level: 4
       type: WOODEN_PICKAXE
       enchants:
@@ -822,7 +805,6 @@ upgrades:
         - COAL_ORE:10
     level_5:
       displayName: Каменная кирка
-      displayLevel: 5 уровень
       level: 5
       type: STONE_PICKAXE
       requirements:
@@ -832,7 +814,6 @@ upgrades:
         - IRON_ORE:10
     level_6:
       displayName: Каменная кирка
-      displayLevel: 6 уровень
       level: 6
       type: STONE_PICKAXE
       enchants:
@@ -844,7 +825,6 @@ upgrades:
         - IRON_ORE:10
     level_7:
       displayName: Каменная кирка
-      displayLevel: 7 уровень
       level: 7
       type: STONE_PICKAXE
       enchants:
@@ -856,7 +836,6 @@ upgrades:
         - IRON_ORE:10
     level_8:
       displayName: Каменная кирка
-      displayLevel: 8 уровень
       level: 8
       type: STONE_PICKAXE
       enchants:
@@ -868,7 +847,6 @@ upgrades:
         - IRON_ORE:10
     level_9:
       displayName: Железная кирка
-      displayLevel: 9 уровень
       level: 9
       type: IRON_PICKAXE
       requirements:
@@ -878,7 +856,6 @@ upgrades:
         - IRON_ORE:10
     level_10:
       displayName: Железная кирка
-      displayLevel: 10 уровень
       level: 10
       type: IRON_PICKAXE
       enchants:
@@ -891,7 +868,6 @@ upgrades:
         - GOLD_ORE:10
     level_11:
       displayName: Железная кирка
-      displayLevel: 11 уровень
       level: 11
       type: IRON_PICKAXE
       enchants:
@@ -904,7 +880,6 @@ upgrades:
         - GOLD_ORE:10
     level_12:
       displayName: Железная кирка
-      displayLevel: 12 уровень
       level: 12
       type: IRON_PICKAXE
       enchants:
@@ -917,7 +892,6 @@ upgrades:
         - GOLD_ORE:10
     level_13:
       displayName: Алмазная кирка
-      displayLevel: 13 уровень
       level: 13
       type: DIAMOND_PICKAXE
       requirements:
@@ -928,7 +902,6 @@ upgrades:
         - GOLD_ORE:10
     level_14:
       displayName: Алмазная кирка
-      displayLevel: 14 уровень
       level: 14
       type: DIAMOND_PICKAXE
       enchants:
@@ -941,7 +914,6 @@ upgrades:
         - GOLD_ORE:10
     level_15:
       displayName: Алмазная кирка
-      displayLevel: 15 уровень
       level: 15
       type: DIAMOND_PICKAXE
       enchants:
@@ -954,7 +926,6 @@ upgrades:
         - GOLD_ORE:10
     level_16:
       displayName: Алмазная кирка
-      displayLevel: 16 уровень
       level: 16
       type: DIAMOND_PICKAXE
       enchants:
@@ -1173,14 +1144,12 @@ upgrades:
   axe:
     level_1:
       displayName: Деревянный топор
-      displayLevel: 1 уровень
       level: 1
       type: WOODEN_AXE
       requirements:
         - MONEY:15
     level_2:
       displayName: Деревянный топор
-      displayLevel: 2 уровень
       level: 2
       type: WOODEN_AXE
       enchants:
@@ -1189,7 +1158,6 @@ upgrades:
         - MONEY:15
     level_3:
       displayName: Деревянный топор
-      displayLevel: 3 уровень
       level: 3
       type: WOODEN_AXE
       enchants:
@@ -1198,7 +1166,6 @@ upgrades:
         - MONEY:20
     level_4:
       displayName: Деревянный топор
-      displayLevel: 4 уровень
       level: 4
       type: WOODEN_AXE
       enchants:
@@ -1207,14 +1174,12 @@ upgrades:
         - MONEY:30
     level_5:
       displayName: Каменный топор
-      displayLevel: 5 уровень
       level: 5
       type: STONE_AXE
       requirements:
         - MONEY:50
     level_6:
       displayName: Каменный топор
-      displayLevel: 6 уровень
       level: 6
       type: STONE_AXE
       enchants:
@@ -1223,7 +1188,6 @@ upgrades:
         - MONEY:65
     level_7:
       displayName: Каменный топор
-      displayLevel: 7 уровень
       level: 7
       type: STONE_AXE
       enchants:
@@ -1232,7 +1196,6 @@ upgrades:
         - MONEY:110
     level_8:
       displayName: Каменный топор
-      displayLevel: 8 уровень
       level: 8
       type: STONE_AXE
       enchants:
@@ -1241,14 +1204,12 @@ upgrades:
         - MONEY:140
     level_9:
       displayName: Железный топор
-      displayLevel: 9 уровень
       level: 9
       type: IRON_AXE
       requirements:
         - MONEY:410
     level_10:
       displayName: Железный топор
-      displayLevel: 10 уровень
       level: 10
       type: IRON_AXE
       enchants:
@@ -1257,7 +1218,6 @@ upgrades:
         - MONEY:495
     level_11:
       displayName: Железный топор
-      displayLevel: 11 уровень
       level: 11
       type: IRON_AXE
       enchants:
@@ -1266,7 +1226,6 @@ upgrades:
         - MONEY:600
     level_12:
       displayName: Железный топор
-      displayLevel: 12 уровень
       level: 12
       type: IRON_AXE
       enchants:
@@ -1275,14 +1234,12 @@ upgrades:
         - MONEY:600
     level_13:
       displayName: Алмазный топор
-      displayLevel: 13 уровень
       level: 13
       type: DIAMOND_AXE
       requirements:
         - MONEY:888
     level_14:
       displayName: Алмазный топор
-      displayLevel: 14 уровень
       level: 14
       type: DIAMOND_AXE
       enchants:
@@ -1291,7 +1248,6 @@ upgrades:
         - MONEY:1000
     level_15:
       displayName: Алмазный топор
-      displayLevel: 15 уровень
       level: 15
       type: DIAMOND_AXE
       enchants:
@@ -1300,7 +1256,6 @@ upgrades:
         - MONEY:1150
     level_16:
       displayName: Алмазный топор
-      displayLevel: 16 уровень
       level: 16
       type: DIAMOND_AXE
       enchants:
@@ -1310,7 +1265,6 @@ upgrades:
   shears:
     level_1:
       displayName: Ножницы
-      displayLevel: 1 уровень
       level: 1
       type: SHEARS
       requirements:
@@ -1318,7 +1272,6 @@ upgrades:
         - WHITE_WOOL:20
     level_2:
       displayName: Ножницы
-      displayLevel: 2 уровень
       level: 2
       type: SHEARS
       enchants:
@@ -1328,7 +1281,6 @@ upgrades:
         - WHITE_WOOL:20
     level_3:
       displayName: Ножницы
-      displayLevel: 3 уровень
       level: 3
       type: SHEARS
       enchants:
@@ -1338,7 +1290,6 @@ upgrades:
         - WHITE_WOOL:20
     level_4:
       displayName: Ножницы
-      displayLevel: 4 уровень
       level: 4
       type: SHEARS
       enchants:
@@ -1348,7 +1299,6 @@ upgrades:
         - WHITE_WOOL:20
     level_5:
       displayName: Ножницы
-      displayLevel: 5 уровень
       level: 5
       type: SHEARS
       enchants:
@@ -1358,7 +1308,6 @@ upgrades:
         - WHITE_WOOL:20
     level_6:
       displayName: Ножницы
-      displayLevel: 6 уровень
       level: 6
       type: SHEARS
       enchants:
