@@ -3,11 +3,13 @@ package me.d1lta.prison;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
+import me.d1lta.prison.chests.DefaultChest;
 import me.d1lta.prison.commands.AdmJedis;
 import me.d1lta.prison.commands.AutoSell;
+import me.d1lta.prison.commands.Base;
 import me.d1lta.prison.commands.Blockstats;
 import me.d1lta.prison.commands.Debug;
+import me.d1lta.prison.commands.Faction;
 import me.d1lta.prison.commands.GiveItem;
 import me.d1lta.prison.commands.Level;
 import me.d1lta.prison.commands.Mine;
@@ -23,9 +25,11 @@ import me.d1lta.prison.events.BlockBreak;
 import me.d1lta.prison.events.BlockPlace;
 import me.d1lta.prison.events.EntityDeath;
 import me.d1lta.prison.events.PlayerDeath;
+import me.d1lta.prison.events.PlayerFaction;
 import me.d1lta.prison.events.onInteract;
 import me.d1lta.prison.events.onJoin;
 import me.d1lta.prison.events.onSpawnEntity;
+import me.d1lta.prison.items.VaultAccess;
 import me.d1lta.prison.mines.MinesTimer;
 import me.d1lta.prison.mobs.bosses.Vindicator;
 import me.d1lta.prison.utils.LittlePlayer;
@@ -56,7 +60,6 @@ public final class Main extends JavaPlugin {
         plugin = this;
         config = new Config(this);
         Bukkit.setSpawnRadius(0);
-
         registerCommands();
         registerEvents();
         worldLoader();
@@ -81,11 +84,10 @@ public final class Main extends JavaPlugin {
     private static void worldLoader() {
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
             if (config.getConfig().getConfigurationSection("worlds") != null) {
-                config.getConfig().getConfigurationSection("worlds").getKeys(false).forEach(it -> {
-                        new WorldCreator(it).createWorld();
-                });
+                config.getConfig().getConfigurationSection("worlds").getKeys(false).forEach(it -> { new WorldCreator(it).createWorld(); });
+                DefaultChest.initLoc();
+                DefaultChest.spawnChest();
             }
-            isLoaded = true;
         },100L);
     }
 
@@ -104,7 +106,11 @@ public final class Main extends JavaPlugin {
                 new Upgrade(),
                 new Upgrades(),
                 new EntityDeath(),
-                new Vindicator(null));
+                new Vindicator(null),
+                new DefaultChest(),
+                new VaultAccess(),
+                new Faction(),
+                new PlayerFaction());
         Bukkit.getPluginManager().registerEvents(config, plugin);
         events.forEach(it -> Bukkit.getPluginManager().registerEvents(it, plugin));
     }
@@ -126,7 +132,9 @@ public final class Main extends JavaPlugin {
                 "debug", new Debug(),
                 "blockstats", new Blockstats(),
                 "upgrades", new Upgrades(),
-                "summonmob", new SummonMob()));
+                "summonmob", new SummonMob(),
+                "faction", new Faction(),
+                "base", new Base()));
         commands.forEach((cmd, executor) -> getServer().getPluginCommand(cmd).setExecutor(executor));
     }
 }

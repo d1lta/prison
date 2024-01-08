@@ -23,3 +23,5 @@ commands:
   blockstats:
   upgrades:
   summonmob:
+  faction:
+  base:

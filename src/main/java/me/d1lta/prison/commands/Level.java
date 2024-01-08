@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import me.d1lta.prison.Jedis;
 import me.d1lta.prison.Main;
+import me.d1lta.prison.utils.ComponentUtils;
 import me.d1lta.prison.utils.LittlePlayer;
 import me.d1lta.prison.utils.NBT;
 import net.kyori.adventure.text.Component;
@@ -26,6 +27,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class Level implements CommandExecutor, Listener {
 
+    private static Component title = ComponentUtils.component("Уровень");
+
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (sender instanceof Player) {
@@ -37,7 +40,7 @@ public class Level implements CommandExecutor, Listener {
 
     @EventHandler
     public void onClick(InventoryClickEvent e) {
-        if (e.getInventory().getType().equals(InventoryType.HOPPER)) {
+        if (e.getView().title().equals(title)) {
             if (e.getCurrentItem() == null || e.getCurrentItem().getType() == Material.AIR) {
                 e.setCancelled(true);
                 return;
@@ -80,7 +83,7 @@ public class Level implements CommandExecutor, Listener {
     }
 
     private void openUI(LittlePlayer pl, int lvl) {
-        Inventory UI = Bukkit.createInventory(null, InventoryType.HOPPER, "Уровень");
+        Inventory UI = Bukkit.createInventory(null, InventoryType.HOPPER, title);
         List<String> requirements = Main.config.getConfig().getStringList("levels.level_" + (lvl + 1) + ".requirements");
         String[] parts;
         List<Component> lore = new ArrayList<>();

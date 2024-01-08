@@ -1,7 +1,10 @@
 package me.d1lta.prison.commands;
 
 import me.d1lta.prison.items.Armor;
+import me.d1lta.prison.items.Key;
+import me.d1lta.prison.items.ToiletPaper;
 import me.d1lta.prison.items.Tool;
+import me.d1lta.prison.items.VaultAccess;
 import me.d1lta.prison.items.Weapon;
 import me.d1lta.prison.utils.LittlePlayer;
 import org.bukkit.command.Command;
@@ -31,6 +34,10 @@ public class GiveItem implements CommandExecutor {
 
                     case "bow" -> pl.getInventory().addItem(Weapon.bow());
                     case "sword" -> pl.getInventory().addItem(Weapon.sword());
+
+                    case "key" -> pl.getInventory().addItem(Key.getKey());
+                    case "vault" -> pl.getInventory().addItem(VaultAccess.getAccess());
+                    case "paper" -> pl.getInventory().addItem(ToiletPaper.getPaper());
                 }
             }
         }

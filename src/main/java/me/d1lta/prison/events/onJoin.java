@@ -34,6 +34,9 @@ public class onJoin implements Listener {
         if (Jedis.get(uuid + ".faction") == null) {
             Jedis.set(uuid + ".faction", "Нет фракции");
         }
+        if (Jedis.get(uuid + ".vault") == null) {
+            Jedis.set(uuid + ".vault", "false");
+        }
         if (Jedis.get(uuid + ".blocks.dirt") == null) {
             Jedis.set(uuid + ".blocks.dirt", "0");
         }

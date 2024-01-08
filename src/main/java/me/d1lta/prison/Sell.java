@@ -22,7 +22,7 @@ public class Sell {
         }
 
 
-        Jedis.set(pl.uuid + ".money", String.valueOf(Double.parseDouble(Jedis.get(pl.uuid + ".money")) + money));
+        pl.addMoney(money);
         pl.sendLittleTitle(new TextComponent("Вы продали блоков на " + money + " монет."));
     }
 

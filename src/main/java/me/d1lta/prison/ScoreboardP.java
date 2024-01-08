@@ -1,5 +1,6 @@
 package me.d1lta.prison;
 
+import me.d1lta.prison.enums.Factions;
 import me.d1lta.prison.utils.ComponentUtils;
 import me.d1lta.prison.utils.LittlePlayer;
 import me.d1lta.prison.utils.NumberUtils;
@@ -27,7 +28,7 @@ public class ScoreboardP {
 
         Team money = scoreboard.registerNewTeam("money");
         money.addEntry("Баланс » §b");
-        money.suffix(ComponentUtils.component(String.format("%.2f", Double.valueOf(Jedis.get(player.uuid + ".money"))) + "$", TextColor.color(85,255,85)));
+        money.suffix(ComponentUtils.component(String.format("%.2f", player.getMoney() + "$", TextColor.color(85,255,85))));
 
         Team level = scoreboard.registerNewTeam("level");
         level.addEntry("Уровень » §b");

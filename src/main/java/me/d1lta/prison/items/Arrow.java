@@ -7,15 +7,15 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class Key {
+public class Arrow {
 
-    public static ItemStack getKey() {
-        ItemStack key = new ItemStack(Material.GHAST_TEAR);
-        ItemMeta meta = key.getItemMeta();
+    public static ItemStack getArrow() {
+        ItemStack arrow = new ItemStack(Material.ARROW);
+        ItemMeta meta = arrow.getItemMeta();
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_ITEM_SPECIFICS);
-        meta.displayName(ComponentUtils.component("Ключ", TextColor.color(214, 144, 0)));
-        key.setItemMeta(meta);
-        return key;
+        meta.displayName(ComponentUtils.component("Стрела", TextColor.color(255, 255, 255)));
+        arrow.setItemMeta(meta);
+        return arrow;
     }
 
 }

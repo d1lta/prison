@@ -1,6 +1,8 @@
 package me.d1lta.prison.utils;
 
 import java.util.UUID;
+import me.d1lta.prison.Jedis;
+import me.d1lta.prison.enums.Factions;
 import net.kyori.adventure.text.Component;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -21,6 +23,36 @@ public class LittlePlayer {
             this.uuid = uuid;
         }
     }
+
+    public void dropItem() {
+        this.getWorld().dropItem(this.getLocation(), this.getItemInMainHand());
+        this.getItemInMainHand().setAmount(0);
+    }
+
+    public double getMoney() {
+        return Double.parseDouble(Jedis.get(uuid + ".money"));
+    }
+
+    public void addMoney(double amount) {
+        Jedis.set(uuid + ".money", String.valueOf(Double.parseDouble(Jedis.get(uuid + ".money")) + amount));
+    }
+
+    public void addMoney(int amount) {
+        Jedis.set(uuid + ".money", String.valueOf(Double.parseDouble(Jedis.get(uuid + ".money")) + amount));
+    }
+
+    public void removeMoney(double amount) {
+        Jedis.set(uuid + ".money", String.valueOf(Double.parseDouble(Jedis.get(uuid + ".money")) - amount));
+    }
+
+    public void removeMoney(int amount) {
+        Jedis.set(uuid + ".money", String.valueOf(Double.parseDouble(Jedis.get(uuid + ".money")) - amount));
+    }
+
+
+    public int getLevel() { return Integer.parseInt(Jedis.get(uuid + ".lvl")); }
+
+    public Factions getFaction() { return Factions.getFaction(Jedis.get(uuid + ".faction")); }
 
     public String getName() { return Bukkit.getPlayer(uuid).getName(); }
 

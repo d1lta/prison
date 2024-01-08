@@ -31,27 +31,61 @@ prices:
   iron_block: 1
   gold_block: 1
   diamond_block: 1
-  items:
-    apple:
-      chance: 20
-      max_count: 12
-    chicken:
-      chance: 20
-      max_count: 6
-    paper:
-      chance: 10
-      max_count: 6
-    arrow:
-      chance: 8
-      max_count: 8
-    vault:
-      chance: 1
-    rare_pickaxe:
-      chance: 1
+chests:
+  ender_chest:
+    x: 4
+    y: 65
+    z: 0
+    world: hub
+    facing: west
+  case:
+    x: -4
+    y: 65
+    z: 0
+    world: hub
+    facing: east
+items:
+  apple:
+    chance: 20
+    max_count: 12
+  chicken:
+    chance: 20
+    max_count: 6
+  paper:
+    chance: 10
+    max_count: 6
+  arrow:
+    chance: 8
+    max_count: 8
+  vault:
+    chance: 1
+    max_count: 1
+  rare_pickaxe:
+    chance: 1
+    max_count: 1
+  helmet:
+    chance: 6
+    max_count: 1
+  chestplate:
+    chance: 6
+    max_count: 1
+  leggings:
+    chance: 6
+    max_count: 1
+  boots:
+    chance: 6
+    max_count: 1
+  sword:
+    chance: 6
+    max_count: 1
+  bow:
+    chance: 6
+    max_count: 1
 minelore:
-  3:
+  stonemine:
     M: STONE
     nbt: stonemine
+    reqlvl: 3
     lore:
       - ""
       - "Блоки"
@@ -64,9 +98,10 @@ minelore:
       - "▪ Кирка"
       - ""
       - "Доступно с 3-го уровня."
-  5:
+  concrete:
     M: BRICKS
     nbt: concrete
+    reqlvl: 5
     lore:
       - ""
       - "Блоки"
@@ -80,9 +115,10 @@ minelore:
       - "▪ Кирка"
       - ""
       - "Доступно с 5-го уровня."
-  7:
+  hell:
     M: NETHERRACK
     nbt: hell
+    reqlvl: 7
     lore:
       - ""
       - "Блоки"
@@ -95,9 +131,10 @@ minelore:
       - "▪ Кирка"
       - ""
       - "Доступно с 7-го уровня."
-  9:
+  desert:
     M: SANDSTONE
     nbt: desert
+    reqlvl: 9
     lore:
       - ""
       - "Блоки"
@@ -108,9 +145,10 @@ minelore:
       - "▪ Кирка"
       - ""
       - "Доступно с 9-го уровня."
-  12:
+  quartzmine:
     M: PRISMARINE
     nbt: quartzmine
+    reqlvl: 12
     lore:
       - ""
       - "Блоки"
@@ -122,9 +160,10 @@ minelore:
       - "▪ Кирка"
       - ""
       - "Доступно с 12-го уровня."
-  14:
+  end:
     M: END_STONE_BRICKS
     nbt: end
+    reqlvl: 14
     lore:
       - ""
       - "Блоки"
@@ -136,9 +175,10 @@ minelore:
       - "▪ Кирка"
       - ""
       - "Доступно с 14-го уровня."
-  16:
+  spider:
     M: COBWEB
     nbt: spider
+    reqlvl: 16
     lore:
       - ""
       - "Блоки"
@@ -149,9 +189,10 @@ minelore:
       - "▪ Ножницы"
       - ""
       - "Доступно с 16-го уровня."
-  19:
+  quarry:
     M: TERRACOTTA
     nbt: quarry
+    reqlvl: 19
     lore:
       - ""
       - "Блоки"
@@ -162,9 +203,10 @@ minelore:
       - "▪ Кирка"
       - ""
       - "Доступно с 19-го уровня."
-  21:
+  icehills:
     M: ICE
     nbt: icehills
+    reqlvl: 21
     lore:
       - ""
       - "Блоки"
@@ -175,9 +217,10 @@ minelore:
       - "▪ Кирка"
       - ""
       - "Доступно с 21-го уровня."
-  23:
+  obsmine:
     M: OBSIDIAN
     nbt: obsmine
+    reqlvl: 23
     lore:
       - ""
       - "Блоки"
@@ -188,9 +231,10 @@ minelore:
       - "▪ Кирка"
       - ""
       - "Доступно с 23-го уровня."
-  0:
+  vault:
     M: KNOWLEDGE_BOOK
     nbt: vault
+    reqlvl: 5
     lore:
       - ""
       - "Блоки"
@@ -280,6 +324,31 @@ spawnpoints:
     z: 0.5
     yaw: 0.0
     pitch: 0.0
+  base:
+    asian:
+      x: -100.5
+      y: 65.0
+      z: 0.5
+      yaw: 0.0
+      pitch: 0.0
+    nigger:
+      x: 100.5
+      y: 65.0
+      z: 0.5
+      yaw: 0.0
+      pitch: 0.0
+    latin:
+      x: 0.5
+      y: 65.0
+      z: 100.5
+      yaw: 0.0
+      pitch: 0.0
+    white:
+      x: 0.5
+      y: 65.0
+      z: -100.5
+      yaw: 0.0
+      pitch: 0.0
 mines:
   dirtmine:
     world: hub

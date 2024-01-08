@@ -37,8 +37,8 @@ public class Upgrade implements CommandExecutor, Listener {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (sender instanceof Player) {
             LittlePlayer pl = new LittlePlayer(((Player) sender).getUniqueId());
-            if (pl.getItemInMainHand() == null) {
-                return false;
+            if (pl.getItemInMainHand() == null || pl.getItemInMainHand().getType().equals(Material.AIR)) {
+                return true;
             }
             ItemStack stack = pl.getItemInMainHand();
             String type = NBT.getStringNBT(stack, "type");
@@ -76,6 +76,13 @@ public class Upgrade implements CommandExecutor, Listener {
                 String type = NBT.getStringNBT(pl.getItemInMainHand(), "type");
                 int currentlvl = NBT.getIntNBT(pl.getItemInMainHand(), "level");
                 if (checkCondition(pl, type, currentlvl + 1)) {
+                    for (String it : Main.config.getConfig().getStringList("upgrades." + type + ".level_" + currentlvl + ".requirements")) {
+                        String[] parts = it.split(":");
+                        if (parts[0].equalsIgnoreCase("money")) {
+                            pl.removeMoney(Integer.parseInt(parts[1]));
+                            break;
+                        }
+                    }
                     pl.getItemInMainHand().setAmount(0);
                     pl.getInventory().setItem(pl.getHeldItemSlot(), getPrisonItem(pl, type, currentlvl + 1, false));
                     pl.sendMessage("Предмет улучшен!");
