@@ -1,9 +1,11 @@
 package me.d1lta.prison.utils;
 
+import de.tr7zw.nbtapi.NBTEntity;
 import de.tr7zw.nbtapi.NBTItem;
 import java.util.Map;
 import java.util.Set;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Monster;
 import org.bukkit.inventory.ItemStack;
 
 public class NBT {
@@ -13,6 +15,7 @@ public class NBT {
         nbtItem.setInteger(a, b);
         return nbtItem.getItem();
     }
+
 
     public static ItemStack addNBT(ItemStack stack, String a, String b) {
         NBTItem nbtItem = new NBTItem(stack);

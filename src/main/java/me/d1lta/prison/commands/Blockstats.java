@@ -4,7 +4,6 @@ import java.util.List;
 import me.d1lta.prison.Jedis;
 import me.d1lta.prison.mines.AllowedBlocks;
 import me.d1lta.prison.utils.LittlePlayer;
-import me.d1lta.prison.utils.MineUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
@@ -15,11 +14,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
-import org.w3c.dom.Text;
 
 public class Blockstats implements CommandExecutor, Listener {
 

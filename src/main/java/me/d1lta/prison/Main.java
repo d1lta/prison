@@ -3,6 +3,7 @@ package me.d1lta.prison;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import me.d1lta.prison.commands.AdmJedis;
 import me.d1lta.prison.commands.AutoSell;
 import me.d1lta.prison.commands.Blockstats;
@@ -12,17 +13,21 @@ import me.d1lta.prison.commands.Level;
 import me.d1lta.prison.commands.Mine;
 import me.d1lta.prison.commands.SellCmd;
 import me.d1lta.prison.commands.Spawn;
-import me.d1lta.prison.commands.Upgrade;
+import me.d1lta.prison.commands.SummonMob;
+import me.d1lta.prison.commands.Upgrades;
 import me.d1lta.prison.commands.WorldCreate;
 import me.d1lta.prison.commands.WorldTp;
+import me.d1lta.prison.commands.Upgrade;
 import me.d1lta.prison.events.DisableBlockPhysics;
 import me.d1lta.prison.events.BlockBreak;
 import me.d1lta.prison.events.BlockPlace;
+import me.d1lta.prison.events.EntityDeath;
 import me.d1lta.prison.events.PlayerDeath;
 import me.d1lta.prison.events.onInteract;
 import me.d1lta.prison.events.onJoin;
 import me.d1lta.prison.events.onSpawnEntity;
 import me.d1lta.prison.mines.MinesTimer;
+import me.d1lta.prison.mobs.bosses.Vindicator;
 import me.d1lta.prison.utils.LittlePlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.WorldCreator;
@@ -91,12 +96,15 @@ public final class Main extends JavaPlugin {
                 new DisableBlockPhysics(),
                 new BlockPlace(),
                 new onInteract(),
-                new Upgrade(),
                 new onSpawnEntity(),
                 new Level(),
                 new PlayerDeath(),
                 new Mine(),
-                new Blockstats());
+                new Blockstats(),
+                new Upgrade(),
+                new Upgrades(),
+                new EntityDeath(),
+                new Vindicator(null));
         Bukkit.getPluginManager().registerEvents(config, plugin);
         events.forEach(it -> Bukkit.getPluginManager().registerEvents(it, plugin));
     }
@@ -116,7 +124,9 @@ public final class Main extends JavaPlugin {
         commands.putAll(Map.of(
                 "mine", new Mine(),
                 "debug", new Debug(),
-                "blockstats", new Blockstats()));
+                "blockstats", new Blockstats(),
+                "upgrades", new Upgrades(),
+                "summonmob", new SummonMob()));
         commands.forEach((cmd, executor) -> getServer().getPluginCommand(cmd).setExecutor(executor));
     }
 }

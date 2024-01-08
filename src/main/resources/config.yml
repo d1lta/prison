@@ -31,6 +31,23 @@ prices:
   iron_block: 1
   gold_block: 1
   diamond_block: 1
+  items:
+    apple:
+      chance: 20
+      max_count: 12
+    chicken:
+      chance: 20
+      max_count: 6
+    paper:
+      chance: 10
+      max_count: 6
+    arrow:
+      chance: 8
+      max_count: 8
+    vault:
+      chance: 1
+    rare_pickaxe:
+      chance: 1
 minelore:
   3:
     M: STONE
@@ -498,7 +515,7 @@ levels:
 upgrades:
   shovel:
     level_1:
-      displayName: Лопата
+      displayName: Деревянная лопата
       displayLevel: 1 уровень
       level: 1
       type: WOODEN_SHOVEL
@@ -508,7 +525,7 @@ upgrades:
         - SAND:40
         - DIRT:40
     level_2:
-      displayName: Лопата
+      displayName: Деревянная лопата
       displayLevel: 2 уровень
       level: 2
       type: WOODEN_SHOVEL
@@ -520,7 +537,7 @@ upgrades:
         - SAND:40
         - DIRT:40
     level_3:
-      displayName: Лопата
+      displayName: Деревянная лопата
       displayLevel: 3 уровень
       level: 3
       type: WOODEN_SHOVEL
@@ -532,7 +549,7 @@ upgrades:
         - SAND:70
         - DIRT:70
     level_4:
-      displayName: Лопата
+      displayName: Деревянная лопата
       displayLevel: 4 уровень
       level: 4
       type: WOODEN_SHOVEL
@@ -544,7 +561,7 @@ upgrades:
         - SAND:140
         - DIRT:135
     level_5:
-      displayName: Лопата
+      displayName: Каменная лопата
       displayLevel: 5 уровень
       level: 5
       type: STONE_SHOVEL
@@ -554,7 +571,7 @@ upgrades:
         - SAND:450
         - DIRT:480
     level_6:
-      displayName: Лопата
+      displayName: Каменная лопата
       displayLevel: 6 уровень
       level: 6
       type: STONE_SHOVEL
@@ -566,7 +583,7 @@ upgrades:
         - SAND:1050
         - DIRT:980
     level_7:
-      displayName: Лопата
+      displayName: Каменная лопата
       displayLevel: 7 уровень
       level: 7
       type: STONE_SHOVEL
@@ -578,7 +595,7 @@ upgrades:
         - SAND:2111
         - DIRT:1999
     level_8:
-      displayName: Лопата
+      displayName: Каменная лопата
       displayLevel: 8 уровень
       level: 8
       type: STONE_SHOVEL
@@ -590,7 +607,7 @@ upgrades:
         - SAND:3223
         - DIRT:2980
     level_9:
-      displayName: Лопата
+      displayName: Железная лопата
       displayLevel: 9 уровень
       level: 9
       type: IRON_SHOVEL
@@ -600,7 +617,7 @@ upgrades:
         - SAND:4700
         - DIRT:4300
     level_10:
-      displayName: Лопата
+      displayName: Железная лопата
       displayLevel: 10 уровень
       level: 10
       type: IRON_SHOVEL
@@ -612,7 +629,7 @@ upgrades:
         - SAND:6500
         - DIRT:5900
     level_11:
-      displayName: Лопата
+      displayName: Железная лопата
       displayLevel: 11 уровень
       level: 11
       type: IRON_SHOVEL
@@ -624,7 +641,7 @@ upgrades:
         - SAND:7300
         - DIRT:6666
     level_12:
-      displayName: Лопата
+      displayName: Железная лопата
       displayLevel: 12 уровень
       level: 12
       type: IRON_SHOVEL
@@ -636,7 +653,7 @@ upgrades:
         - SAND:8900
         - DIRT:8000
     level_13:
-      displayName: Лопата
+      displayName: Алмазная лопата
       displayLevel: 13 уровень
       level: 13
       type: DIAMOND_SHOVEL
@@ -646,7 +663,7 @@ upgrades:
         - SAND:11550
         - DIRT:10600
     level_14:
-      displayName: Лопата
+      displayName: Алмазная лопата
       displayLevel: 14 уровень
       level: 14
       type: DIAMOND_SHOVEL
@@ -658,7 +675,7 @@ upgrades:
         - SAND:13000
         - DIRT:12222
     level_15:
-      displayName: Лопата
+      displayName: Алмазная лопата
       displayLevel: 15 уровень
       level: 15
       type: DIAMOND_SHOVEL
@@ -670,7 +687,7 @@ upgrades:
         - SAND:14850
         - DIRT:14000
     level_16:
-      displayName: Лопата
+      displayName: Алмазная лопата
       displayLevel: 16 уровень
       level: 16
       type: DIAMOND_SHOVEL
@@ -682,7 +699,7 @@ upgrades:
         - SAND:19500
         - DIRT:15000
     level_17:
-      displayName: Лопата
+      displayName: Алмазная лопата
       displayLevel: 17 уровень
       level: 17
       type: DIAMOND_SHOVEL
@@ -695,7 +712,7 @@ upgrades:
         - DIRT:21000
   pickaxe:
     level_1:
-      displayName: Кирка
+      displayName: Деревянная кирка
       displayLevel: 1 уровень
       level: 1
       type: WOODEN_PICKAXE
@@ -703,7 +720,7 @@ upgrades:
         - MONEY:15
         - STONE:40
     level_2:
-      displayName: Кирка
+      displayName: Деревянная кирка
       displayLevel: 2 уровень
       level: 2
       type: WOODEN_PICKAXE
@@ -713,7 +730,7 @@ upgrades:
         - MONEY:15
         - STONE:40
     level_3:
-      displayName: Кирка
+      displayName: Деревянная кирка
       displayLevel: 3 уровень
       level: 3
       type: WOODEN_PICKAXE
@@ -724,7 +741,7 @@ upgrades:
         - STONE:40
         - COAL_ORE:10
     level_4:
-      displayName: Кирка
+      displayName: Деревянная кирка
       displayLevel: 4 уровень
       level: 4
       type: WOODEN_PICKAXE
@@ -735,7 +752,7 @@ upgrades:
         - STONE:40
         - COAL_ORE:10
     level_5:
-      displayName: Кирка
+      displayName: Каменная кирка
       displayLevel: 5 уровень
       level: 5
       type: STONE_PICKAXE
@@ -745,7 +762,7 @@ upgrades:
         - COAL_ORE:10
         - IRON_ORE:10
     level_6:
-      displayName: Кирка
+      displayName: Каменная кирка
       displayLevel: 6 уровень
       level: 6
       type: STONE_PICKAXE
@@ -757,7 +774,7 @@ upgrades:
         - COAL_ORE:10
         - IRON_ORE:10
     level_7:
-      displayName: Кирка
+      displayName: Каменная кирка
       displayLevel: 7 уровень
       level: 7
       type: STONE_PICKAXE
@@ -769,7 +786,7 @@ upgrades:
         - COAL_ORE:10
         - IRON_ORE:10
     level_8:
-      displayName: Кирка
+      displayName: Каменная кирка
       displayLevel: 8 уровень
       level: 8
       type: STONE_PICKAXE
@@ -781,7 +798,7 @@ upgrades:
         - COAL_ORE:10
         - IRON_ORE:10
     level_9:
-      displayName: Кирка
+      displayName: Железная кирка
       displayLevel: 9 уровень
       level: 9
       type: IRON_PICKAXE
@@ -791,7 +808,7 @@ upgrades:
         - COAL_ORE:10
         - IRON_ORE:10
     level_10:
-      displayName: Кирка
+      displayName: Железная кирка
       displayLevel: 10 уровень
       level: 10
       type: IRON_PICKAXE
@@ -804,7 +821,7 @@ upgrades:
         - IRON_ORE:10
         - GOLD_ORE:10
     level_11:
-      displayName: Кирка
+      displayName: Железная кирка
       displayLevel: 11 уровень
       level: 11
       type: IRON_PICKAXE
@@ -817,7 +834,7 @@ upgrades:
         - IRON_ORE:10
         - GOLD_ORE:10
     level_12:
-      displayName: Кирка
+      displayName: Железная кирка
       displayLevel: 12 уровень
       level: 12
       type: IRON_PICKAXE
@@ -830,7 +847,7 @@ upgrades:
         - IRON_ORE:10
         - GOLD_ORE:10
     level_13:
-      displayName: Кирка
+      displayName: Алмазная кирка
       displayLevel: 13 уровень
       level: 13
       type: DIAMOND_PICKAXE
@@ -841,7 +858,7 @@ upgrades:
         - IRON_ORE:10
         - GOLD_ORE:10
     level_14:
-      displayName: Кирка
+      displayName: Алмазная кирка
       displayLevel: 14 уровень
       level: 14
       type: DIAMOND_PICKAXE
@@ -854,7 +871,7 @@ upgrades:
         - IRON_ORE:10
         - GOLD_ORE:10
     level_15:
-      displayName: Кирка
+      displayName: Алмазная кирка
       displayLevel: 15 уровень
       level: 15
       type: DIAMOND_PICKAXE
@@ -867,7 +884,7 @@ upgrades:
         - IRON_ORE:10
         - GOLD_ORE:10
     level_16:
-      displayName: Кирка
+      displayName: Алмазная кирка
       displayLevel: 16 уровень
       level: 16
       type: DIAMOND_PICKAXE
@@ -879,29 +896,221 @@ upgrades:
         - COAL_ORE:10
         - IRON_ORE:10
         - GOLD_ORE:10
+  rare_pickaxe:
+    level_1:
+      displayName: Редкая кирка
+      level: 1
+      type: WOODEN_PICKAXE
+      enchants:
+        - silk_touch:1
+      requirements:
+        - MONEY:15
+        - STONE:40
+    level_2:
+      displayName: Редкая кирка
+      level: 2
+      type: WOODEN_PICKAXE
+      enchants:
+        - efficiency:1
+        - silk_touch:1
+      requirements:
+        - MONEY:15
+        - STONE:40
+    level_3:
+      displayName: Редкая кирка
+      level: 3
+      type: WOODEN_PICKAXE
+      enchants:
+        - efficiency:2
+        - silk_touch:1
+      requirements:
+        - MONEY:20
+        - STONE:40
+        - COAL_ORE:10
+    level_4:
+      displayName: Редкая кирка
+      level: 4
+      type: WOODEN_PICKAXE
+      enchants:
+        - efficiency:3
+        - silk_touch:1
+      requirements:
+        - MONEY:30
+        - STONE:40
+        - COAL_ORE:10
+    level_5:
+      displayName: Редкая кирка
+      level: 5
+      type: WOODEN_PICKAXE
+      enchants:
+        - efficiency:4
+        - silk_touch:1
+      requirements:
+        - MONEY:30
+        - STONE:40
+        - COAL_ORE:10
+    level_6:
+      displayName: Редкая кирка
+      level: 6
+      type: STONE_PICKAXE
+      enchants:
+        - efficiency:1
+        - silk_touch:1
+      requirements:
+        - MONEY:30
+        - STONE:40
+        - COAL_ORE:10
+    level_7:
+      displayName: Редкая кирка
+      level: 57
+      type: STONE_PICKAXE
+      enchants:
+        - efficiency:2
+        - silk_touch:1
+      requirements:
+        - MONEY:30
+        - STONE:40
+        - COAL_ORE:10
+    level_8:
+      displayName: Редкая кирка
+      level: 8
+      type: STONE_PICKAXE
+      enchants:
+        - efficiency:3
+        - silk_touch:1
+      requirements:
+        - MONEY:30
+        - STONE:40
+        - COAL_ORE:10
+    level_9:
+      displayName: Редкая кирка
+      level: 9
+      type: STONE_PICKAXE
+      enchants:
+        - efficiency:4
+        - silk_touch:1
+      requirements:
+        - MONEY:30
+        - STONE:40
+        - COAL_ORE:10
+    level_10:
+      displayName: Редкая кирка
+      level: 10
+      type: IRON_PICKAXE
+      enchants:
+        - silk_touch:1
+      requirements:
+        - MONEY:30
+        - STONE:40
+        - COAL_ORE:10
+    level_11:
+      displayName: Редкая кирка
+      level: 11
+      type: IRON_PICKAXE
+      enchants:
+        - efficiency:1
+        - silk_touch:1
+      requirements:
+        - MONEY:30
+        - STONE:40
+        - COAL_ORE:10
+    level_12:
+      displayName: Редкая кирка
+      level: 12
+      type: IRON_PICKAXE
+      enchants:
+        - efficiency:2
+        - silk_touch:1
+      requirements:
+        - MONEY:30
+        - STONE:40
+        - COAL_ORE:10
+    level_13:
+      displayName: Редкая кирка
+      level: 13
+      type: IRON_PICKAXE
+      enchants:
+        - efficiency:3
+        - silk_touch:1
+      requirements:
+        - MONEY:30
+        - STONE:40
+        - COAL_ORE:10
+    level_14:
+      displayName: Редкая кирка
+      level: 14
+      type: IRON_PICKAXE
+      enchants:
+        - efficiency:4
+        - silk_touch:1
+      requirements:
+        - MONEY:30
+        - STONE:40
+        - COAL_ORE:10
+    level_15:
+      displayName: Редкая кирка
+      level: 15
+      type: DIAMOND_PICKAXE
+      enchants:
+        - silk_touch:1
+      requirements:
+        - MONEY:30
+        - STONE:40
+        - COAL_ORE:10
+    level_16:
+      displayName: Редкая кирка
+      level: 16
+      type: DIAMOND_PICKAXE
+      enchants:
+        - efficiency:1
+        - silk_touch:1
+      requirements:
+        - MONEY:30
+        - STONE:40
+        - COAL_ORE:10
     level_17:
-      displayName: Кирка
-      displayLevel: 17 уровень
+      displayName: Редкая кирка
       level: 17
       type: DIAMOND_PICKAXE
       enchants:
-        - efficiency:4
+        - efficiency:2
+        - silk_touch:1
       requirements:
-        - MONEY:3000
+        - MONEY:30
         - STONE:40
         - COAL_ORE:10
-        - IRON_ORE:10
-        - GOLD_ORE:10
+    level_18:
+      displayName: Редкая кирка
+      level: 18
+      type: DIAMOND_PICKAXE
+      enchants:
+        - efficiency:3
+        - silk_touch:1
+      requirements:
+        - MONEY:30
+        - STONE:40
+        - COAL_ORE:10
+    level_19:
+      displayName: Редкая кирка
+      level: 19
+      type: DIAMOND_PICKAXE
+      enchants:
+        - efficiency:4
+        - silk_touch:1
+      requirements:
+        - MONEY:30
+        - STONE:40
+        - COAL_ORE:10
   axe:
     level_1:
-      displayName: Топор
+      displayName: Деревянный топор
       displayLevel: 1 уровень
       level: 1
       type: WOODEN_AXE
       requirements:
         - MONEY:15
     level_2:
-      displayName: Топор
+      displayName: Деревянный топор
       displayLevel: 2 уровень
       level: 2
       type: WOODEN_AXE
@@ -910,7 +1119,7 @@ upgrades:
       requirements:
         - MONEY:15
     level_3:
-      displayName: Топор
+      displayName: Деревянный топор
       displayLevel: 3 уровень
       level: 3
       type: WOODEN_AXE
@@ -919,7 +1128,7 @@ upgrades:
       requirements:
         - MONEY:20
     level_4:
-      displayName: Кирка
+      displayName: Деревянный топор
       displayLevel: 4 уровень
       level: 4
       type: WOODEN_AXE
@@ -928,14 +1137,14 @@ upgrades:
       requirements:
         - MONEY:30
     level_5:
-      displayName: Топор
+      displayName: Каменный топор
       displayLevel: 5 уровень
       level: 5
       type: STONE_AXE
       requirements:
         - MONEY:50
     level_6:
-      displayName: Топор
+      displayName: Каменный топор
       displayLevel: 6 уровень
       level: 6
       type: STONE_AXE
@@ -944,7 +1153,7 @@ upgrades:
       requirements:
         - MONEY:65
     level_7:
-      displayName: Топор
+      displayName: Каменный топор
       displayLevel: 7 уровень
       level: 7
       type: STONE_AXE
@@ -953,7 +1162,7 @@ upgrades:
       requirements:
         - MONEY:110
     level_8:
-      displayName: Топор
+      displayName: Каменный топор
       displayLevel: 8 уровень
       level: 8
       type: STONE_AXE
@@ -962,14 +1171,14 @@ upgrades:
       requirements:
         - MONEY:140
     level_9:
-      displayName: Топор
+      displayName: Железный топор
       displayLevel: 9 уровень
       level: 9
       type: IRON_AXE
       requirements:
         - MONEY:410
     level_10:
-      displayName: Топор
+      displayName: Железный топор
       displayLevel: 10 уровень
       level: 10
       type: IRON_AXE
@@ -978,7 +1187,7 @@ upgrades:
       requirements:
         - MONEY:495
     level_11:
-      displayName: Топор
+      displayName: Железный топор
       displayLevel: 11 уровень
       level: 11
       type: IRON_AXE
@@ -987,7 +1196,7 @@ upgrades:
       requirements:
         - MONEY:600
     level_12:
-      displayName: Топор
+      displayName: Железный топор
       displayLevel: 12 уровень
       level: 12
       type: IRON_AXE
@@ -996,14 +1205,14 @@ upgrades:
       requirements:
         - MONEY:600
     level_13:
-      displayName: Топор
+      displayName: Алмазный топор
       displayLevel: 13 уровень
       level: 13
       type: DIAMOND_AXE
       requirements:
         - MONEY:888
     level_14:
-      displayName: Топор
+      displayName: Алмазный топор
       displayLevel: 14 уровень
       level: 14
       type: DIAMOND_AXE
@@ -1012,7 +1221,7 @@ upgrades:
       requirements:
         - MONEY:1000
     level_15:
-      displayName: Топор
+      displayName: Алмазный топор
       displayLevel: 15 уровень
       level: 15
       type: DIAMOND_AXE
@@ -1021,7 +1230,7 @@ upgrades:
       requirements:
         - MONEY:1150
     level_16:
-      displayName: Топор
+      displayName: Алмазный топор
       displayLevel: 16 уровень
       level: 16
       type: DIAMOND_AXE
@@ -1029,15 +1238,6 @@ upgrades:
         - efficiency:3
       requirements:
         - MONEY:2500
-    level_17:
-      displayName: Топор
-      displayLevel: 17 уровень
-      level: 17
-      type: DIAMOND_AXE
-      enchants:
-        - efficiency:4
-      requirements:
-        - MONEY:3000
   shears:
     level_1:
       displayName: Ножницы
@@ -1097,3 +1297,688 @@ upgrades:
       requirements:
         - MONEY:15
         - WHITE_WOOL:20
+  sword:
+    level_1:
+      displayName: Деревянный меч
+      level: 1
+      type: WOODEN_SWORD
+      requirements:
+        - MONEY:15
+        - RATS:1
+    level_2:
+      displayName: Деревянный меч
+      level: 2
+      type: WOODEN_SWORD
+      enchants:
+        - sharpness:1
+      requirements:
+        - MONEY:15
+        - RATS:1
+    level_3:
+      displayName: Деревянный меч
+      level: 3
+      type: WOODEN_SWORD
+      enchants:
+        - sharpness:2
+      requirements:
+        - MONEY:15
+        - RATS:1
+    level_4:
+      displayName: Деревянный меч
+      level: 4
+      type: WOODEN_SWORD
+      enchants:
+        - sharpness:3
+      requirements:
+        - MONEY:15
+        - RATS:1
+    level_5:
+      displayName: Каменный меч
+      level: 5
+      type: STONE_SWORD
+      requirements:
+        - MONEY:15
+        - RATS:1
+    level_6:
+      displayName: Каменный меч
+      level: 6
+      type: STONE_SWORD
+      enchants:
+        - sharpness:1
+      requirements:
+        - MONEY:15
+        - RATS:1
+    level_7:
+      displayName: Каменный меч
+      level: 7
+      type: STONE_SWORD
+      enchants:
+        - sharpness:2
+      requirements:
+        - MONEY:15
+        - RATS:1
+    level_8:
+      displayName: Каменный меч
+      level: 8
+      type: STONE_SWORD
+      enchants:
+        - sharpness:3
+      requirements:
+        - MONEY:15
+        - RATS:1
+    level_9:
+      displayName: Железный меч
+      level: 9
+      type: IRON_SWORD
+      requirements:
+        - MONEY:15
+        - RATS:1
+    level_10:
+      displayName: Железный меч
+      level: 10
+      type: IRON_SWORD
+      enchants:
+        - sharpness:1
+      requirements:
+        - MONEY:15
+        - RATS:1
+    level_11:
+      displayName: Железный меч
+      level: 11
+      type: IRON_SWORD
+      enchants:
+        - sharpness:2
+      requirements:
+        - MONEY:15
+        - RATS:1
+    level_12:
+      displayName: Железный меч
+      level: 12
+      type: IRON_SWORD
+      enchants:
+        - sharpness:3
+      requirements:
+        - MONEY:15
+        - RATS:1
+    level_13:
+      displayName: Алмазный меч
+      level: 13
+      type: DIAMOND_SWORD
+      requirements:
+        - MONEY:15
+        - RATS:1
+    level_14:
+      displayName: Алмазный меч
+      level: 14
+      type: DIAMOND_SWORD
+      enchants:
+        - sharpness:1
+      requirements:
+        - MONEY:15
+        - RATS:1
+    level_15:
+      displayName: Алмазный меч
+      level: 15
+      type: DIAMOND_SWORD
+      enchants:
+        - sharpness:2
+      requirements:
+        - MONEY:15
+        - RATS:1
+  bow:
+    level_1:
+      displayName: Лук
+      level: 1
+      type: BOW
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_2:
+      displayName: Лук
+      level: 2
+      type: BOW
+      enchants:
+        - power:1
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_3:
+      displayName: Лук
+      level: 3
+      type: BOW
+      enchants:
+        - power:2
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_4:
+      displayName: Лук
+      level: 4
+      type: BOW
+      enchants:
+        - power:3
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_5:
+      displayName: Лук
+      level: 1
+      type: BOW
+      enchants:
+        - power:4
+        - flame:1
+      requirements:
+        - MONEY:15
+        - RATS:0
+  helmet:
+    level_1:
+      displayName: Кожаный шлем
+      level: 1
+      type: LEATHER_HELMET
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_2:
+      displayName: Кожаный шлем
+      level: 2
+      type: LEATHER_HELMET
+      enchants:
+        - protection:1
+      requirements:
+        - MONEY:15
+        - RATS:1
+    level_3:
+      displayName: Кожаный шлем
+      level: 3
+      type: LEATHER_HELMET
+      enchants:
+        - protection:2
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_4:
+      displayName: Кожаный шлем
+      level: 4
+      type: LEATHER_HELMET
+      enchants:
+        - protection:3
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_5:
+      displayName: Колючужный шлем
+      level: 5
+      type: CHAINMAIL_HELMET
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_6:
+      displayName: Колючужный шлем
+      level: 6
+      type: CHAINMAIL_HELMET
+      enchants:
+        - protection:1
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_7:
+      displayName: Колючужный шлем
+      level: 7
+      type: CHAINMAIL_HELMET
+      enchants:
+        - protection:2
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_8:
+      displayName: Колючужный шлем
+      level: 8
+      type: CHAINMAIL_HELMET
+      enchants:
+        - protection:3
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_9:
+      displayName: Железный шлем
+      level: 9
+      type: IRON_HELMET
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_10:
+      displayName: Железный шлем
+      level: 10
+      type: IRON_HELMET
+      enchants:
+        - protection:1
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_11:
+      displayName: Железный шлем
+      level: 11
+      type: IRON_HELMET
+      enchants:
+        - protection:2
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_12:
+      displayName: Железный шлем
+      level: 12
+      type: IRON_HELMET
+      enchants:
+        - protection:3
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_13:
+      displayName: Алмазный шлем
+      level: 13
+      type: DIAMOND_HELMET
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_14:
+      displayName: Алмазный шлем
+      level: 14
+      type: DIAMOND_HELMET
+      enchants:
+        - protection:1
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_15:
+      displayName: Алмазный шлем
+      level: 15
+      type: DIAMOND_HELMET
+      enchants:
+        - protection:2
+      requirements:
+        - MONEY:15
+        - RATS:0
+  chestplate:
+    level_1:
+      displayName: Кожаный нагрудник
+      level: 1
+      type: LEATHER_CHESTPLATE
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_2:
+      displayName: Кожаный нагрудник
+      level: 2
+      type: LEATHER_CHESTPLATE
+      enchants:
+        - protection:1
+      requirements:
+        - MONEY:15
+        - RATS:1
+    level_3:
+      displayName: Кожаный нагрудник
+      level: 3
+      type: LEATHER_CHESTPLATE
+      enchants:
+        - protection:2
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_4:
+      displayName: Кожаный нагрудник
+      level: 4
+      type: LEATHER_CHESTPLATE
+      enchants:
+        - protection:3
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_5:
+      displayName: Колючужный нагрудник
+      level: 5
+      type: CHAINMAIL_CHESTPLATE
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_6:
+      displayName: Колючужный нагрудник
+      level: 6
+      type: CHAINMAIL_CHESTPLATE
+      enchants:
+        - protection:1
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_7:
+      displayName: Колючужный нагрудник
+      level: 7
+      type: CHAINMAIL_CHESTPLATE
+      enchants:
+        - protection:2
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_8:
+      displayName: Колючужный нагрудник
+      level: 8
+      type: CHAINMAIL_CHESTPLATE
+      enchants:
+        - protection:3
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_9:
+      displayName: Железный нагрудник
+      level: 9
+      type: IRON_CHESTPLATE
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_10:
+      displayName: Железный нагрудник
+      level: 10
+      type: IRON_CHESTPLATE
+      enchants:
+        - protection:1
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_11:
+      displayName: Железный нагрудник
+      level: 11
+      type: IRON_CHESTPLATE
+      enchants:
+        - protection:2
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_12:
+      displayName: Железный нагрудник
+      level: 12
+      type: IRON_CHESTPLATE
+      enchants:
+        - protection:3
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_13:
+      displayName: Алмазный нагрудник
+      level: 13
+      type: DIAMOND_CHESTPLATE
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_14:
+      displayName: Алмазный нагрудник
+      level: 14
+      type: DIAMOND_CHESTPLATE
+      enchants:
+        - protection:1
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_15:
+      displayName: Алмазный нагрудник
+      level: 15
+      type: DIAMOND_CHESTPLATE
+      enchants:
+        - protection:2
+      requirements:
+        - MONEY:15
+        - RATS:0
+  leggings:
+    level_1:
+      displayName: Кожаные поножи
+      level: 1
+      type: LEATHER_LEGGINGS
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_2:
+      displayName: Кожаные поножи
+      level: 2
+      type: LEATHER_LEGGINGS
+      enchants:
+        - protection:1
+      requirements:
+        - MONEY:15
+        - RATS:1
+    level_3:
+      displayName: Кожаные поножи
+      level: 3
+      type: LEATHER_LEGGINGS
+      enchants:
+        - protection:2
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_4:
+      displayName: Кожаные поножи
+      level: 4
+      type: LEATHER_LEGGINGS
+      enchants:
+        - protection:3
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_5:
+      displayName: Колючужные поножи
+      level: 5
+      type: CHAINMAIL_LEGGINGS
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_6:
+      displayName: Колючужные поножи
+      level: 6
+      type: CHAINMAIL_LEGGINGS
+      enchants:
+        - protection:1
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_7:
+      displayName: Колючужные поножи
+      level: 7
+      type: CHAINMAIL_LEGGINGS
+      enchants:
+        - protection:2
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_8:
+      displayName: Колючужные поножи
+      level: 8
+      type: CHAINMAIL_LEGGINGS
+      enchants:
+        - protection:3
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_9:
+      displayName: Железные поножи
+      level: 9
+      type: IRON_LEGGINGS
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_10:
+      displayName: Железные поножи
+      level: 10
+      type: IRON_LEGGINGS
+      enchants:
+        - protection:1
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_11:
+      displayName: Железные поножи
+      level: 11
+      type: IRON_LEGGINGS
+      enchants:
+        - protection:2
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_12:
+      displayName: Железные поножи
+      level: 12
+      type: IRON_LEGGINGS
+      enchants:
+        - protection:3
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_13:
+      displayName: Алмазные поножи
+      level: 13
+      type: DIAMOND_LEGGINGS
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_14:
+      displayName: Алмазные поножи
+      level: 14
+      type: DIAMOND_LEGGINGS
+      enchants:
+        - protection:1
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_15:
+      displayName: Алмазные поножи
+      level: 15
+      type: DIAMOND_LEGGINGS
+      enchants:
+        - protection:2
+      requirements:
+        - MONEY:15
+        - RATS:0
+  boots:
+    level_1:
+      displayName: Кожаные ботинки
+      level: 1
+      type: LEATHER_BOOTS
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_2:
+      displayName: Кожаные ботинки
+      level: 2
+      type: LEATHER_BOOTS
+      enchants:
+        - protection:1
+      requirements:
+        - MONEY:15
+        - RATS:1
+    level_3:
+      displayName: Кожаные ботинки
+      level: 3
+      type: LEATHER_BOOTS
+      enchants:
+        - protection:2
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_4:
+      displayName: Кожаные ботинки
+      level: 4
+      type: LEATHER_BOOTS
+      enchants:
+        - protection:3
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_5:
+      displayName: Колючужные ботинки
+      level: 5
+      type: CHAINMAIL_BOOTS
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_6:
+      displayName: Колючужные ботинки
+      level: 6
+      type: CHAINMAIL_BOOTS
+      enchants:
+        - protection:1
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_7:
+      displayName: Колючужные ботинки
+      level: 7
+      type: CHAINMAIL_BOOTS
+      enchants:
+        - protection:2
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_8:
+      displayName: Колючужные ботинки
+      level: 8
+      type: CHAINMAIL_BOOTS
+      enchants:
+        - protection:3
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_9:
+      displayName: Железные ботинки
+      level: 9
+      type: IRON_BOOTS
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_10:
+      displayName: Железные ботинки
+      level: 10
+      type: IRON_BOOTS
+      enchants:
+        - protection:1
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_11:
+      displayName: Железные ботинки
+      level: 11
+      type: IRON_BOOTS
+      enchants:
+        - protection:2
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_12:
+      displayName: Железные ботинки
+      level: 12
+      type: IRON_BOOTS
+      enchants:
+        - protection:3
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_13:
+      displayName: Алмазные ботинки
+      level: 13
+      type: DIAMOND_BOOTS
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_14:
+      displayName: Алмазные ботинки
+      level: 14
+      type: DIAMOND_BOOTS
+      enchants:
+        - protection:1
+      requirements:
+        - MONEY:15
+        - RATS:0
+    level_15:
+      displayName: Алмазные ботинки
+      level: 15
+      type: DIAMOND_BOOTS
+      enchants:
+        - protection:2
+      requirements:
+        - MONEY:15
+        - RATS:0

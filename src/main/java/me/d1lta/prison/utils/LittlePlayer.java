@@ -7,6 +7,7 @@ import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scoreboard.Scoreboard;
@@ -21,6 +22,8 @@ public class LittlePlayer {
         }
     }
 
+    public String getName() { return Bukkit.getPlayer(uuid).getName(); }
+
     public Location getLocation() {
         return Bukkit.getPlayer(uuid).getLocation();
     }
@@ -29,6 +32,7 @@ public class LittlePlayer {
 
     public void teleport(Location loc) { Bukkit.getPlayer(uuid).teleport(loc); }
 
+    public World getWorld() { return Bukkit.getPlayer(uuid).getWorld(); }
     public double getX() { return Bukkit.getPlayer(uuid).getX(); }
 
     public double getY() { return Bukkit.getPlayer(uuid).getY(); }

@@ -21,3 +21,5 @@ commands:
   mine:
   debug:
   blockstats:
+  upgrades:
+  summonmob:

@@ -22,6 +22,18 @@ public class onJoin implements Listener {
         if (Jedis.get(uuid + ".money") == null) {
             Jedis.set(uuid + ".money", "0");
         }
+        if (Jedis.get(uuid + ".rats") == null) {
+            Jedis.set(uuid + ".rats", "0");
+        }
+        if (Jedis.get(uuid + ".kills") == null) {
+            Jedis.set(uuid + ".kills", "0");
+        }
+        if (Jedis.get(uuid + ".deaths") == null) {
+            Jedis.set(uuid + ".deaths", "0");
+        }
+        if (Jedis.get(uuid + ".faction") == null) {
+            Jedis.set(uuid + ".faction", "Нет фракции");
+        }
         if (Jedis.get(uuid + ".blocks.dirt") == null) {
             Jedis.set(uuid + ".blocks.dirt", "0");
         }
