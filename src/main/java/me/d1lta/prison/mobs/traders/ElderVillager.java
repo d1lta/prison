@@ -70,6 +70,7 @@ public class ElderVillager implements Listener {
                 String type = NBT.getStringNBT(stack, "type");
                 for (ItemStack it : pl.getInventory()) {
                     if (it == null) { continue; }
+                    if (it.getItemMeta().displayName() == null) { return; }
                     if (it.getItemMeta().displayName().equals(ElderStar.getStar().getItemMeta().displayName())) {
                         if (it.getAmount() >= price) {
                             it.setAmount(it.getAmount() - price);

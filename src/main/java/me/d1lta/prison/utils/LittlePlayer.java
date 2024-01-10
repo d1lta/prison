@@ -4,6 +4,8 @@ import java.util.Objects;
 import java.util.UUID;
 import me.d1lta.prison.Jedis;
 import me.d1lta.prison.enums.Factions;
+import me.d1lta.prison.warzone.MoneyPoint;
+import me.d1lta.prison.warzone.WarzoneCapture;
 import net.kyori.adventure.text.Component;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -14,6 +16,7 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
 import org.bukkit.scoreboard.Scoreboard;
 
 public class LittlePlayer {
@@ -30,6 +33,8 @@ public class LittlePlayer {
         this.getWorld().dropItem(this.getLocation(), this.getItemInMainHand());
         this.getItemInMainHand().setAmount(0);
     }
+
+    public void giveEffect(PotionEffect effect) { Bukkit.getPlayer(uuid).addPotionEffect(effect); }
 
     public void giveItem(ItemStack stack) {
         Bukkit.getPlayer(uuid).getInventory().addItem(stack);
@@ -67,7 +72,13 @@ public class LittlePlayer {
 
     public void addBlock() { Jedis.set(uuid + ".blocks", String.valueOf(this.getBlocks() + 1)); }
 
-    public void addMoney(double amount) { Jedis.set(uuid + ".money", String.valueOf(Double.parseDouble(Jedis.get(uuid + ".money")) + amount)); }
+    public double addMoney(double amount, String type) {
+        if (this.getFaction().equals(WarzoneCapture.money.capturedBy) && type.equals("sell")) {
+            amount = amount * MoneyPoint.modifier;
+        }
+        Jedis.set(uuid + ".money", String.valueOf(Double.parseDouble(Jedis.get(uuid + ".money")) + amount));
+        return amount;
+    }
 
     public void addMoney(int amount) { Jedis.set(uuid + ".money", String.valueOf(Double.parseDouble(Jedis.get(uuid + ".money")) + amount)); }
 

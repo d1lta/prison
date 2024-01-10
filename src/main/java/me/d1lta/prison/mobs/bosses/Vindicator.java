@@ -70,7 +70,7 @@ public class Vindicator implements Listener {
                 }
             });
             for (UUID uuid : dealDamagers.keySet()) {
-                new LittlePlayer(uuid).addMoney(dealDamagers.get(uuid) * multiplier);
+                new LittlePlayer(uuid).addMoney(dealDamagers.get(uuid) * multiplier, "boss");
             }
             e.getDrops().clear();
             e.setDroppedExp(0);

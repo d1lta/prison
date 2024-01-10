@@ -24,10 +24,11 @@ public class Upgrades implements CommandExecutor, Listener {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (sender instanceof Player) {
             LittlePlayer pl = new LittlePlayer(((Player) sender).getUniqueId());
-            if (pl.getItemInMainHand() == null) {
+            if (pl.getItemInMainHand() == null || pl.getItemInMainHand().getType().equals(Material.AIR) || pl.getItemInMainHand().getAmount() == 0) {
                 return false;
             }
-            if (NBT.getStringNBT(pl.getItemInMainHand(), "type") != null) {
+            String type = NBT.getStringNBT(pl.getItemInMainHand(), "type");
+            if (type != null && !type.equals("")) {
                 openUI(pl, NBT.getStringNBT(pl.getItemInMainHand(), "type"));
             }
             return true;

@@ -349,6 +349,48 @@ spawnpoints:
       z: -100.5
       yaw: 0.0
       pitch: 0.0
+  warzone:
+    asian:
+      x: -50.5
+      y: 65.0
+      z: 0.5
+      yaw: -90.0
+      pitch: 0.0
+    nigger:
+      x: 0.5
+      y: 65.0
+      z: 50.5
+      yaw: 180.0
+      pitch: 0.0
+    latin:
+      x: 50.5
+      y: 65.0
+      z: 0.5
+      yaw: 90.0
+      pitch: 0.0
+    white:
+      x: 0.5
+      y: 65.0
+      z: -50.5
+      yaw: 0.0
+      pitch: 0.0
+warzonepoints:
+  haste:
+    x: -47
+    y: 64
+    z: 47
+  blocks:
+    x: -47
+    y: 64
+    z: -47
+  speed:
+    x: 47
+    y: 64
+    z: -47
+  money:
+    x: 47
+    y: 64
+    z: 47
 mines:
   dirtmine:
     world: hub

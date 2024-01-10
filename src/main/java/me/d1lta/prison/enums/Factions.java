@@ -1,9 +1,14 @@
 package me.d1lta.prison.enums;
 
+import java.util.ArrayList;
+import java.util.List;
 import me.d1lta.prison.utils.ComponentUtils;
+import me.d1lta.prison.utils.LittlePlayer;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 
 public enum Factions {
 
@@ -35,14 +40,53 @@ public enum Factions {
 
     public Component getComponent() { return ComponentUtils.component(name, color); }
 
+    public Material getWarzoneBlockMat() {
+        return switch (this) {
+            case WHITE -> Material.LIGHT_GRAY_WOOL;
+            case ASIAN -> Material.YELLOW_WOOL;
+            case LATINOS -> Material.ORANGE_WOOL;
+            case NIGGERS -> Material.BLACK_WOOL;
+            case NO_FACTION -> Material.WHITE_WOOL;
+        };
+    }
+
+    public Material getWarzoneGlassMat() {
+        return switch (this) {
+            case WHITE -> Material.GRAY_STAINED_GLASS;
+            case ASIAN -> Material.YELLOW_STAINED_GLASS;
+            case LATINOS -> Material.ORANGE_STAINED_GLASS;
+            case NIGGERS -> Material.BLACK_STAINED_GLASS;
+            case NO_FACTION -> Material.WHITE_STAINED_GLASS;
+        };
+    }
+
     public static Factions getFaction(String name) {
         for (Factions f: Factions.values()) {
             if (f.name.equals(name)) {
                 return f;
             }
         }
-        return null;
+        return NO_FACTION;
     }
 
+    public static List<LittlePlayer> getPlayersInFaction(Factions faction) {
+        List<LittlePlayer> list = new ArrayList<>();
+        for (Player pl: Bukkit.getOnlinePlayers()) {
+            if (new LittlePlayer(pl.getUniqueId()).getFaction().equals(faction)) {
+                list.add(new LittlePlayer(pl.getUniqueId()));
+            }
+        }
+        return list;
+    }
 
+    public static boolean isPlayersInSingleFaction(List<LittlePlayer> list) {
+        if (list.size() == 0) { return false; }
+        Factions faction = list.get(0).getFaction();
+        for (LittlePlayer pl: list) {
+            if (!pl.getFaction().equals(faction)) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

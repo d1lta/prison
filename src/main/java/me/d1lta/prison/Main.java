@@ -19,9 +19,11 @@ import me.d1lta.prison.commands.SellCmd;
 import me.d1lta.prison.commands.Spawn;
 import me.d1lta.prison.commands.SummonMob;
 import me.d1lta.prison.commands.Upgrades;
+import me.d1lta.prison.commands.Warzone;
 import me.d1lta.prison.commands.WorldCreate;
 import me.d1lta.prison.commands.WorldTp;
 import me.d1lta.prison.commands.Upgrade;
+import me.d1lta.prison.enums.Factions;
 import me.d1lta.prison.events.DisableBlockPhysics;
 import me.d1lta.prison.events.BlockBreak;
 import me.d1lta.prison.events.BlockPlace;
@@ -38,6 +40,9 @@ import me.d1lta.prison.mobs.bosses.Vindicator;
 import me.d1lta.prison.mobs.traders.ElderVillager;
 import me.d1lta.prison.mobs.traders.StartVillager;
 import me.d1lta.prison.utils.LittlePlayer;
+import me.d1lta.prison.warzone.Point;
+import me.d1lta.prison.warzone.WarzoneCapture;
+import me.d1lta.prison.worldGenerators.VoidGen;
 import org.bukkit.Bukkit;
 import org.bukkit.WorldCreator;
 import org.bukkit.command.CommandExecutor;
@@ -74,6 +79,11 @@ public final class Main extends JavaPlugin {
     @Override
     public void onDisable() {
         pool.close();
+        Main.config.getConfig().getConfigurationSection("warzonepoints").getKeys(false).forEach(it -> {
+            WarzoneCapture.getPoint(WarzoneCapture.getCentralPoint(it)).refreshColor(WarzoneCapture.getCentralPoint(it));
+            WarzoneCapture.getCentralPoint(it).getBlock().setType(Factions.NO_FACTION.getWarzoneGlassMat());
+        });
+        Bukkit.getLogger().warning("DISABLED PRISON");
     }
 
     public void timer() {
@@ -89,13 +99,15 @@ public final class Main extends JavaPlugin {
     private static void worldLoader() {
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
             if (config.getConfig().getConfigurationSection("worlds") != null) {
-                config.getConfig().getConfigurationSection("worlds").getKeys(false).forEach(it -> { new WorldCreator(it).createWorld(); });
+                config.getConfig().getConfigurationSection("worlds").getKeys(false).forEach(it -> {
+                    new WorldCreator(it).generator(new VoidGen()).createWorld();
+                });
                 DefaultChest.initLoc();
                 DefaultChest.spawnChest();
                 EnderChest.initLoc();
                 EnderChest.spawnChest();
             }
-        },100L);
+        },40L);
     }
 
     private void registerEvents() {
@@ -119,6 +131,7 @@ public final class Main extends JavaPlugin {
                 new Faction(),
                 new PlayerFaction(),
                 new ItemDrop(),
+                new WarzoneCapture(),
                 new Vindicator(null),
                 new StartVillager(null),
                 new ElderVillager(null));
@@ -146,7 +159,8 @@ public final class Main extends JavaPlugin {
                 "summonmob", new SummonMob(),
                 "faction", new Faction(),
                 "base", new Base(),
-                "gift", new Gift()));
+                "gift", new Gift(),
+                "warzone", new Warzone()));
         commands.forEach((cmd, executor) -> getServer().getPluginCommand(cmd).setExecutor(executor));
     }
 }

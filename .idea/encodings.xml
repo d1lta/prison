@@ -4,7 +4,6 @@
     <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/Sell.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/Teleport.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/archive/Mine.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/archive/Mine.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/archive/Upgrade.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/chests/DefaultChest.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/chests/EnderChest.java" charset="UTF-8" />
@@ -18,6 +17,7 @@
     <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/commands/SellCmd.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/commands/Upgrade.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/commands/Upgrades.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/commands/Warzone.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/enums/Factions.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/events/BlockBreak.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/events/onInteract.java" charset="UTF-8" />
@@ -37,6 +37,8 @@
     <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/mobs/traders/ElderVillager.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/mobs/traders/StartVillager.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/utils/ComponentUtils.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/warzone/Point.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/warzone/WarzoneCapture.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources/config.yml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources/plugin.yml" charset="UTF-8" />
   </component>

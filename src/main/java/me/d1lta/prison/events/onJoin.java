@@ -3,8 +3,10 @@ package me.d1lta.prison.events;
 import java.util.UUID;
 import me.d1lta.prison.Jedis;
 import me.d1lta.prison.Main;
+import me.d1lta.prison.enums.Factions;
 import me.d1lta.prison.utils.LittlePlayer;
 import me.d1lta.prison.utils.LocationUtils;
+import org.apache.commons.lang3.math.Fraction;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
@@ -32,7 +34,7 @@ public class onJoin implements Listener {
             Jedis.set(uuid + ".deaths", "0");
         }
         if (Jedis.get(uuid + ".faction") == null) {
-            Jedis.set(uuid + ".faction", "Нет фракции");
+            Jedis.set(uuid + ".faction", Factions.NO_FACTION.getName());
         }
         if (Jedis.get(uuid + ".vault") == null) {
             Jedis.set(uuid + ".vault", "false");

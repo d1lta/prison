@@ -1,7 +1,9 @@
 package me.d1lta.prison.utils;
 
+import de.tr7zw.nbtapi.NBTCompound;
 import de.tr7zw.nbtapi.NBTEntity;
 import de.tr7zw.nbtapi.NBTItem;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import org.bukkit.Bukkit;

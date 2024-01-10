@@ -21,7 +21,7 @@ public class Sell {
         }
 
 
-        pl.addMoney(money);
+        money = pl.addMoney(money, "sell");
         pl.sendLittleTitle(new TextComponent("Вы продали блоков на " + money + " монет."));
     }
 

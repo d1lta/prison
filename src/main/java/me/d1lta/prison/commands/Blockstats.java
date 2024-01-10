@@ -38,6 +38,7 @@ public class Blockstats implements CommandExecutor, Listener {
     private static void openUI(LittlePlayer pl) {
         Inventory inv = Bukkit.createInventory(null, 54, "Статистика");
         AllowedBlocks.blocks.forEach(it -> {
+            it = it.clone();
             ItemMeta meta = it.getItemMeta();
             meta.displayName(meta.displayName().color(TextColor.color(255, 255, 255)));
             meta.lore(

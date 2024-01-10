@@ -42,6 +42,9 @@ public class Upgrade implements CommandExecutor, Listener {
             }
             ItemStack stack = pl.getItemInMainHand();
             String type = NBT.getStringNBT(stack, "type");
+            if (type == null || type.equals("")) {
+                return true;
+            }
             int maxlvl = Main.config.getConfig().getConfigurationSection("upgrades." + type).getKeys(false).size();
             int currentlvl = NBT.getIntNBT(stack, "level");
             if (args.length == 1 && args[0].equals("max") && pl.isOp()) {
