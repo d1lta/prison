@@ -1,8 +1,8 @@
 package me.d1lta.prison.utils;
 
-import java.util.Objects;
 import java.util.UUID;
 import me.d1lta.prison.Jedis;
+import me.d1lta.prison.boosters.BlockBoostHandler;
 import me.d1lta.prison.enums.Factions;
 import me.d1lta.prison.warzone.MoneyPoint;
 import me.d1lta.prison.warzone.WarzoneCapture;
@@ -13,6 +13,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -72,6 +73,10 @@ public class LittlePlayer {
 
     public void addBlock() { Jedis.set(uuid + ".blocks", String.valueOf(this.getBlocks() + 1)); }
 
+    public void addBlocks(int amount) { Jedis.set(uuid + ".blocks", String.valueOf(this.getBlocks() + amount)); }
+
+    public void addBoostedBlocks() { BlockBoostHandler.applyToDB(this); }
+
     public double addMoney(double amount, String type) {
         if (this.getFaction().equals(WarzoneCapture.money.capturedBy) && type.equals("sell")) {
             amount = amount * MoneyPoint.modifier;
@@ -130,4 +135,8 @@ public class LittlePlayer {
     public ItemStack getItemInMainHand() { return Bukkit.getPlayer(uuid).getInventory().getItemInMainHand(); }
 
     public int getHeldItemSlot() { return Bukkit.getPlayer(uuid).getInventory().getHeldItemSlot(); }
+
+    public void playSound(Sound sound, float volume, float pitch) {
+        Bukkit.getPlayer(this.uuid).playSound(Bukkit.getPlayer(this.uuid).getLocation(), sound, volume, pitch);
+    }
 }

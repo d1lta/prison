@@ -3,13 +3,18 @@ package me.d1lta.prison;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
+import me.d1lta.prison.boosters.BlockBoostHandler;
+import me.d1lta.prison.boosters.BoostersYAML;
 import me.d1lta.prison.chests.DefaultChest;
 import me.d1lta.prison.chests.EnderChest;
 import me.d1lta.prison.commands.AdmJedis;
 import me.d1lta.prison.commands.AutoSell;
 import me.d1lta.prison.commands.Base;
 import me.d1lta.prison.commands.Blockstats;
+import me.d1lta.prison.commands.Boosters;
 import me.d1lta.prison.commands.Debug;
+import me.d1lta.prison.commands.Enchant;
 import me.d1lta.prison.commands.Faction;
 import me.d1lta.prison.commands.Gift;
 import me.d1lta.prison.commands.GiveItem;
@@ -18,19 +23,21 @@ import me.d1lta.prison.commands.Mine;
 import me.d1lta.prison.commands.SellCmd;
 import me.d1lta.prison.commands.Spawn;
 import me.d1lta.prison.commands.SummonMob;
+import me.d1lta.prison.commands.Upgrade;
 import me.d1lta.prison.commands.Upgrades;
 import me.d1lta.prison.commands.Warzone;
 import me.d1lta.prison.commands.WorldCreate;
 import me.d1lta.prison.commands.WorldTp;
-import me.d1lta.prison.commands.Upgrade;
+import me.d1lta.prison.enchants.enchantments.Hammer;
 import me.d1lta.prison.enums.Factions;
-import me.d1lta.prison.events.DisableBlockPhysics;
 import me.d1lta.prison.events.BlockBreak;
 import me.d1lta.prison.events.BlockPlace;
+import me.d1lta.prison.events.DisableBlockPhysics;
 import me.d1lta.prison.events.EntityDeath;
 import me.d1lta.prison.events.ItemDrop;
 import me.d1lta.prison.events.PlayerDeath;
 import me.d1lta.prison.events.PlayerFaction;
+import me.d1lta.prison.events.ElderEnchanting;
 import me.d1lta.prison.events.onInteract;
 import me.d1lta.prison.events.onJoin;
 import me.d1lta.prison.events.onSpawnEntity;
@@ -40,7 +47,6 @@ import me.d1lta.prison.mobs.bosses.Vindicator;
 import me.d1lta.prison.mobs.traders.ElderVillager;
 import me.d1lta.prison.mobs.traders.StartVillager;
 import me.d1lta.prison.utils.LittlePlayer;
-import me.d1lta.prison.warzone.Point;
 import me.d1lta.prison.warzone.WarzoneCapture;
 import me.d1lta.prison.worldGenerators.VoidGen;
 import org.bukkit.Bukkit;
@@ -53,9 +59,9 @@ import redis.clients.jedis.JedisPool;
 
 public final class Main extends JavaPlugin {
 
+    public static BoostersYAML boosters;
     public static Plugin plugin;
     public static Config config;
-    public static boolean isLoaded = false;
     public static JedisPool pool;
 
     @Override
@@ -68,6 +74,7 @@ public final class Main extends JavaPlugin {
             return;
         }
         plugin = this;
+        boosters = new BoostersYAML(this);
         config = new Config(this);
         Bukkit.setSpawnRadius(0);
         registerCommands();
@@ -83,15 +90,22 @@ public final class Main extends JavaPlugin {
             WarzoneCapture.getPoint(WarzoneCapture.getCentralPoint(it)).refreshColor(WarzoneCapture.getCentralPoint(it));
             WarzoneCapture.getCentralPoint(it).getBlock().setType(Factions.NO_FACTION.getWarzoneGlassMat());
         });
+        BlockBoostHandler.applyToDBEveryone();
         Bukkit.getLogger().warning("DISABLED PRISON");
     }
+
+    AtomicInteger count = new AtomicInteger(0);
 
     public void timer() {
         Bukkit.getScheduler().runTaskLater(this, () -> {
             new MinesTimer().timer();
         }, 100L);
         Bukkit.getScheduler().runTaskTimer(this, () -> {
+            if (count.get() % 10 == 0) {
+                BlockBoostHandler.applyToDBEveryone();
+            }
             Bukkit.getOnlinePlayers().forEach(it -> new ScoreboardP().scoreboard(new LittlePlayer(it.getUniqueId())));
+            count.set(count.get() + 1);
 
         }, 20L, 20L);
     }
@@ -112,6 +126,8 @@ public final class Main extends JavaPlugin {
 
     private void registerEvents() {
         List<Listener> events = List.of(
+                new ElderEnchanting(),
+                new Hammer(),
                 new onJoin(),
                 new BlockBreak(),
                 new DisableBlockPhysics(),
@@ -132,6 +148,7 @@ public final class Main extends JavaPlugin {
                 new PlayerFaction(),
                 new ItemDrop(),
                 new WarzoneCapture(),
+                new Boosters(),
                 new Vindicator(null),
                 new StartVillager(null),
                 new ElderVillager(null));
@@ -160,7 +177,11 @@ public final class Main extends JavaPlugin {
                 "faction", new Faction(),
                 "base", new Base(),
                 "gift", new Gift(),
-                "warzone", new Warzone()));
+                "warzone", new Warzone(),
+                "boosters", new Boosters()));
+        commands.putAll(Map.of(
+                "enchant", new Enchant()
+        ));
         commands.forEach((cmd, executor) -> getServer().getPluginCommand(cmd).setExecutor(executor));
     }
 }

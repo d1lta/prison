@@ -15,11 +15,9 @@ import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Silverfish;
 import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
@@ -69,8 +67,8 @@ public class StartVillager implements Listener {
                 if (pl.getMoney() >= price) {
                     pl.removeMoney(price);
                     switch (NBT.getStringNBT(stack, "type")) {
-                        case "pickaxe" -> pl.giveItem(Upgrade.getPrisonItem(null, "pickaxe", 1, false));
-                        case "shovel" -> pl.giveItem(Upgrade.getPrisonItem(null, "shovel", 1, false));
+                        case "pickaxe" -> pl.giveItem(Upgrade.getPrisonItem(null, "pickaxe", 1, false, null));
+                        case "shovel" -> pl.giveItem(Upgrade.getPrisonItem(null, "shovel", 1, false, null));
                         case "apple" -> pl.giveItem(Apple.getApple());
                     }
                 }
@@ -80,8 +78,8 @@ public class StartVillager implements Listener {
 
     private void openInv(LittlePlayer pl) {
         Inventory inv = Bukkit.createInventory(null, InventoryType.HOPPER, traderTitle);
-        inv.setItem(1, setPrice(Upgrade.getPrisonItem(null, "pickaxe", 1, false), 30, "pickaxe"));
-        inv.setItem(2, setPrice(Upgrade.getPrisonItem(null, "shovel", 1, false), 8, "shovel"));
+        inv.setItem(1, setPrice(Upgrade.getPrisonItem(null, "pickaxe", 1, false, null), 30, "pickaxe"));
+        inv.setItem(2, setPrice(Upgrade.getPrisonItem(null, "shovel", 1, false, null), 8, "shovel"));
 
         inv.setItem(3, setPrice(Apple.getApple(), 1, "apple"));
         pl.openInventory(inv);

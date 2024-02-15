@@ -2,7 +2,6 @@ package me.d1lta.prison.mobs.bosses;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
 import me.d1lta.prison.utils.ComponentUtils;
@@ -37,7 +36,7 @@ public class Vindicator implements Listener {
         AttributeInstance attribute = vindicator.getAttribute(Attribute.GENERIC_MAX_HEALTH);
         attribute.setBaseValue(800);
         vindicator.setHealth(800);
-        vindicator.setAI(false);
+        vindicator.setAI(true);
     }
 
     @EventHandler

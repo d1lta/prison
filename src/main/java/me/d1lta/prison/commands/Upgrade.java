@@ -1,15 +1,19 @@
 package me.d1lta.prison.commands;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
-import me.d1lta.prison.Jedis;
 import me.d1lta.prison.Main;
+import me.d1lta.prison.enchants.EnchTranslate;
 import me.d1lta.prison.utils.ComponentUtils;
 import me.d1lta.prison.utils.ConfigUtils;
 import me.d1lta.prison.utils.LittlePlayer;
 import me.d1lta.prison.utils.NBT;
 import me.d1lta.prison.utils.NumberUtils;
+import me.d1lta.prison.utils.RomanNumeration;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
@@ -19,7 +23,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -48,13 +51,14 @@ public class Upgrade implements CommandExecutor, Listener {
             int maxlvl = Main.config.getConfig().getConfigurationSection("upgrades." + type).getKeys(false).size();
             int currentlvl = NBT.getIntNBT(stack, "level");
             if (args.length == 1 && args[0].equals("max") && pl.isOp()) {
+                ItemStack clone = pl.getItemInMainHand().clone();
                 pl.getItemInMainHand().setAmount(0);
-                pl.getInventory().setItem(pl.getHeldItemSlot(), getPrisonItem(pl, type, maxlvl, false));
+                pl.getInventory().setItem(pl.getHeldItemSlot(), getPrisonItem(pl, type, maxlvl, false, getEnchants(clone)));
                 pl.closeInventory();
                 return true;
             }
             if (currentlvl < maxlvl) {
-                openUI(pl, type, currentlvl + 1, true);
+                openUI(pl, type, currentlvl + 1, true, getEnchants(pl.getItemInMainHand()));
                 return true;
             } else {
                 pl.sendMessage("Предмет уже максимального уровня!");
@@ -86,8 +90,9 @@ public class Upgrade implements CommandExecutor, Listener {
                             break;
                         }
                     }
+                    ItemStack clone = pl.getItemInMainHand().clone();
                     pl.getItemInMainHand().setAmount(0);
-                    pl.getInventory().setItem(pl.getHeldItemSlot(), getPrisonItem(pl, type, currentlvl + 1, false));
+                    pl.getInventory().setItem(pl.getHeldItemSlot(), getPrisonItem(pl, type, currentlvl + 1, false, getEnchants(clone)));
                     pl.sendMessage("Предмет улучшен!");
                     pl.closeInventory();
                 } else {
@@ -113,9 +118,9 @@ public class Upgrade implements CommandExecutor, Listener {
         return true;
     }
 
-    private void openUI(LittlePlayer pl, String type, int lvl, boolean upgrade) {
+    private void openUI(LittlePlayer pl, String type, int lvl, boolean upgrade, Map<String, Integer> enchants) {
         Inventory inventory = Bukkit.createInventory(null, InventoryType.HOPPER, ComponentUtils.component("Улучшение предмета", TextColor.color(255,255,0)));
-        inventory.setItem(1, getPrisonItem(pl, type, lvl, upgrade));
+        inventory.setItem(1, getPrisonItem(pl, type, lvl, upgrade, enchants));
         inventory.setItem(3, getUpgradeButton());
         for (int i = 0; i <= 4; i++) {
             if (inventory.getItem(i) == null) {
@@ -146,7 +151,7 @@ public class Upgrade implements CommandExecutor, Listener {
         return stack;
     }
 
-    public static ItemStack getPrisonItem(LittlePlayer pl, String type, int lvl, boolean upgrade) {
+    public static ItemStack getPrisonItem(LittlePlayer pl, String type, int lvl, boolean upgrade, Map<String, Integer> enchants) {
         ItemStack tool = new ItemStack(Objects.requireNonNull(Material.getMaterial(Main.config.getConfig().getString("upgrades." + type + ".level_" + lvl + ".type"))));
         tool = NBT.addNBT(tool, "level", Integer.valueOf(Objects.requireNonNull(Main.config.getConfig().getString("upgrades." + type + ".level_" + lvl + ".level"))));
         tool = NBT.addNBT(tool, "type", type);
@@ -154,9 +159,9 @@ public class Upgrade implements CommandExecutor, Listener {
         ItemMeta meta = tool.getItemMeta();
         meta.displayName(ComponentUtils.component(ConfigUtils.getString("upgrades." + type + ".level_" + lvl + ".displayName"), TextColor.color(214, 144, 0)));
         if (upgrade) {
-            meta.lore(itemUpgradeLore(pl, type, lvl));
+            meta.lore(itemUpgradeLore(pl, type, lvl, enchants));
         } else {
-            meta.lore(itemLore(lvl));
+            meta.lore(itemLore(lvl, enchants));
         }
         Main.config.getConfig().getStringList("upgrades." + type + ".level_" + lvl + ".enchants").forEach(it -> {
             String[] parts = it.split(":");
@@ -165,20 +170,36 @@ public class Upgrade implements CommandExecutor, Listener {
         meta.setUnbreakable(true);
         tool.setItemMeta(meta);
         tool.addItemFlags(ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_ITEM_SPECIFICS, ItemFlag.HIDE_ATTRIBUTES);
+        if (enchants != null) {
+            for (Entry<String, Integer> entry : enchants.entrySet()) {
+                String k = entry.getKey();
+                Integer v = entry.getValue();
+                tool = NBT.addNBT(tool, k, v);
+            }
+        }
         return tool;
     }
 
-    public static List<Component> itemLore(int lvl) {
-        return List.of(
-                ComponentUtils.component(""),
-                ComponentUtils.component("Уровень предмета >> ").append(
-                        ComponentUtils.component(String.valueOf(lvl), TextColor.color(250, 249, 86))
-        ));
+    public static List<Component> itemLore(int lvl, Map<String, Integer> enchants) {
+        List<Component> components = new ArrayList<>();
+        if (enchants != null && enchants.size() > 0) {
+            components.add(ComponentUtils.component(""));
+            components.add(ComponentUtils.component("Древние зачарования:").color(TextColor.color(176, 0, 190)));
+            enchants.forEach((k,v) -> components.add(EnchTranslate.translateWithColor(k).append(ComponentUtils.component(" " + RomanNumeration.get(v), EnchTranslate.getColor(k)))));
+        }
+        components.add(ComponentUtils.component(""));
+        components.add(ComponentUtils.component("Уровень предмета >> ").append(ComponentUtils.component(String.valueOf(lvl), TextColor.color(250, 249, 86))));
+        return components;
     }
 
-    public static List<Component> itemUpgradeLore(LittlePlayer pl, String type, int lvl) {
+    public static List<Component> itemUpgradeLore(LittlePlayer pl, String type, int lvl, Map<String, Integer> enchants) {
         List<Component> lore = new ArrayList<>();
         lore.add(ComponentUtils.component(""));
+        if (enchants.size() > 0) {
+            lore.add(ComponentUtils.component("Древние зачарования:").color(TextColor.color(176, 0, 190)));
+            enchants.forEach((k,v) -> lore.add(EnchTranslate.translateWithColor(k).append(ComponentUtils.component(" " + RomanNumeration.get(v), EnchTranslate.getColor(k)))));
+            lore.add(ComponentUtils.component(""));
+        }
         lore.add(ComponentUtils.component("Требования: ").color(TextColor.color(250, 249, 86)));
         for (String it : Main.config.getConfig().getStringList("upgrades." + type + ".level_" + lvl + ".requirements")) {
             String[] parts = it.split(":");
@@ -205,6 +226,16 @@ public class Upgrade implements CommandExecutor, Listener {
         lore.add(ComponentUtils.component("После улучшения предмета", TextColor.color(59, 59, 59)));
         lore.add(ComponentUtils.component("древние зачарования сохраняются", TextColor.color(59, 59, 59)));
         return lore;
+    }
+
+    private static Map<String, Integer> getEnchants(ItemStack item) {
+        Map<String, Integer> map = new HashMap<>();
+        NBT.getKeys(item).forEach(it -> {
+            if (it.equals("hammer")) {
+                map.put(it, NBT.getIntNBT(item, it));
+            }
+        });
+        return map;
     }
 
     private static String translate(String s) {

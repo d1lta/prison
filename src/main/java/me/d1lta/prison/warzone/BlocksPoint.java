@@ -1,10 +1,10 @@
 package me.d1lta.prison.warzone;
 
-import java.util.concurrent.Callable;
-import me.d1lta.prison.enums.Factions;
 import org.bukkit.Bukkit;
 
 public class BlocksPoint extends Point {
+
+    public static final double multiplier = 1.2;
 
     public BlocksPoint() {
         super(() -> {

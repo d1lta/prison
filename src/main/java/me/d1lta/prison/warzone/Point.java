@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
-import java.util.concurrent.Callable;
 import java.util.concurrent.atomic.AtomicInteger;
 import me.d1lta.prison.Main;
 import me.d1lta.prison.enums.Factions;
@@ -19,7 +18,7 @@ public abstract class Point {
     public Factions capturingBy = Factions.NO_FACTION;
     public Factions capturedBy = null;
     public AtomicInteger count = new AtomicInteger(0);
-    public AtomicInteger toReset = new AtomicInteger(10 * 1);
+    public AtomicInteger toReset = new AtomicInteger(10 * 60);
     int maxCaptureTime = 8;
     boolean capturing = false;
     private int taskID;
@@ -113,7 +112,7 @@ public abstract class Point {
     private void startCountToReset() {
         this.resetTaskID = Bukkit.getScheduler().runTaskTimer(Main.plugin, () -> {
             if (this.toReset.get() == 0) {
-                this.toReset.set(10 * 1);
+                this.toReset.set(10 * 60);
                 this.capturedBy = null;
                 this.capturingBy = null;
                 this.players.clear();

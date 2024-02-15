@@ -13,9 +13,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 public class Upgrades implements CommandExecutor, Listener {
@@ -39,7 +37,7 @@ public class Upgrades implements CommandExecutor, Listener {
     private static void openUI(LittlePlayer player, String type) {
         Inventory inventory = Bukkit.createInventory(null, 54, ComponentUtils.component("Список улучшений."));
         for (int i = 1; i <= Main.config.getConfig().getConfigurationSection("upgrades." + type).getKeys(false).size(); i++) {
-            inventory.addItem(Upgrade.getPrisonItem(player, type, i, true));
+            inventory.addItem(Upgrade.getPrisonItem(player, type, i, true, null));
         }
         player.openInventory(inventory);
     }
