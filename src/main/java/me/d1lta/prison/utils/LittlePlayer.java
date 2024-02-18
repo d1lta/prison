@@ -1,5 +1,6 @@
 package me.d1lta.prison.utils;
 
+import java.util.Collection;
 import java.util.UUID;
 import me.d1lta.prison.Jedis;
 import me.d1lta.prison.boosters.BlockBoostHandler;
@@ -15,10 +16,15 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.World;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.entity.Entity;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.util.Vector;
+import org.jetbrains.annotations.NotNull;
 
 public class LittlePlayer {
 
@@ -67,9 +73,7 @@ public class LittlePlayer {
 
     public void addRat() { Jedis.set(uuid + ".rats", String.valueOf(this.getRats() + 1)); }
 
-    public void addBlock(Material mat) {
-        Jedis.set(uuid + ".blocks." + mat.name().toLowerCase(), String.valueOf(this.getBlocks(mat.name()) + 1));
-    }
+    public void addBlock(Material mat) { Jedis.set(uuid + ".blocks." + mat.name().toLowerCase(), String.valueOf(this.getBlocks(mat.name()) + 1)); }
 
     public void addBlock() { Jedis.set(uuid + ".blocks", String.valueOf(this.getBlocks() + 1)); }
 
@@ -136,7 +140,36 @@ public class LittlePlayer {
 
     public int getHeldItemSlot() { return Bukkit.getPlayer(uuid).getInventory().getHeldItemSlot(); }
 
-    public void playSound(Sound sound, float volume, float pitch) {
-        Bukkit.getPlayer(this.uuid).playSound(Bukkit.getPlayer(this.uuid).getLocation(), sound, volume, pitch);
+    public @NotNull Collection<PotionEffect> getEffects() { return Bukkit.getPlayer(this.uuid).getActivePotionEffects(); }
+
+    public void removeEffect(PotionEffectType effectType) { Bukkit.getPlayer(this.uuid).removePotionEffect(effectType); }
+
+    public void addEffect(PotionEffect effect) { Bukkit.getPlayer(this.uuid).addPotionEffect(effect); }
+
+    public void playSound(Sound sound, float volume, float pitch) { Bukkit.getPlayer(this.uuid).playSound(Bukkit.getPlayer(this.uuid).getLocation(), sound, volume, pitch); }
+
+    public ItemStack getHelmet() { return Bukkit.getPlayer(this.uuid).getInventory().getHelmet(); }
+
+    public ItemStack getChestplate() { return Bukkit.getPlayer(this.uuid).getInventory().getChestplate(); }
+
+    public ItemStack getLeggings() { return Bukkit.getPlayer(this.uuid).getInventory().getLeggings(); }
+
+    public ItemStack getBoots() { return Bukkit.getPlayer(this.uuid).getInventory().getBoots(); }
+
+    public void damage(double value) { Bukkit.getPlayer(this.uuid).damage(value); }
+
+    public void damage(double value, Entity entity) { Bukkit.getPlayer(this.uuid).damage(value, entity); }
+
+    public void setMaxHP(double value) { Bukkit.getPlayer(this.uuid).getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(value); }
+
+    public void addVelocity(Vector value) { Bukkit.getPlayer(this.uuid).setVelocity(value); }
+
+    public void addHP(double amount) {
+        if (Bukkit.getPlayer(this.uuid).getHealth() + amount > Bukkit.getPlayer(this.uuid).getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()) {
+            Bukkit.getPlayer(this.uuid).setHealth(Bukkit.getPlayer(this.uuid).getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
+            return;
+        }
+        Bukkit.getPlayer(this.uuid).setHealth(Bukkit.getPlayer(this.uuid).getHealth() + amount);
     }
+
 }

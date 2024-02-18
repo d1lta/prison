@@ -1,6 +1,7 @@
 package me.d1lta.prison.commands;
 
-import me.d1lta.prison.enchants.book.HammerBook;
+import java.util.Objects;
+import me.d1lta.prison.enums.Enchantments;
 import me.d1lta.prison.utils.LittlePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -14,12 +15,8 @@ public class Enchant implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (sender instanceof Player) {
             LittlePlayer pl = new LittlePlayer(((Player) sender).getUniqueId());
-            if (args.length == 2 && pl.isOp()) {
-                switch (args[0]) {
-                    case "hammer": {
-                        pl.giveItem(new HammerBook(Integer.parseInt(args[1])).getBook());
-                    }
-                }
+            if (args.length == 3 && pl.isOp()) {
+                pl.giveItem(Objects.requireNonNull(Enchantments.getEnchantment(args[0]).getBook(Integer.parseInt(args[1]), Integer.parseInt(args[2]))).getBook());
                 return true;
             }
         }

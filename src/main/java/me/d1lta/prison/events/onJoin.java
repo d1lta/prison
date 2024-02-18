@@ -4,11 +4,10 @@ import java.util.UUID;
 import me.d1lta.prison.Jedis;
 import me.d1lta.prison.Main;
 import me.d1lta.prison.enums.Factions;
+import me.d1lta.prison.enums.LevelBoosts;
 import me.d1lta.prison.utils.LittlePlayer;
 import me.d1lta.prison.utils.LocationUtils;
-import org.apache.commons.lang3.math.Fraction;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -138,6 +137,9 @@ public class onJoin implements Listener {
         if (Jedis.get(uuid + ".lvl") == null) {
             Jedis.set(uuid + ".lvl", "0");
         }
+
+        LevelBoosts.get(new LittlePlayer(uuid).getLevel()).applyToPlayer(new LittlePlayer(uuid));
+
         Bukkit.getWorlds().forEach(it -> {
             if (it.getName().equals("hub")) {
                 Bukkit.getScheduler().runTaskLater(Main.plugin, () -> e.getPlayer().teleport(LocationUtils.spawnPoint("hub")), 1L);

@@ -21,13 +21,13 @@ public enum Factions {
     private final String name;
     private final TextColor color;
     private final Material material;
-    private final String configname;
+    private final String configName;
 
     Factions(String name, TextColor color, Material material, String configname) {
         this.name = name;
         this.color = color;
         this.material = material;
-        this.configname = configname;
+        this.configName = configname;
     }
 
     public String getName() { return name; }
@@ -36,7 +36,7 @@ public enum Factions {
 
     public Material getMaterial() { return material; }
 
-    public String getConfigName() { return configname; }
+    public String getConfigName() { return configName; }
 
     public Component getComponent() { return ComponentUtils.component(name, color); }
 

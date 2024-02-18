@@ -1,11 +1,14 @@
 package me.d1lta.prison.chests;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 import me.d1lta.prison.Main;
-import me.d1lta.prison.items.ElderKey;
-import me.d1lta.prison.items.Key;
+import me.d1lta.prison.utils.ComponentUtils;
 import me.d1lta.prison.utils.LittlePlayer;
 import me.d1lta.prison.utils.NBT;
+import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -14,6 +17,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Directional;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -46,6 +50,7 @@ public class EnderChest implements Listener {
         };
     }
 
+    public static List<UUID> opening = new ArrayList<>();
 
     @EventHandler
     public void onOpen(PlayerInteractEvent e) {
@@ -55,17 +60,29 @@ public class EnderChest implements Listener {
         LittlePlayer pl = new LittlePlayer(e.getPlayer().getUniqueId());
         if (e.getClickedBlock().getLocation().equals(loc) && e.getClickedBlock().getType().equals(Material.ENDER_CHEST)) {
             if (pl.getItemInMainHand() == null || pl.getItemInMainHand().getType() == Material.AIR || pl.getItemInMainHand().getAmount() == 0) { return; }
+            if (opening.contains(pl.uuid)) {
+                pl.sendMessage(ComponentUtils.component("Дождитесь открытие древнего кейса!", TextColor.color(255, 172, 0)));
+                return;
+            }
             ItemStack stack = pl.getItemInMainHand();
             if (NBT.getStringNBT(stack, "type").equals("elder_key")) {
                 e.setCancelled(true);
                 stack.setAmount(stack.getAmount() - 1);
-                pl.sendMessage("Сделаем вид что ты открыл УДК");
+                new ElderChest().elderCase(true, pl);
+                opening.add(pl.uuid);
             } else if (NBT.getStringNBT(stack, "type").equals("broken_elder_key")) {
                 e.setCancelled(true);
                 stack.setAmount(stack.getAmount() - 1);
-                pl.sendMessage("Сделаем вид что ты открыл ДК");
+                new ElderChest().elderCase(false, pl);
+                opening.add(pl.uuid);
             }
         }
     }
 
+    @EventHandler
+    public void onInventoryClick(InventoryClickEvent e) {
+        if (e.getView().title().equals(ComponentUtils.component("супер кейс", TextColor.color(130, 133, 134)))) {
+            e.setCancelled(true);
+        }
+    }
 }

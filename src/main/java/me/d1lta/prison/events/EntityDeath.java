@@ -13,6 +13,7 @@ public class EntityDeath implements Listener {
 
     @EventHandler
     public void onRatDeath(EntityDeathEvent e) {
+        e.setDroppedExp(0);
         if (Objects.equals(e.getEntity().customName(), Rat.ratName) && e.getEntity().getType().equals(EntityType.SILVERFISH)) {
             if (e.getEntity().getKiller() != null && e.getEntity().getKiller() instanceof Player) {
                 new LittlePlayer(e.getEntity().getKiller().getUniqueId()).addRat();

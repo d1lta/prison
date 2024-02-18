@@ -3,6 +3,7 @@ package me.d1lta.prison.commands;
 import java.util.ArrayList;
 import java.util.List;
 import me.d1lta.prison.Main;
+import me.d1lta.prison.enums.LevelBoosts;
 import me.d1lta.prison.utils.ComponentUtils;
 import me.d1lta.prison.utils.LittlePlayer;
 import me.d1lta.prison.utils.NBT;
@@ -74,6 +75,7 @@ public class Level implements CommandExecutor, Listener {
         }
         pl.removeMoney(moneyreq);
         pl.lvlUp();
+        LevelBoosts.get(pl.getLevel()).applyToPlayer(pl);
         pl.sendMessage("lvlUP!");
         pl.closeInventory();
         return true;

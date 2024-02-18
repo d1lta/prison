@@ -28,17 +28,30 @@ import me.d1lta.prison.commands.Upgrades;
 import me.d1lta.prison.commands.Warzone;
 import me.d1lta.prison.commands.WorldCreate;
 import me.d1lta.prison.commands.WorldTp;
-import me.d1lta.prison.enchants.enchantments.Hammer;
+import me.d1lta.prison.enchants.enchantments.instruments.Archaeology;
+import me.d1lta.prison.enchants.enchantments.armor.Fiery;
+import me.d1lta.prison.enchants.enchantments.instruments.Hammer;
+import me.d1lta.prison.enchants.enchantments.armor.Sacred;
+import me.d1lta.prison.enchants.enchantments.sword.Vampirism;
+import me.d1lta.prison.enchants.enchantments.sword.Blindness;
+import me.d1lta.prison.enchants.enchantments.sword.Boxer;
+import me.d1lta.prison.enchants.enchantments.sword.Confusion;
+import me.d1lta.prison.enchants.enchantments.sword.Fury;
+import me.d1lta.prison.enchants.enchantments.armor.Ninja;
+import me.d1lta.prison.enchants.enchantments.armor.Strenghtening;
+import me.d1lta.prison.enchants.enchantments.sword.Toxic;
+import me.d1lta.prison.enchants.enchantments.sword.Vortex;
 import me.d1lta.prison.enums.Factions;
 import me.d1lta.prison.events.BlockBreak;
 import me.d1lta.prison.events.BlockPlace;
 import me.d1lta.prison.events.DisableBlockPhysics;
+import me.d1lta.prison.events.ElderDustCombing;
 import me.d1lta.prison.events.EntityDeath;
 import me.d1lta.prison.events.ItemDrop;
+import me.d1lta.prison.events.PVPDisabler;
 import me.d1lta.prison.events.PlayerDeath;
 import me.d1lta.prison.events.PlayerFaction;
 import me.d1lta.prison.events.ElderEnchanting;
-import me.d1lta.prison.events.onInteract;
 import me.d1lta.prison.events.onJoin;
 import me.d1lta.prison.events.onSpawnEntity;
 import me.d1lta.prison.items.VaultAccess;
@@ -126,13 +139,26 @@ public final class Main extends JavaPlugin {
 
     private void registerEvents() {
         List<Listener> events = List.of(
+                new PVPDisabler(),
+                new ElderDustCombing(),
                 new ElderEnchanting(),
+                new Vampirism(),
+                new Archaeology(),
                 new Hammer(),
+                new Sacred(),
+                new Fiery(),
+                new Blindness(),
+                new Boxer(),
+                new Confusion(),
+                new Fury(),
+                new Ninja(),
+                new Strenghtening(),
+                new Toxic(),
+                new Vortex(),
                 new onJoin(),
                 new BlockBreak(),
                 new DisableBlockPhysics(),
                 new BlockPlace(),
-                new onInteract(),
                 new onSpawnEntity(),
                 new Level(),
                 new PlayerDeath(),

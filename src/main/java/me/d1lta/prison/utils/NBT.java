@@ -34,6 +34,21 @@ public class NBT {
         return nbtItem.getKeys();
     }
 
+    public static ItemStack replaceNBT(ItemStack stack, String a, String b) {
+        NBTItem nbtItem = new NBTItem(stack);
+        nbtItem.removeKey(a);
+        nbtItem.setString(a,b);
+        return nbtItem.getItem();
+    }
+
+    public static boolean checkNBT(ItemStack stack, String a, String defaultValue) {
+        return !new NBTItem(stack).getString(a).equals(defaultValue);
+    }
+
+    public static boolean checkNBT(ItemStack stack, String a, Integer defaultValue) {
+        return !new NBTItem(stack).getInteger(a).equals(defaultValue);
+    }
+
     public static ItemStack applyNBTs(Map<String, Integer> map, ItemStack stack) {
         for (var i: map.entrySet()) {
             stack = addNBT(stack, i.getKey(), i.getValue());

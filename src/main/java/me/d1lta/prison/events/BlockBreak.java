@@ -25,6 +25,9 @@ public class BlockBreak implements Listener {
                 e.setCancelled(true);
             }
         }
+        if (e.getBlock().getType().equals(Material.ICE)) {
+            e.getBlock().setType(Material.AIR);
+        }
         e.setDropItems(false);
         e.setExpToDrop(0);
     }

@@ -7,13 +7,12 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
 import me.d1lta.prison.Main;
-import me.d1lta.prison.enchants.EnchTranslate;
+import me.d1lta.prison.enums.Enchantments;
 import me.d1lta.prison.utils.ComponentUtils;
 import me.d1lta.prison.utils.ConfigUtils;
 import me.d1lta.prison.utils.LittlePlayer;
 import me.d1lta.prison.utils.NBT;
 import me.d1lta.prison.utils.NumberUtils;
-import me.d1lta.prison.utils.RomanNumeration;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
@@ -185,7 +184,8 @@ public class Upgrade implements CommandExecutor, Listener {
         if (enchants != null && enchants.size() > 0) {
             components.add(ComponentUtils.component(""));
             components.add(ComponentUtils.component("Древние зачарования:").color(TextColor.color(176, 0, 190)));
-            enchants.forEach((k,v) -> components.add(EnchTranslate.translateWithColor(k).append(ComponentUtils.component(" " + RomanNumeration.get(v), EnchTranslate.getColor(k)))));
+            enchants.forEach((k,v) -> components.add(Enchantments.getEnchantment(k).getColoredNameWithLevel(v)));
+            //enchants.forEach((k,v) -> components.add(EnchTranslate.translateWithColor(k).append(ComponentUtils.component(" " + RomanNumeration.get(v), EnchTranslate.getColor(k)))));
         }
         components.add(ComponentUtils.component(""));
         components.add(ComponentUtils.component("Уровень предмета >> ").append(ComponentUtils.component(String.valueOf(lvl), TextColor.color(250, 249, 86))));
@@ -197,7 +197,8 @@ public class Upgrade implements CommandExecutor, Listener {
         lore.add(ComponentUtils.component(""));
         if (enchants.size() > 0) {
             lore.add(ComponentUtils.component("Древние зачарования:").color(TextColor.color(176, 0, 190)));
-            enchants.forEach((k,v) -> lore.add(EnchTranslate.translateWithColor(k).append(ComponentUtils.component(" " + RomanNumeration.get(v), EnchTranslate.getColor(k)))));
+            enchants.forEach((k,v) -> lore.add(Enchantments.getEnchantment(k).getColoredNameWithLevel(v)));
+            //enchants.forEach((k,v) -> lore.add(EnchTranslate.translateWithColor(k).append(ComponentUtils.component(" " + RomanNumeration.get(v), EnchTranslate.getColor(k)))));
             lore.add(ComponentUtils.component(""));
         }
         lore.add(ComponentUtils.component("Требования: ").color(TextColor.color(250, 249, 86)));
@@ -231,9 +232,17 @@ public class Upgrade implements CommandExecutor, Listener {
     private static Map<String, Integer> getEnchants(ItemStack item) {
         Map<String, Integer> map = new HashMap<>();
         NBT.getKeys(item).forEach(it -> {
-            if (it.equals("hammer")) {
-                map.put(it, NBT.getIntNBT(item, it));
+            for (Enchantments e: Enchantments.values()) {
+                if (it.equals(e.getName())) {
+                    map.put(it, NBT.getIntNBT(item, it));
+                }
             }
+//            if (it.equals("hammer")) {
+//                map.put(it, NBT.getIntNBT(item, it));
+//            }
+//            if (it.equals("vampirism")) {
+//                map.put(it, NBT.getIntNBT(item, it));
+//            }
         });
         return map;
     }

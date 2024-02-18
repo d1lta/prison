@@ -25,6 +25,7 @@ public class Rat {
         silverfish.setHealth(10);
         silverfish.setAI(false);
 
+
         new BukkitRunnable() {
             @Override
             public void run() {

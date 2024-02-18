@@ -1,7 +1,9 @@
-package me.d1lta.prison.enchants.enchantments;
+package me.d1lta.prison.enchants.enchantments.instruments;
 
-import java.util.List;
 import java.util.Random;
+import me.d1lta.prison.enchants.Enchantment;
+import me.d1lta.prison.enums.Enchantments;
+import me.d1lta.prison.enchants.book.HammerBook;
 import me.d1lta.prison.events.BlockBreak;
 import me.d1lta.prison.mines.AllowedBlocks;
 import me.d1lta.prison.utils.LittlePlayer;
@@ -14,28 +16,21 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
-public class Hammer implements Listener {
+public class Hammer implements Enchantment, Listener {
 
-    public static List<Material> applicableTo = List.of(
-            Material.WOODEN_PICKAXE,
-            Material.STONE_PICKAXE,
-            Material.IRON_PICKAXE,
-            Material.DIAMOND_PICKAXE,
-            Material.WOODEN_SHOVEL,
-            Material.STONE_SHOVEL,
-            Material.IRON_SHOVEL,
-            Material.DIAMOND_SHOVEL,
-            Material.SHEARS
-    );
+    static Enchantments ench = Enchantments.HAMMER;
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent e) {
         LittlePlayer pl = new LittlePlayer(e.getPlayer().getUniqueId());
-        if (applicableTo.contains(pl.getItemInMainHand().getType())) {
-            if (NBT.getIntNBT(pl.getItemInMainHand(), "hammer") != 0) {
-                if (chance(NBT.getIntNBT(pl.getItemInMainHand(), "hammer"))) {
-                    hammer(e.getBlock().getLocation(), pl, NBT.getIntNBT(pl.getItemInMainHand(), "hammer"));
+        if (HammerBook.applicableTo.contains(pl.getItemInMainHand().getType())) {
+
+            if (NBT.checkNBT(pl.getItemInMainHand(), ench.getName(), 0)) {
+
+                if (chance(NBT.getIntNBT(pl.getItemInMainHand(), ench.getName()))) {
+                    hammer(e.getBlock().getLocation(), pl, NBT.getIntNBT(pl.getItemInMainHand(), ench.getName()));
                 }
             }
         }
@@ -48,11 +43,14 @@ public class Hammer implements Listener {
             return true;
         } else if (lvl == 3 && new Random().nextInt(1, 100) == 5) { //250
             return true;
+        } else if (lvl == 99) {
+            return true;
         }
         return false;
     }
 
-    private void hammer(Location loc, LittlePlayer pl, int lvl) {
+    @Override
+    public void action(Location location, @NotNull LittlePlayer pl, int lvl) {
         int radX = 0;
         int radZ = 0;
         if (lvl == 1) {
@@ -74,6 +72,9 @@ public class Hammer implements Listener {
                 radX = 1;
                 radZ = 1;
             }
+        } else if (lvl == 99) {
+            radX = 2;
+            radZ = 2;
         }
         for (int x = loc.getBlockX() - radX; x <= loc.getBlockX() + radZ; x++) {
             for (int z = loc.getBlockZ() - radX; z <= loc.getBlockZ() + radZ; z++) {
@@ -92,5 +93,4 @@ public class Hammer implements Listener {
             }
         }
     }
-
 }
