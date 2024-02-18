@@ -1,6 +1,7 @@
 package me.d1lta.prison.utils;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 import me.d1lta.prison.Jedis;
 import me.d1lta.prison.boosters.BlockBoostHandler;
@@ -156,6 +157,10 @@ public class LittlePlayer {
 
     public ItemStack getBoots() { return Bukkit.getPlayer(this.uuid).getInventory().getBoots(); }
 
+    public List<ItemStack> getArmor() {
+        return List.of(this.getHelmet(), this.getChestplate(), this.getLeggings(), this.getBoots());
+    }
+
     public void damage(double value) { Bukkit.getPlayer(this.uuid).damage(value); }
 
     public void damage(double value, Entity entity) { Bukkit.getPlayer(this.uuid).damage(value, entity); }
@@ -163,6 +168,10 @@ public class LittlePlayer {
     public void setMaxHP(double value) { Bukkit.getPlayer(this.uuid).getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(value); }
 
     public void addVelocity(Vector value) { Bukkit.getPlayer(this.uuid).setVelocity(value); }
+
+    public Entity castToEntity() { return Bukkit.getPlayer(this.uuid); }
+
+    public void burn(int ticks) { Bukkit.getPlayer(this.uuid).setFireTicks(ticks); }
 
     public void addHP(double amount) {
         if (Bukkit.getPlayer(this.uuid).getHealth() + amount > Bukkit.getPlayer(this.uuid).getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()) {

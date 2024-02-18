@@ -79,6 +79,10 @@ public enum Factions {
         return list;
     }
 
+    public static boolean isPlayersInSingleFaction(LittlePlayer pl1, LittlePlayer pl2) {
+        return pl1.getFaction().equals(pl2.getFaction());
+    }
+
     public static boolean isPlayersInSingleFaction(List<LittlePlayer> list) {
         if (list.size() == 0) { return false; }
         Factions faction = list.get(0).getFaction();

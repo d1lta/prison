@@ -3,6 +3,7 @@ package me.d1lta.prison.enums;
 import java.util.List;
 import me.d1lta.prison.enchants.EnchantmentBook;
 import me.d1lta.prison.enchants.book.ArchaeologyBook;
+import me.d1lta.prison.enchants.book.CatGraceBook;
 import me.d1lta.prison.enchants.book.FieryBook;
 import me.d1lta.prison.enchants.book.HammerBook;
 import me.d1lta.prison.enchants.book.SacredBook;
@@ -28,7 +29,6 @@ public enum Enchantments {
     VAMPIRISM("vampirism", "Вампиризм", TextColor.color(255, 0, 20)),
     SACRED("sacred", "Просвещённый", TextColor.color(255, 0, 77)),
     FIERY("fiery", "Раскалённый", TextColor.color(255, 255, 0)),
-
     VORTEX("vortex", "Вихрь", TextColor.color(255, 172, 0)),
     TOXIC("toxic", "Токсичный", TextColor.color(255, 255, 0)),
     BOXER("boxer", "Боксёр", TextColor.color(255, 255, 0)),
@@ -37,7 +37,7 @@ public enum Enchantments {
     FURY("fury", "Ярость", TextColor.color(255, 0, 20)),
     NINJA("ninja", "Ниндзя", TextColor.color(255, 255, 0)),
     STRENGHTENING("strenghtening", "Укрепление", TextColor.color(130, 133, 134)),
-
+    CATGRACE("catgrace", "Кошачья грация", TextColor.color(255, 255, 134)),
     ARCHAEOLOGY("archaeology", "Археолог", TextColor.color(255, 172, 0));
 
     private final String name;
@@ -93,6 +93,7 @@ public enum Enchantments {
             case "fury" -> { return new FuryBook(lvl,chance); }
             case "ninja" -> { return new NinjaBook(lvl,chance); }
             case "strenghtening" -> { return new StrenghteningBook(lvl,chance); }
+            case "catgrace" -> { return new CatGraceBook(lvl,chance); }
             default -> { return null; }
         }
     }

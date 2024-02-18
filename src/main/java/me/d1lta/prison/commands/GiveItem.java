@@ -1,5 +1,6 @@
 package me.d1lta.prison.commands;
 
+import me.d1lta.prison.items.AdminStick;
 import me.d1lta.prison.items.Armor;
 import me.d1lta.prison.items.ElderDust;
 import me.d1lta.prison.items.ElderKey;
@@ -44,6 +45,8 @@ public class GiveItem implements CommandExecutor {
 
                     case "elderstar" -> pl.getInventory().addItem(ElderStar.getStar());
                     case "elderkey" -> pl.getInventory().addItem(ElderKey.getKey());
+
+                    case "admstick" -> pl.getInventory().addItem(AdminStick.getStick());
                 }
             }
             if (args.length == 2) {

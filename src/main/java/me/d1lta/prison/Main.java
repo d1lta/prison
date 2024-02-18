@@ -28,6 +28,7 @@ import me.d1lta.prison.commands.Upgrades;
 import me.d1lta.prison.commands.Warzone;
 import me.d1lta.prison.commands.WorldCreate;
 import me.d1lta.prison.commands.WorldTp;
+import me.d1lta.prison.enchants.enchantments.armor.CatGrace;
 import me.d1lta.prison.enchants.enchantments.instruments.Archaeology;
 import me.d1lta.prison.enchants.enchantments.armor.Fiery;
 import me.d1lta.prison.enchants.enchantments.instruments.Hammer;
@@ -54,6 +55,7 @@ import me.d1lta.prison.events.PlayerFaction;
 import me.d1lta.prison.events.ElderEnchanting;
 import me.d1lta.prison.events.onJoin;
 import me.d1lta.prison.events.onSpawnEntity;
+import me.d1lta.prison.items.AdminStick;
 import me.d1lta.prison.items.VaultAccess;
 import me.d1lta.prison.mines.MinesTimer;
 import me.d1lta.prison.mobs.bosses.Vindicator;
@@ -139,10 +141,12 @@ public final class Main extends JavaPlugin {
 
     private void registerEvents() {
         List<Listener> events = List.of(
+                new AdminStick(),
                 new PVPDisabler(),
                 new ElderDustCombing(),
                 new ElderEnchanting(),
                 new Vampirism(),
+                new CatGrace(),
                 new Archaeology(),
                 new Hammer(),
                 new Sacred(),
