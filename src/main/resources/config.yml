@@ -627,6 +627,100 @@ levels:
     requirements:
       - MONEY:999999999
       - BLOCKS:999999999
+trainer:
+  strength:
+    level_1:
+      - MONEY:1000
+      - ZOMBIE:100
+    level_2:
+      - MONEY:3000
+      - ZOMBIE:200
+    level_3:
+      - MONEY:5000
+      - ZOMBIE:300
+    level_4:
+      - MONEY:8000
+      - ZOMBIE:400
+    level_5:
+      - MONEY:12000
+      - ZOMBIE:500
+    level_6:
+      - MONEY:15000
+      - ZOMBIE:600
+    level_7:
+      - MONEY:20000
+      - ZOMBIE:700
+    level_8:
+      - MONEY:22000
+      - ZOMBIE:900
+    level_9:
+      - MONEY:25000
+      - ZOMBIE:1200
+    level_10:
+      - MONEY:30000
+      - ZOMBIE:1500
+  agility:
+    level_1:
+      - MONEY:1000
+      - BAT:100
+    level_2:
+      - MONEY:3000
+      - BAT:200
+    level_3:
+      - MONEY:5000
+      - BAT:300
+    level_4:
+      - MONEY:8000
+      - BAT:400
+    level_5:
+      - MONEY:12000
+      - BAT:500
+    level_6:
+      - MONEY:15000
+      - BAT:600
+    level_7:
+      - MONEY:20000
+      - BAT:700
+    level_8:
+      - MONEY:22000
+      - BAT:900
+    level_9:
+      - MONEY:25000
+      - BAT:1200
+    level_10:
+      - MONEY:30000
+      - BAT:1500
+  needs:
+    level_1:
+      - MONEY:1000
+      - LEVEL:2
+    level_2:
+      - MONEY:3000
+      - LEVEL:3
+    level_3:
+      - MONEY:5000
+      - LEVEL:4
+    level_4:
+      - MONEY:8000
+      - LEVEL:5
+    level_5:
+      - MONEY:12000
+      - LEVEL:6
+    level_6:
+      - MONEY:15000
+      - LEVEL:7
+    level_7:
+     - MONEY:20000
+     - LEVEL:8
+    level_8:
+      - MONEY:22000
+      - LEVEL:10
+    level_9:
+      - MONEY:25000
+      - LEVEL:12
+    level_10:
+      - MONEY:30000
+      - LEVEL:14
 upgrades:
   shovel:
     level_1:

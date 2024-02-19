@@ -47,7 +47,7 @@ public class ElderDustCombing implements Listener {
     public boolean check(ItemStack cursor, ItemStack current) {
         if (!NBT.getKeys(current).contains("chance") || !NBT.getKeys(cursor).contains("chance")) { return true; } // TODO: int check
         if (Integer.parseInt(NBT.getStringNBT(current, "chance")) == 100) { return true; }
-        if (Integer.parseInt(NBT.getStringNBT(cursor, "chance")) == 100) { return true; }
+        if (Integer.parseInt(NBT.getStringNBT(cursor, "chance")) > 100) { return true; }
         if (cursor.getAmount() > 1 || current.getAmount() > 1) { return true; }
         return false;
     }

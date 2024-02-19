@@ -3,9 +3,8 @@ package me.d1lta.prison.enchants;
 import java.util.ArrayList;
 import java.util.List;
 import me.d1lta.prison.enums.Enchantments;
-import me.d1lta.prison.utils.ComponentUtils;
+import me.d1lta.prison.utils.DComponent;
 import me.d1lta.prison.utils.NBT;
-import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -15,11 +14,11 @@ public abstract class EnchantmentBook {
 
     private final Enchantments enchantment;
     private final int lvl;
-    private final List<Component> description;
+    private final List<net.kyori.adventure.text.Component> description;
     public List<Material> applicableTo;
     public int chance;
 
-    public EnchantmentBook(Enchantments enchantment, int lvl, int chance, List<Component> description, List<Material> applicableTo) {
+    public EnchantmentBook(Enchantments enchantment, int lvl, int chance, List<net.kyori.adventure.text.Component> description, List<Material> applicableTo) {
         this.enchantment = enchantment;
         this.lvl = lvl;
         this.description = description;
@@ -30,15 +29,15 @@ public abstract class EnchantmentBook {
     public ItemStack getBook() {
         ItemStack book = new ItemStack(Material.ENCHANTED_BOOK, 1);
         ItemMeta meta = book.getItemMeta();
-        meta.displayName(ComponentUtils.component("Древняя книга ", TextColor.color(191, 0, 255)));
-        List<Component> list = new ArrayList<>();
+        meta.displayName(DComponent.create("Древняя книга ", TextColor.color(191, 0, 255)));
+        List<net.kyori.adventure.text.Component> list = new ArrayList<>();
         list.add(enchantment.getColoredNameWithLevel(lvl));
-        list.add(ComponentUtils.component(""));
+        list.add(DComponent.create(""));
         list.addAll(description);
-        list.add(ComponentUtils.component(""));
-        list.add(ComponentUtils.component("Шанс наложения ", TextColor.color(255, 255, 0)).append(
-                ComponentUtils.component(String.valueOf(this.chance), getColor(chance)).append(
-                        ComponentUtils.component("%", TextColor.color(255, 255, 0)))));
+        list.add(DComponent.create(""));
+        list.add(DComponent.create("Шанс наложения ", TextColor.color(255, 255, 0)).append(
+                DComponent.create(String.valueOf(this.chance), getColor(chance)).append(
+                        DComponent.create("%", TextColor.color(255, 255, 0)))));
         meta.lore(list);
         book.setItemMeta(meta);
         book = NBT.addNBT(book, "elderbook", "1");
@@ -56,11 +55,11 @@ public abstract class EnchantmentBook {
     }
 
     public static ItemStack replaceChanceLore(ItemStack stack, int chance) {
-        List<Component> lore = stack.getItemMeta().lore();
+        List<net.kyori.adventure.text.Component> lore = stack.getItemMeta().lore();
         assert lore != null;
-        lore.set(lore.size() - 1, ComponentUtils.component("Шанс наложения ", TextColor.color(255, 255, 0)).append(
-                        ComponentUtils.component(String.valueOf(chance), getColor(chance)).append(
-                        ComponentUtils.component("%", TextColor.color(255, 255, 0)))));
+        lore.set(lore.size() - 1, DComponent.create("Шанс наложения ", TextColor.color(255, 255, 0)).append(
+                        DComponent.create(String.valueOf(chance), getColor(chance)).append(
+                        DComponent.create("%", TextColor.color(255, 255, 0)))));
         ItemMeta meta = stack.getItemMeta();
         meta.lore(lore);
         stack.setItemMeta(meta);

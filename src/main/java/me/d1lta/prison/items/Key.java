@@ -1,6 +1,6 @@
 package me.d1lta.prison.items;
 
-import me.d1lta.prison.utils.ComponentUtils;
+import me.d1lta.prison.utils.DComponent;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemFlag;
@@ -13,7 +13,7 @@ public class Key {
         ItemStack key = new ItemStack(Material.GHAST_TEAR);
         ItemMeta meta = key.getItemMeta();
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_ITEM_SPECIFICS);
-        meta.displayName(ComponentUtils.component("Ключ", TextColor.color(214, 144, 0)));
+        meta.displayName(DComponent.create("Ключ", TextColor.color(214, 144, 0)));
         key.setItemMeta(meta);
         return key;
     }

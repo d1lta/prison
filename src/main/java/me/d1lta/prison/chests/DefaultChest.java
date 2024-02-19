@@ -12,14 +12,13 @@ import me.d1lta.prison.items.ToiletPaper;
 import me.d1lta.prison.items.Tool;
 import me.d1lta.prison.items.VaultAccess;
 import me.d1lta.prison.items.Weapon;
-import me.d1lta.prison.utils.ComponentUtils;
+import me.d1lta.prison.utils.DComponent;
 import me.d1lta.prison.utils.LittlePlayer;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.BlockFace;
-import org.bukkit.block.Chest;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Directional;
 import org.bukkit.event.EventHandler;
@@ -74,7 +73,7 @@ public class DefaultChest implements Listener {
     }
 
     private void openUI(LittlePlayer pl) {
-        Inventory inventory = Bukkit.createInventory(null, 27, ComponentUtils.component("Кейс", TextColor.color(130, 133, 134)));
+        Inventory inventory = Bukkit.createInventory(null, 27, DComponent.create("Кейс", TextColor.color(130, 133, 134)));
         for (String it : Main.config.getConfig().getConfigurationSection("items").getKeys(false)) {
             int i = new Random().nextInt(1, 101);
             if (i <= Main.config.getConfig().getInt("items." + it + ".chance")) {
@@ -105,7 +104,7 @@ public class DefaultChest implements Listener {
     }
 
     private static Inventory refresh(Inventory inv) {
-        Inventory newinv = Bukkit.createInventory(null, 27, ComponentUtils.component("Кейс", TextColor.color(130, 133, 134)));
+        Inventory newinv = Bukkit.createInventory(null, 27, DComponent.create("Кейс", TextColor.color(130, 133, 134)));
         for (ItemStack stack : inv.getContents()) {
             if (stack == null) {
                 continue;

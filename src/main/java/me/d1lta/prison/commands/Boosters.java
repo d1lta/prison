@@ -5,7 +5,7 @@ import java.util.Objects;
 import me.d1lta.prison.boosters.BlockBoosts;
 import me.d1lta.prison.boosters.Boost;
 import me.d1lta.prison.boosters.BoosterHandler;
-import me.d1lta.prison.utils.ComponentUtils;
+import me.d1lta.prison.utils.DComponent;
 import me.d1lta.prison.utils.LittlePlayer;
 import me.d1lta.prison.utils.NBT;
 import org.bukkit.Bukkit;
@@ -46,7 +46,7 @@ public class Boosters implements CommandExecutor, Listener {
     }
 
     private void openUI(LittlePlayer pl) {
-        Inventory inv = Bukkit.createInventory(null, 54, ComponentUtils.component("Бустеры"));
+        Inventory inv = Bukkit.createInventory(null, 54, DComponent.create("Бустеры"));
         List<Boost> b = BoosterHandler.getBoosts(pl);
         for (int i = 0; i < b.size(); i++) {
             ItemStack stack = new ItemStack(b.get(i).getMat());
@@ -58,7 +58,7 @@ public class Boosters implements CommandExecutor, Listener {
 
     @EventHandler
     public void onInteract(InventoryClickEvent e) {
-        if (e.getView().title().equals(ComponentUtils.component("Бустеры"))) {
+        if (e.getView().title().equals(DComponent.create("Бустеры"))) {
             LittlePlayer pl = new LittlePlayer(e.getWhoClicked().getUniqueId());
             e.setCancelled(true);
             if (e.getCurrentItem() == null || e.getCurrentItem().getType() == Material.AIR) {

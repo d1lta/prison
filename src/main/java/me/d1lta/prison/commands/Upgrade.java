@@ -8,12 +8,11 @@ import java.util.Map.Entry;
 import java.util.Objects;
 import me.d1lta.prison.Main;
 import me.d1lta.prison.enums.Enchantments;
-import me.d1lta.prison.utils.ComponentUtils;
+import me.d1lta.prison.utils.DComponent;
 import me.d1lta.prison.utils.ConfigUtils;
 import me.d1lta.prison.utils.LittlePlayer;
 import me.d1lta.prison.utils.NBT;
 import me.d1lta.prison.utils.NumberUtils;
-import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -75,7 +74,8 @@ public class Upgrade implements CommandExecutor, Listener {
                 return;
             }
         }
-        if (e.getView().title().equals(ComponentUtils.component("Улучшение предмета", TextColor.color(255,255,0)))) {
+        if (e.getView().title().equals(
+                DComponent.create("Улучшение предмета", TextColor.color(255,255,0)))) {
             e.setCancelled(true);
             if (Objects.equals(e.getCurrentItem(), getUpgradeButton())) {
                 LittlePlayer pl = new LittlePlayer(e.getWhoClicked().getUniqueId());
@@ -118,7 +118,7 @@ public class Upgrade implements CommandExecutor, Listener {
     }
 
     private void openUI(LittlePlayer pl, String type, int lvl, boolean upgrade, Map<String, Integer> enchants) {
-        Inventory inventory = Bukkit.createInventory(null, InventoryType.HOPPER, ComponentUtils.component("Улучшение предмета", TextColor.color(255,255,0)));
+        Inventory inventory = Bukkit.createInventory(null, InventoryType.HOPPER, DComponent.create("Улучшение предмета", TextColor.color(255,255,0)));
         inventory.setItem(1, getPrisonItem(pl, type, lvl, upgrade, enchants));
         inventory.setItem(3, getUpgradeButton());
         for (int i = 0; i <= 4; i++) {
@@ -132,7 +132,7 @@ public class Upgrade implements CommandExecutor, Listener {
     private static ItemStack getFiller() {
         ItemStack stack = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
         ItemMeta meta = stack.getItemMeta();
-        meta.displayName(ComponentUtils.component(""));
+        meta.displayName(DComponent.create(""));
         stack.setItemMeta(meta);
         return stack;
     }
@@ -140,11 +140,11 @@ public class Upgrade implements CommandExecutor, Listener {
     private static ItemStack getUpgradeButton() {
         ItemStack stack = new ItemStack(Material.EXPERIENCE_BOTTLE);
         ItemMeta meta = stack.getItemMeta();
-        meta.displayName(ComponentUtils.component("Улучшить предмет", TextColor.color(100, 222, 117)));
+        meta.displayName(DComponent.create("Улучшить предмет", TextColor.color(100, 222, 117)));
         meta.lore(List.of(
-                ComponentUtils.component(""),
-                ComponentUtils.component("Улучшить предмет до"),
-                ComponentUtils.component("следующего уровня", TextColor.color(243, 182, 56))
+                DComponent.create(""),
+                DComponent.create("Улучшить предмет до"),
+                DComponent.create("следующего уровня", TextColor.color(243, 182, 56))
         ));
         stack.setItemMeta(meta);
         return stack;
@@ -156,7 +156,8 @@ public class Upgrade implements CommandExecutor, Listener {
         tool = NBT.addNBT(tool, "type", type);
         tool = NBT.addNBT(tool, "safe", "true");
         ItemMeta meta = tool.getItemMeta();
-        meta.displayName(ComponentUtils.component(ConfigUtils.getString("upgrades." + type + ".level_" + lvl + ".displayName"), TextColor.color(214, 144, 0)));
+        meta.displayName(
+                DComponent.create(ConfigUtils.getString("upgrades." + type + ".level_" + lvl + ".displayName"), TextColor.color(214, 144, 0)));
         if (upgrade) {
             meta.lore(itemUpgradeLore(pl, type, lvl, enchants));
         } else {
@@ -179,29 +180,31 @@ public class Upgrade implements CommandExecutor, Listener {
         return tool;
     }
 
-    public static List<Component> itemLore(int lvl, Map<String, Integer> enchants) {
-        List<Component> components = new ArrayList<>();
+    public static List<net.kyori.adventure.text.Component> itemLore(int lvl, Map<String, Integer> enchants) {
+        List<net.kyori.adventure.text.Component> components = new ArrayList<>();
         if (enchants != null && enchants.size() > 0) {
-            components.add(ComponentUtils.component(""));
-            components.add(ComponentUtils.component("Древние зачарования:").color(TextColor.color(176, 0, 190)));
+            components.add(DComponent.create(""));
+            components.add(
+                    DComponent.create("Древние зачарования:").color(TextColor.color(176, 0, 190)));
             enchants.forEach((k,v) -> components.add(Enchantments.getEnchantment(k).getColoredNameWithLevel(v)));
             //enchants.forEach((k,v) -> components.add(EnchTranslate.translateWithColor(k).append(ComponentUtils.component(" " + RomanNumeration.get(v), EnchTranslate.getColor(k)))));
         }
-        components.add(ComponentUtils.component(""));
-        components.add(ComponentUtils.component("Уровень предмета >> ").append(ComponentUtils.component(String.valueOf(lvl), TextColor.color(250, 249, 86))));
+        components.add(DComponent.create(""));
+        components.add(DComponent.create("Уровень предмета >> ").append(
+                DComponent.create(String.valueOf(lvl), TextColor.color(250, 249, 86))));
         return components;
     }
 
-    public static List<Component> itemUpgradeLore(LittlePlayer pl, String type, int lvl, Map<String, Integer> enchants) {
-        List<Component> lore = new ArrayList<>();
-        lore.add(ComponentUtils.component(""));
+    public static List<net.kyori.adventure.text.Component> itemUpgradeLore(LittlePlayer pl, String type, int lvl, Map<String, Integer> enchants) {
+        List<net.kyori.adventure.text.Component> lore = new ArrayList<>();
+        lore.add(DComponent.create(""));
         if (enchants.size() > 0) {
-            lore.add(ComponentUtils.component("Древние зачарования:").color(TextColor.color(176, 0, 190)));
+            lore.add(DComponent.create("Древние зачарования:").color(TextColor.color(176, 0, 190)));
             enchants.forEach((k,v) -> lore.add(Enchantments.getEnchantment(k).getColoredNameWithLevel(v)));
             //enchants.forEach((k,v) -> lore.add(EnchTranslate.translateWithColor(k).append(ComponentUtils.component(" " + RomanNumeration.get(v), EnchTranslate.getColor(k)))));
-            lore.add(ComponentUtils.component(""));
+            lore.add(DComponent.create(""));
         }
-        lore.add(ComponentUtils.component("Требования: ").color(TextColor.color(250, 249, 86)));
+        lore.add(DComponent.create("Требования: ").color(TextColor.color(250, 249, 86)));
         for (String it : Main.config.getConfig().getStringList("upgrades." + type + ".level_" + lvl + ".requirements")) {
             String[] parts = it.split(":");
             Object query = switch (parts[0].toLowerCase()) {
@@ -209,23 +212,23 @@ public class Upgrade implements CommandExecutor, Listener {
                 case "rats" -> pl.getRats();
                 default -> pl.getBlocks(parts[0]);
             };
-            Component can;
+            net.kyori.adventure.text.Component can;
             if (Double.parseDouble(String.valueOf(query)) < Double.parseDouble(parts[1])) {
-                can = ComponentUtils.component(" ×",TextColor.color(255, 82, 68));
+                can = DComponent.create(" ×",TextColor.color(255, 82, 68));
             } else {
-                can = ComponentUtils.component(" ✓",TextColor.color(85, 255, 31));
+                can = DComponent.create(" ✓",TextColor.color(85, 255, 31));
             }
-            lore.add(ComponentUtils.component( translate(parts[0]) + " >> ", TextColor.color(255,255,255)).append(
-                            ComponentUtils.component(NumberUtils.withK((int) Double.parseDouble(query.toString())), TextColor.color(250, 249, 86))).append(
-                            ComponentUtils.component("/", TextColor.color(74,74,74))).append(
-                            ComponentUtils.component(parts[1], TextColor.color(0,255,80))).append(can));
+            lore.add(DComponent.create( translate(parts[0]) + " >> ", TextColor.color(255,255,255)).append(
+                            DComponent.create(NumberUtils.withK((int) Double.parseDouble(query.toString())), TextColor.color(250, 249, 86))).append(
+                            DComponent.create("/", TextColor.color(74,74,74))).append(
+                            DComponent.create(parts[1], TextColor.color(0,255,80))).append(can));
         }
-        lore.add(ComponentUtils.component(""));
-        lore.add(ComponentUtils.component("Уровень предмета >> ").append(
-                ComponentUtils.component(String.valueOf(lvl), TextColor.color(250, 249, 86))
+        lore.add(DComponent.create(""));
+        lore.add(DComponent.create("Уровень предмета >> ").append(
+                DComponent.create(String.valueOf(lvl), TextColor.color(250, 249, 86))
         ));
-        lore.add(ComponentUtils.component("После улучшения предмета", TextColor.color(59, 59, 59)));
-        lore.add(ComponentUtils.component("древние зачарования сохраняются", TextColor.color(59, 59, 59)));
+        lore.add(DComponent.create("После улучшения предмета", TextColor.color(59, 59, 59)));
+        lore.add(DComponent.create("древние зачарования сохраняются", TextColor.color(59, 59, 59)));
         return lore;
     }
 

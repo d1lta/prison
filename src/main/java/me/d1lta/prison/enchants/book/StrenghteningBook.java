@@ -3,7 +3,7 @@ package me.d1lta.prison.enchants.book;
 import java.util.List;
 import me.d1lta.prison.enchants.EnchantmentBook;
 import me.d1lta.prison.enums.Enchantments;
-import me.d1lta.prison.utils.ComponentUtils;
+import me.d1lta.prison.utils.DComponent;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Material;
 
@@ -18,11 +18,11 @@ public class StrenghteningBook extends EnchantmentBook {
 
     public StrenghteningBook(int lvl, int chance) {
         super(Enchantments.STRENGHTENING, lvl, chance, List.of(
-                ComponentUtils.component("- - - - - - - - - - - - - - - - -", TextColor.color(129, 129, 122)),
-                ComponentUtils.component("Зачарование которые делает", TextColor.color(255, 196, 129)),
-                ComponentUtils.component("из тебя лампу. Будешь", TextColor.color(255, 196, 129)),
-                ComponentUtils.component("светиться от счаться в PVP!", TextColor.color(255, 196, 129)),
-                ComponentUtils.component("- - - - - - - - - - - - - - - - -", TextColor.color(129, 129, 122))
+                DComponent.create("- - - - - - - - - - - - - - - - -", TextColor.color(129, 129, 122)),
+                DComponent.create("Зачарование которые делает", TextColor.color(255, 196, 129)),
+                DComponent.create("из тебя лампу. Будешь", TextColor.color(255, 196, 129)),
+                DComponent.create("светиться от счаться в PVP!", TextColor.color(255, 196, 129)),
+                DComponent.create("- - - - - - - - - - - - - - - - -", TextColor.color(129, 129, 122))
         ), applicableTo);
     }
 

@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 import me.d1lta.prison.Main;
-import me.d1lta.prison.utils.ComponentUtils;
+import me.d1lta.prison.utils.DComponent;
 import me.d1lta.prison.utils.LittlePlayer;
 import me.d1lta.prison.utils.NBT;
 import net.kyori.adventure.text.format.TextColor;
@@ -61,7 +61,7 @@ public class EnderChest implements Listener {
         if (e.getClickedBlock().getLocation().equals(loc) && e.getClickedBlock().getType().equals(Material.ENDER_CHEST)) {
             if (pl.getItemInMainHand() == null || pl.getItemInMainHand().getType() == Material.AIR || pl.getItemInMainHand().getAmount() == 0) { return; }
             if (opening.contains(pl.uuid)) {
-                pl.sendMessage(ComponentUtils.component("Дождитесь открытие древнего кейса!", TextColor.color(255, 172, 0)));
+                pl.sendMessage(DComponent.create("Дождитесь открытие древнего кейса!", TextColor.color(255, 172, 0)));
                 return;
             }
             ItemStack stack = pl.getItemInMainHand();
@@ -81,7 +81,7 @@ public class EnderChest implements Listener {
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
-        if (e.getView().title().equals(ComponentUtils.component("супер кейс", TextColor.color(130, 133, 134)))) {
+        if (e.getView().title().equals(DComponent.create("супер кейс", TextColor.color(130, 133, 134)))) {
             e.setCancelled(true);
         }
     }

@@ -2,9 +2,8 @@ package me.d1lta.prison.enums;
 
 import java.util.ArrayList;
 import java.util.List;
-import me.d1lta.prison.utils.ComponentUtils;
+import me.d1lta.prison.utils.DComponent;
 import me.d1lta.prison.utils.LittlePlayer;
-import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -38,7 +37,7 @@ public enum Factions {
 
     public String getConfigName() { return configName; }
 
-    public Component getComponent() { return ComponentUtils.component(name, color); }
+    public net.kyori.adventure.text.Component getComponent() { return DComponent.create(name, color); }
 
     public Material getWarzoneBlockMat() {
         return switch (this) {

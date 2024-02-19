@@ -1,7 +1,7 @@
 package me.d1lta.prison.boosters;
 
 import java.util.List;
-import me.d1lta.prison.utils.ComponentUtils;
+import me.d1lta.prison.utils.DComponent;
 import me.d1lta.prison.utils.NBT;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -44,25 +44,25 @@ public class Boost {
             case "blocks" -> {
                 ItemMeta meta = stack.getItemMeta();
                 if (boost.local) {
-                    meta.displayName(ComponentUtils.component("Локальный бустер блоков"));
+                    meta.displayName(DComponent.create("Локальный бустер блоков"));
                 } else {
-                    meta.displayName(ComponentUtils.component("Глобальный бустер блоков"));
+                    meta.displayName(DComponent.create("Глобальный бустер блоков"));
                 }
                 meta.lore(List.of(
-                        ComponentUtils.component("Множитель: " + boost.multiplier),
-                        ComponentUtils.component("Количество: " + boost.amount)));
+                        DComponent.create("Множитель: " + boost.multiplier),
+                        DComponent.create("Количество: " + boost.amount)));
                 stack.setItemMeta(meta);
             }
             case "money" -> {
                 ItemMeta meta = stack.getItemMeta();
                 if (boost.local) {
-                    meta.displayName(ComponentUtils.component("Локальный бустер денег"));
+                    meta.displayName(DComponent.create("Локальный бустер денег"));
                 } else {
-                    meta.displayName(ComponentUtils.component("Глобальный бустер денег"));
+                    meta.displayName(DComponent.create("Глобальный бустер денег"));
                 }
                 meta.lore(List.of(
-                        ComponentUtils.component("Множитель: " + boost.multiplier),
-                        ComponentUtils.component("Количество: " + boost.amount)));
+                        DComponent.create("Множитель: " + boost.multiplier),
+                        DComponent.create("Количество: " + boost.amount)));
                 stack.setItemMeta(meta);
             }
         }

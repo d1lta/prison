@@ -8,10 +8,9 @@ import java.util.Random;
 import java.util.Set;
 import me.d1lta.prison.enchants.EnchantmentBook;
 import me.d1lta.prison.enums.Enchantments;
-import me.d1lta.prison.utils.ComponentUtils;
+import me.d1lta.prison.utils.DComponent;
 import me.d1lta.prison.utils.LittlePlayer;
 import me.d1lta.prison.utils.NBT;
-import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
@@ -53,9 +52,9 @@ public class ElderEnchanting implements Listener {
         }
     }
 
-    private List<Component> lore(ItemStack stack) {
+    private List<net.kyori.adventure.text.Component> lore(ItemStack stack) {
         Map<String, Integer> enchants = new HashMap<>();
-        List<Component> lore = new ArrayList<>();
+        List<net.kyori.adventure.text.Component> lore = new ArrayList<>();
         for (String it : NBT.getKeys(stack)) {
             for (Enchantments e: Enchantments.values()) {
                 if (e.getName().equals(it)) {
@@ -64,14 +63,15 @@ public class ElderEnchanting implements Listener {
             }
         }
         if (enchants.size() > 0) {
-            lore.add(ComponentUtils.component(""));
-            lore.add(ComponentUtils.component("Древние зачарования:").color(
+            lore.add(DComponent.create(""));
+            lore.add(DComponent.create("Древние зачарования:").color(
                     TextColor.color(176, 0, 190)));
             enchants.forEach((k,v) -> lore.add(
                     Enchantments.getEnchantment(k).getColoredNameWithLevel(v)));
         }
-        lore.add(ComponentUtils.component(""));
-        lore.add(ComponentUtils.component("Уровень предмета >> ").append(ComponentUtils.component(String.valueOf(NBT.getIntNBT(stack, "level")), TextColor.color(250, 249, 86))));
+        lore.add(DComponent.create(""));
+        lore.add(DComponent.create("Уровень предмета >> ").append(
+                DComponent.create(String.valueOf(NBT.getIntNBT(stack, "level")), TextColor.color(250, 249, 86))));
         return lore;
     }
 }

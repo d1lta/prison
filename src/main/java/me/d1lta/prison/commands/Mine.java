@@ -3,14 +3,12 @@ package me.d1lta.prison.commands;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import me.d1lta.prison.Jedis;
 import me.d1lta.prison.Main;
 import me.d1lta.prison.Teleport;
-import me.d1lta.prison.utils.ComponentUtils;
+import me.d1lta.prison.utils.DComponent;
 import me.d1lta.prison.utils.LittlePlayer;
 import me.d1lta.prison.utils.LocationUtils;
 import me.d1lta.prison.utils.NBT;
-import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -27,7 +25,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class Mine implements CommandExecutor, Listener {
 
-    Component title = ComponentUtils.component("Шахты");
+    net.kyori.adventure.text.Component title = DComponent.create("Шахты");
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
@@ -77,9 +75,9 @@ public class Mine implements CommandExecutor, Listener {
         for (String it : Main.config.getConfig().getConfigurationSection("minelore").getKeys(false)) {
             ItemStack stack = new ItemStack(Objects.requireNonNull(Material.getMaterial(String.valueOf(Main.config.getConfig().get("minelore." + it + ".M")))));
             ItemMeta meta = stack.getItemMeta();
-            List<Component> list = new ArrayList<>();
+            List<net.kyori.adventure.text.Component> list = new ArrayList<>();
             for (String s : Main.config.getConfig().getStringList("minelore." + it + ".lore")) {
-                list.add(Component.text(s));
+                list.add(net.kyori.adventure.text.Component.text(s));
             }
             meta.lore(list);
             stack.setItemMeta(meta);

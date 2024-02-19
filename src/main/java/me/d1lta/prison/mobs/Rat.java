@@ -1,8 +1,7 @@
 package me.d1lta.prison.mobs;
 
 import me.d1lta.prison.Main;
-import me.d1lta.prison.utils.ComponentUtils;
-import net.kyori.adventure.text.Component;
+import me.d1lta.prison.utils.DComponent;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Location;
 import org.bukkit.attribute.Attribute;
@@ -13,7 +12,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class Rat {
 
-    public static Component ratName = ComponentUtils.component("Тюремная крыса", TextColor.color(200,60,60));
+    public static net.kyori.adventure.text.Component ratName = DComponent.create("Тюремная крыса", TextColor.color(200,60,60));
 
     public Rat(Location location) {
         Silverfish silverfish = (Silverfish) location.getWorld().spawnEntity(location, EntityType.SILVERFISH);

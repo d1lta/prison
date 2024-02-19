@@ -2,21 +2,17 @@ package me.d1lta.prison.mobs.traders;
 
 import java.util.ArrayList;
 import java.util.List;
-import me.d1lta.prison.commands.Upgrade;
-import me.d1lta.prison.items.Apple;
 import me.d1lta.prison.items.BrokenElderKey;
 import me.d1lta.prison.items.ElderKey;
 import me.d1lta.prison.items.ElderStar;
-import me.d1lta.prison.utils.ComponentUtils;
+import me.d1lta.prison.utils.DComponent;
 import me.d1lta.prison.utils.LittlePlayer;
 import me.d1lta.prison.utils.NBT;
-import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
-import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
@@ -31,8 +27,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class ElderVillager implements Listener {
 
-    public static Component traderName = ComponentUtils.component("Древний торговец", TextColor.color(214, 144, 0));
-    public static Component traderTitle = ComponentUtils.component("Древний торговец", TextColor.color(46, 46, 46));
+    public static net.kyori.adventure.text.Component traderName = DComponent.create("Древний торговец", TextColor.color(214, 144, 0));
+    public static net.kyori.adventure.text.Component traderTitle = DComponent.create("Древний торговец", TextColor.color(46, 46, 46));
 
     public ElderVillager(Location location) {
         if (location == null) { return; }
@@ -41,8 +37,7 @@ public class ElderVillager implements Listener {
         trader.customName(traderName);
         trader.setCustomNameVisible(true);
 
-        AttributeInstance attribute = trader.getAttribute(Attribute.GENERIC_MAX_HEALTH);
-        attribute.setBaseValue(999);
+        trader.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(999);
         trader.setHealth(999);
         trader.setAI(false);
     }
@@ -97,17 +92,17 @@ public class ElderVillager implements Listener {
 
     private ItemStack setPrice(ItemStack stack, String type, int price) {
         ItemMeta meta = stack.getItemMeta();
-        List<Component> lore;
+        List<net.kyori.adventure.text.Component> lore;
         if (meta.lore() == null) {
             lore = new ArrayList<>();
         } else {
             lore = meta.lore();
         }
-        List<Component> list = new ArrayList<>();
-        list.add(ComponentUtils.component("Цена")
-                .append(ComponentUtils.component(" >> ", TextColor.color(129, 129, 122)))
-                .append(ComponentUtils.component(price + "", TextColor.color(214, 144, 0)))
-                .append(ComponentUtils.component(" древних звезд", TextColor.color(255, 172, 0))));
+        List<net.kyori.adventure.text.Component> list = new ArrayList<>();
+        list.add(DComponent.create("Цена")
+                .append(DComponent.create(" >> ", TextColor.color(129, 129, 122)))
+                .append(DComponent.create(price + "", TextColor.color(214, 144, 0)))
+                .append(DComponent.create(" древних звезд", TextColor.color(255, 172, 0))));
         lore.addAll(list);
         meta.lore(lore);
         stack.setItemMeta(meta);

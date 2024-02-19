@@ -5,6 +5,7 @@ import me.d1lta.prison.Jedis;
 import me.d1lta.prison.Main;
 import me.d1lta.prison.enums.Factions;
 import me.d1lta.prison.enums.LevelBoosts;
+import me.d1lta.prison.PrisonEvents;
 import me.d1lta.prison.utils.LittlePlayer;
 import me.d1lta.prison.utils.LocationUtils;
 import org.bukkit.Bukkit;
@@ -26,11 +27,53 @@ public class onJoin implements Listener {
         if (Jedis.get(uuid + ".rats") == null) {
             Jedis.set(uuid + ".rats", "0");
         }
+        if (Jedis.get(uuid + ".toilet") == null) {
+            Jedis.set(uuid + ".toilet", "false");
+        }
+        if (Jedis.get(uuid + ".toilet_chance_max") == null) {
+            Jedis.set(uuid + ".toilet_chance_max", "4000");
+        }
+        if (Jedis.get(uuid + ".toilet_chance") == null) {
+            Jedis.set(uuid + ".toilet_chance", "4000");
+        }
+        if (Jedis.get(uuid + ".shower") == null) {
+            Jedis.set(uuid + ".shower", "false");
+        }
+        if (Jedis.get(uuid + ".shower_chance_max") == null) {
+            Jedis.set(uuid + ".shower_chance_max", "4000");
+        }
+        if (Jedis.get(uuid + ".shower_chance") == null) {
+            Jedis.set(uuid + ".shower_chance", "4000");
+        }
+        if (Jedis.get(uuid + ".sleep") == null) {
+            Jedis.set(uuid + ".sleep", "false");
+        }
+        if (Jedis.get(uuid + ".sleep_chance_max") == null) {
+            Jedis.set(uuid + ".sleep_chance_max", "4000");
+        }
+        if (Jedis.get(uuid + ".sleep_chance") == null) {
+            Jedis.set(uuid + ".sleep_chance", "4000");
+        }
         if (Jedis.get(uuid + ".kills") == null) {
             Jedis.set(uuid + ".kills", "0");
         }
         if (Jedis.get(uuid + ".deaths") == null) {
             Jedis.set(uuid + ".deaths", "0");
+        }
+        if (Jedis.get(uuid + ".bat") == null) {
+            Jedis.set(uuid + ".bat", "0");
+        }
+        if (Jedis.get(uuid + ".zombie") == null) {
+            Jedis.set(uuid + ".zombie", "0");
+        }
+        if (Jedis.get(uuid + ".strength") == null) {
+            Jedis.set(uuid + ".strength", "0");
+        }
+        if (Jedis.get(uuid + ".agility") == null) {
+            Jedis.set(uuid + ".agility", "0");
+        }
+        if (Jedis.get(uuid + ".needs") == null) {
+            Jedis.set(uuid + ".needs", "0");
         }
         if (Jedis.get(uuid + ".faction") == null) {
             Jedis.set(uuid + ".faction", Factions.NO_FACTION.getName());
@@ -139,6 +182,7 @@ public class onJoin implements Listener {
         }
 
         LevelBoosts.get(new LittlePlayer(uuid).getLevel()).applyToPlayer(new LittlePlayer(uuid));
+        new PrisonEvents().applyEvents(new LittlePlayer(uuid));
 
         Bukkit.getWorlds().forEach(it -> {
             if (it.getName().equals("hub")) {

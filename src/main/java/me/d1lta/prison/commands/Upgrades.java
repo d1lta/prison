@@ -1,7 +1,8 @@
 package me.d1lta.prison.commands;
 
+import java.util.Map;
 import me.d1lta.prison.Main;
-import me.d1lta.prison.utils.ComponentUtils;
+import me.d1lta.prison.utils.DComponent;
 import me.d1lta.prison.utils.LittlePlayer;
 import me.d1lta.prison.utils.NBT;
 import org.bukkit.Bukkit;
@@ -35,16 +36,16 @@ public class Upgrades implements CommandExecutor, Listener {
     }
 
     private static void openUI(LittlePlayer player, String type) {
-        Inventory inventory = Bukkit.createInventory(null, 54, ComponentUtils.component("Список улучшений."));
+        Inventory inventory = Bukkit.createInventory(null, 54, DComponent.create("Список улучшений."));
         for (int i = 1; i <= Main.config.getConfig().getConfigurationSection("upgrades." + type).getKeys(false).size(); i++) {
-            inventory.addItem(Upgrade.getPrisonItem(player, type, i, true, null));
+            inventory.addItem(Upgrade.getPrisonItem(player, type, i, true, Map.of()));
         }
         player.openInventory(inventory);
     }
 
     @EventHandler
     public void onInteract(InventoryClickEvent e) {
-        if (e.getView().title().equals(ComponentUtils.component("Список улучшений."))) {
+        if (e.getView().title().equals(DComponent.create("Список улучшений."))) {
             e.setCancelled(true);
         }
     }

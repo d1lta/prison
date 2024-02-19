@@ -1,5 +1,7 @@
 package me.d1lta.prison;
 
+import static me.d1lta.prison.PrisonEvents.effectEveryone;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +16,7 @@ import me.d1lta.prison.commands.Base;
 import me.d1lta.prison.commands.Blockstats;
 import me.d1lta.prison.commands.Boosters;
 import me.d1lta.prison.commands.Debug;
-import me.d1lta.prison.commands.Enchant;
+import me.d1lta.prison.commands.EnchantmentList;
 import me.d1lta.prison.commands.Faction;
 import me.d1lta.prison.commands.Gift;
 import me.d1lta.prison.commands.GiveItem;
@@ -49,7 +51,7 @@ import me.d1lta.prison.events.DisableBlockPhysics;
 import me.d1lta.prison.events.ElderDustCombing;
 import me.d1lta.prison.events.EntityDeath;
 import me.d1lta.prison.events.ItemDrop;
-import me.d1lta.prison.events.PVPDisabler;
+import me.d1lta.prison.events.PVPEvents;
 import me.d1lta.prison.events.PlayerDeath;
 import me.d1lta.prison.events.PlayerFaction;
 import me.d1lta.prison.events.ElderEnchanting;
@@ -61,12 +63,14 @@ import me.d1lta.prison.mines.MinesTimer;
 import me.d1lta.prison.mobs.bosses.Vindicator;
 import me.d1lta.prison.mobs.traders.ElderVillager;
 import me.d1lta.prison.mobs.traders.StartVillager;
+import me.d1lta.prison.mobs.traders.Trainer;
 import me.d1lta.prison.utils.LittlePlayer;
 import me.d1lta.prison.warzone.WarzoneCapture;
 import me.d1lta.prison.worldGenerators.VoidGen;
 import org.bukkit.Bukkit;
 import org.bukkit.WorldCreator;
 import org.bukkit.command.CommandExecutor;
+import org.bukkit.entity.Entity;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -96,6 +100,7 @@ public final class Main extends JavaPlugin {
         registerEvents();
         worldLoader();
         timer();
+        effectEveryone();
     }
 
     @Override
@@ -119,7 +124,8 @@ public final class Main extends JavaPlugin {
             if (count.get() % 10 == 0) {
                 BlockBoostHandler.applyToDBEveryone();
             }
-            Bukkit.getOnlinePlayers().forEach(it -> new ScoreboardP().scoreboard(new LittlePlayer(it.getUniqueId())));
+            Bukkit.getOnlinePlayers().stream().map(Entity::getUniqueId).forEach(it -> new PrisonEvents().checkDebuffs(new LittlePlayer(it)));
+            Bukkit.getOnlinePlayers().stream().map(Entity::getUniqueId).forEach(it -> new ScoreboardP().scoreboard(new LittlePlayer(it)));
             count.set(count.get() + 1);
 
         }, 20L, 20L);
@@ -141,8 +147,10 @@ public final class Main extends JavaPlugin {
 
     private void registerEvents() {
         List<Listener> events = List.of(
+                new EnchantmentList(),
+                new PrisonEvents(),
                 new AdminStick(),
-                new PVPDisabler(),
+                new PVPEvents(),
                 new ElderDustCombing(),
                 new ElderEnchanting(),
                 new Vampirism(),
@@ -181,7 +189,8 @@ public final class Main extends JavaPlugin {
                 new Boosters(),
                 new Vindicator(null),
                 new StartVillager(null),
-                new ElderVillager(null));
+                new ElderVillager(null),
+                new Trainer(null));
         Bukkit.getPluginManager().registerEvents(config, plugin);
         events.forEach(it -> Bukkit.getPluginManager().registerEvents(it, plugin));
     }
@@ -210,7 +219,7 @@ public final class Main extends JavaPlugin {
                 "warzone", new Warzone(),
                 "boosters", new Boosters()));
         commands.putAll(Map.of(
-                "enchant", new Enchant()
+                "enchantments", new EnchantmentList()
         ));
         commands.forEach((cmd, executor) -> getServer().getPluginCommand(cmd).setExecutor(executor));
     }

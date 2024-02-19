@@ -7,6 +7,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class CheckUtils {
 
+    /** Возвращает true если предмет ItemStack не null, Material.Air или его количество больше 0 */
     public static boolean checkForNull(ItemStack stack) {
         return (stack != null && !stack.getType().equals(Material.AIR) && stack.getAmount() != 0);
     }

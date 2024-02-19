@@ -5,10 +5,9 @@ import java.util.List;
 import java.util.Objects;
 import me.d1lta.prison.Jedis;
 import me.d1lta.prison.enums.Factions;
-import me.d1lta.prison.utils.ComponentUtils;
+import me.d1lta.prison.utils.DComponent;
 import me.d1lta.prison.utils.LittlePlayer;
 import me.d1lta.prison.utils.NBT;
-import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -26,7 +25,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class Faction implements CommandExecutor, Listener {
 
-    Component title = ComponentUtils.component("Выбор фракции");
+    net.kyori.adventure.text.Component title = DComponent.create("Выбор фракции");
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
@@ -94,18 +93,18 @@ public class Faction implements CommandExecutor, Listener {
         return stacks;
     }
 
-    private static List<Component> getLore(LittlePlayer pl, Factions faction) {
+    private static List<net.kyori.adventure.text.Component> getLore(LittlePlayer pl, Factions faction) {
         boolean isPlayerFaction = isPlayerFaction(pl, faction);
-        List<Component> lore = new ArrayList<>();
+        List<net.kyori.adventure.text.Component> lore = new ArrayList<>();
         if (isPlayerFaction) {
-            lore.add(ComponentUtils.component("Нажмите ЛКМ чтобы выйти из фракции"));
-            lore.add(ComponentUtils.component("Стоимость: 10000$"));
+            lore.add(DComponent.create("Нажмите ЛКМ чтобы выйти из фракции"));
+            lore.add(DComponent.create("Стоимость: 10000$"));
         } else {
             if (isPlayerNoFaction(pl)) {
-                lore.add(ComponentUtils.component("Нажмите ЛКМ чтобы вступить в фракцию"));
+                lore.add(DComponent.create("Нажмите ЛКМ чтобы вступить в фракцию"));
             } else {
-                lore.add(ComponentUtils.component("Нажмите ЛКМ чтобы сменить фракцию"));
-                lore.add(ComponentUtils.component("Стоимость: 10000$"));
+                lore.add(DComponent.create("Нажмите ЛКМ чтобы сменить фракцию"));
+                lore.add(DComponent.create("Стоимость: 10000$"));
             }
         }
         return lore;

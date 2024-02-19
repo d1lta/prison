@@ -26,7 +26,6 @@ commands:
   faction:
   base:
   gift:
-  penchant:
   warzone:
   boosters:
-  enchant:
+  enchantments:

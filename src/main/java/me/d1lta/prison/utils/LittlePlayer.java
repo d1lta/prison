@@ -6,6 +6,7 @@ import java.util.UUID;
 import me.d1lta.prison.Jedis;
 import me.d1lta.prison.boosters.BlockBoostHandler;
 import me.d1lta.prison.enums.Factions;
+import me.d1lta.prison.enums.TrainerSkills;
 import me.d1lta.prison.warzone.MoneyPoint;
 import me.d1lta.prison.warzone.WarzoneCapture;
 import net.kyori.adventure.text.Component;
@@ -73,6 +74,14 @@ public class LittlePlayer {
     public int getRats() { return Integer.parseInt(Jedis.get(uuid + ".rats")); }
 
     public void addRat() { Jedis.set(uuid + ".rats", String.valueOf(this.getRats() + 1)); }
+
+    public int getZombies() { return Integer.parseInt(Jedis.get(uuid + ".zombie")); }
+
+    public void addZombie() { Jedis.set(uuid + ".zombie", String.valueOf(this.getZombies() + 1)); }
+
+    public int getBats() { return Integer.parseInt(Jedis.get(uuid + ".bat")); }
+
+    public void addBat() { Jedis.set(uuid + ".bat", String.valueOf(this.getBats() + 1)); }
 
     public void addBlock(Material mat) { Jedis.set(uuid + ".blocks." + mat.name().toLowerCase(), String.valueOf(this.getBlocks(mat.name()) + 1)); }
 
@@ -157,9 +166,7 @@ public class LittlePlayer {
 
     public ItemStack getBoots() { return Bukkit.getPlayer(this.uuid).getInventory().getBoots(); }
 
-    public List<ItemStack> getArmor() {
-        return List.of(this.getHelmet(), this.getChestplate(), this.getLeggings(), this.getBoots());
-    }
+    public List<ItemStack> getArmor() { return List.of(this.getHelmet(), this.getChestplate(), this.getLeggings(), this.getBoots()); }
 
     public void damage(double value) { Bukkit.getPlayer(this.uuid).damage(value); }
 
@@ -172,6 +179,61 @@ public class LittlePlayer {
     public Entity castToEntity() { return Bukkit.getPlayer(this.uuid); }
 
     public void burn(int ticks) { Bukkit.getPlayer(this.uuid).setFireTicks(ticks); }
+
+    public boolean getToiletStatus() { return Boolean.parseBoolean(Jedis.get(this.uuid + ".toilet")); }
+
+    public void setToiletStatus(boolean status) { Jedis.set(this.uuid + ".toilet", String.valueOf(status)); }
+
+    public boolean getShowerStatus() { return Boolean.parseBoolean(Jedis.get(this.uuid + ".shower")); }
+
+    public void setShowerStatus(boolean status) { Jedis.set(this.uuid + ".shower", String.valueOf(status)); }
+
+    public boolean getSleepStatus() { return Boolean.parseBoolean(Jedis.get(this.uuid + ".sleep")); }
+
+    public void setSleepStatus(boolean status) { Jedis.set(this.uuid + ".sleep", String.valueOf(status)); }
+
+    public int getToiletChance() { return Integer.parseInt(Jedis.get(this.uuid + ".toilet_chance")); }
+
+    public void setToiletChance(int chance) {  Jedis.set(this.uuid + ".toilet_chance", String.valueOf(chance)); }
+
+    public int getToiletMaxChance() { return Integer.parseInt(Jedis.get(this.uuid + ".toilet_chance_max")); }
+
+    public void setToiletMaxChance (int chance) {  Jedis.set(this.uuid + ".toilet_chance_max", String.valueOf(chance)); }
+
+    public int getShowerChance() { return Integer.parseInt(Jedis.get(this.uuid + ".shower_chance")); }
+
+    public void setShowerChance(int chance) {  Jedis.set(this.uuid + ".shower_chance", String.valueOf(chance)); }
+
+    public int getShowerMaxChance() { return Integer.parseInt(Jedis.get(this.uuid + ".shower_chance_max")); }
+
+    public void setShowerMaxChance (int chance) {  Jedis.set(this.uuid + ".shower_chance_max", String.valueOf(chance)); }
+
+    public int getSleepChance() { return Integer.parseInt(Jedis.get(this.uuid + ".sleep_chance")); }
+
+    public void setSleepChance(int chance) {  Jedis.set(this.uuid + ".sleep_chance", String.valueOf(chance)); }
+
+    public int getSleepMaxChance() { return Integer.parseInt(Jedis.get(this.uuid + ".sleep_chance_max")); }
+
+    public void setSleepMaxChance (int chance) {  Jedis.set(this.uuid + ".sleep_chance_max", String.valueOf(chance)); }
+
+    public int getStrengthLvl() { return Integer.parseInt(Jedis.get(this.uuid + ".strength")); }
+
+    public void setStrengthLvl(int lvl) { Jedis.set(this.uuid + ".strength", String.valueOf(lvl)); }
+
+    public int getAgilityLvl() { return Integer.parseInt(Jedis.get(this.uuid + ".agility")); }
+
+    public void setAgilityLvl(int lvl) { Jedis.set(this.uuid + ".agility", String.valueOf(lvl)); }
+
+    public int getNeedsLvl() { return Integer.parseInt(Jedis.get(this.uuid + ".needs")); }
+
+    public void setNeedsLvl(int lvl) { Jedis.set(this.uuid + ".needs", String.valueOf(lvl)); }
+
+    public void updateTrainerSkills() {
+        String chance = String.valueOf(TrainerSkills.getSkills(this.getNeedsLvl()).getNeeds_chance());
+        Jedis.set(uuid + ".toilet_chance_max", chance);
+        Jedis.set(uuid + ".shower_chance_max", chance);
+        Jedis.set(uuid + ".sleep_chance_max", chance);
+    }
 
     public void addHP(double amount) {
         if (Bukkit.getPlayer(this.uuid).getHealth() + amount > Bukkit.getPlayer(this.uuid).getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()) {

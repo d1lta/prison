@@ -20,13 +20,13 @@ public class BlockBreak implements Listener {
     public void onBlockBreak(BlockBreakEvent e) {
         if (MineUtils.isAllowedToBreakBlock(e.getBlock().getLocation())) {
             simulate(new LittlePlayer(e.getPlayer().getUniqueId()), e.getBlock().getLocation());
+            if (e.getBlock().getType().equals(Material.ICE)) {
+                e.getBlock().setType(Material.AIR);
+            }
         } else {
             if (!(e.getPlayer().isOp() && e.getPlayer().getGameMode().equals(GameMode.CREATIVE))) {
                 e.setCancelled(true);
             }
-        }
-        if (e.getBlock().getType().equals(Material.ICE)) {
-            e.getBlock().setType(Material.AIR);
         }
         e.setDropItems(false);
         e.setExpToDrop(0);

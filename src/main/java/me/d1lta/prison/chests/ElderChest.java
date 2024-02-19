@@ -4,7 +4,7 @@ import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 import me.d1lta.prison.Main;
 import me.d1lta.prison.enums.Enchantments;
-import me.d1lta.prison.utils.ComponentUtils;
+import me.d1lta.prison.utils.DComponent;
 import me.d1lta.prison.utils.LittlePlayer;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
@@ -21,7 +21,7 @@ public class ElderChest implements Listener {
     int taskID = 0;
 
     public void elderCase(Boolean advanced, LittlePlayer pl) {
-        Inventory inv = Bukkit.createInventory(null, 27, ComponentUtils.component("супер кейс", TextColor.color(130, 133, 134)));
+        Inventory inv = Bukkit.createInventory(null, 27, DComponent.create("супер кейс", TextColor.color(130, 133, 134)));
         final int countOfBooks = 9;
         for (int i = 0; i < countOfBooks; i++) {
             inv.setItem(9 + i, Enchantments.values()[new Random().nextInt(1, Enchantments.values().length)].getBook(advancedLvl(advanced), chance(advanced)).getBook());
@@ -56,10 +56,10 @@ public class ElderChest implements Listener {
                 Bukkit.getScheduler().cancelTask(taskID);
                 EnderChest.opening.remove(pl.uuid);
                 Bukkit.getOnlinePlayers().stream().map(Entity::getUniqueId).forEach(it -> new LittlePlayer(it).sendMessage(
-                        ComponentUtils.component(pl.getName(), TextColor.color(pl.getFaction().getColor())).append(
-                                ComponentUtils.component(" достал из древнего сундука ", TextColor.color(201, 201, 193)).append(
+                        DComponent.create(pl.getName(), TextColor.color(pl.getFaction().getColor())).append(
+                                DComponent.create(" достал из древнего сундука ", TextColor.color(201, 201, 193)).append(
                                         inv.getItem(13).getItemMeta().lore().get(0)).append(
-                                                ComponentUtils.component("!", TextColor.color(201, 201, 193))))));
+                                                DComponent.create("!", TextColor.color(201, 201, 193))))));
             }
         }, 5L, 5L).getTaskId();
     }
@@ -67,7 +67,7 @@ public class ElderChest implements Listener {
     private static ItemStack arrow() {
         ItemStack arrow = new ItemStack(Material.LEVER);
         ItemMeta meta = arrow.getItemMeta();
-        meta.displayName(ComponentUtils.component(""));
+        meta.displayName(DComponent.create(""));
         arrow.setItemMeta(meta);
         return arrow;
     }
@@ -87,7 +87,7 @@ public class ElderChest implements Listener {
             default -> filler = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
         }
         ItemMeta meta = filler.getItemMeta();
-        meta.displayName(ComponentUtils.component(""));
+        meta.displayName(DComponent.create(""));
         filler.setItemMeta(meta);
         return filler;
     }

@@ -4,10 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import me.d1lta.prison.Main;
 import me.d1lta.prison.enums.LevelBoosts;
-import me.d1lta.prison.utils.ComponentUtils;
+import me.d1lta.prison.utils.DComponent;
 import me.d1lta.prison.utils.LittlePlayer;
 import me.d1lta.prison.utils.NBT;
-import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -26,7 +25,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class Level implements CommandExecutor, Listener {
 
-    private static Component title = ComponentUtils.component("Уровень");
+    private static net.kyori.adventure.text.Component title = DComponent.create("Уровень");
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
@@ -85,15 +84,15 @@ public class Level implements CommandExecutor, Listener {
         Inventory UI = Bukkit.createInventory(null, InventoryType.HOPPER, title);
         List<String> requirements = Main.config.getConfig().getStringList("levels.level_" + (lvl + 1) + ".requirements");
         String[] parts;
-        List<Component> lore = new ArrayList<>();
+        List<net.kyori.adventure.text.Component> lore = new ArrayList<>();
         for (String it: requirements) {
             parts = it.split(":");
-            lore.add(Component.text(makeColor(translate(parts[0]) + ": " + parts[1], pl, parts[0].toLowerCase(), Integer.parseInt(parts[1]))));
+            lore.add(net.kyori.adventure.text.Component.text(makeColor(translate(parts[0]) + ": " + parts[1], pl, parts[0].toLowerCase(), Integer.parseInt(parts[1]))));
         }
         ItemStack lvlup = new ItemStack(Material.EXPERIENCE_BOTTLE);
         ItemMeta meta = lvlup.getItemMeta();
         meta.lore(lore);
-        meta.displayName(Component.text(ChatColor.GOLD + "Повысить уровень"));
+        meta.displayName(net.kyori.adventure.text.Component.text(ChatColor.GOLD + "Повысить уровень"));
         lvlup.setItemMeta(meta);
         lvlup = NBT.addNBT(lvlup, "type", "lvlup");
         UI.setItem(2, lvlup);

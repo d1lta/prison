@@ -1,7 +1,6 @@
 package me.d1lta.prison.commands;
 
-import me.d1lta.prison.Main;
-import me.d1lta.prison.utils.ComponentUtils;
+import me.d1lta.prison.utils.DComponent;
 import me.d1lta.prison.utils.LittlePlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -26,13 +25,13 @@ public class Gift implements CommandExecutor {
                 if (stack != null || stack.getType().equals(Material.AIR)) {
                     if (distanceSquared(pl.getLocation(), receiver.getLocation()) < 5) {
 
-                        pl.sendMessage(ComponentUtils.component("Вы передали ")
+                        pl.sendMessage(DComponent.create("Вы передали ")
                                 .append(stack.getItemMeta().displayName())
-                                .append(ComponentUtils.component(" игроку "))
-                                .append(ComponentUtils.component(receiver.getName())));
+                                .append(DComponent.create(" игроку "))
+                                .append(DComponent.create(receiver.getName())));
                         pl.getItemInMainHand().setAmount(0);
                         receiver.giveItem(stack);
-                        receiver.sendMessage(ComponentUtils.component(pl.getName() + " передал вам ")
+                        receiver.sendMessage(DComponent.create(pl.getName() + " передал вам ")
                                 .append(stack.getItemMeta().displayName()));
                     }
                 }

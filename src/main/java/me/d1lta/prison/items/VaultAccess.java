@@ -2,7 +2,7 @@ package me.d1lta.prison.items;
 
 import java.util.List;
 import me.d1lta.prison.Jedis;
-import me.d1lta.prison.utils.ComponentUtils;
+import me.d1lta.prison.utils.DComponent;
 import me.d1lta.prison.utils.LittlePlayer;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Material;
@@ -19,10 +19,10 @@ public class VaultAccess implements Listener {
         ItemStack access = new ItemStack(Material.KNOWLEDGE_BOOK);
         ItemMeta meta = access.getItemMeta();
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_ITEM_SPECIFICS);
-        meta.lore(List.of(ComponentUtils.component("Этот предмет открывает доступ в подвал",
+        meta.lore(List.of(DComponent.create("Этот предмет открывает доступ в подвал",
                 TextColor.color(0, 214, 199))
         ));
-        meta.displayName(ComponentUtils.component("Доступ в подвал", TextColor.color(214, 144, 0)));
+        meta.displayName(DComponent.create("Доступ в подвал", TextColor.color(214, 144, 0)));
         access.setItemMeta(meta);
         return access;
     }

@@ -4,9 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.UUID;
-import me.d1lta.prison.utils.ComponentUtils;
+import me.d1lta.prison.utils.DComponent;
 import me.d1lta.prison.utils.LittlePlayer;
-import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -21,7 +20,7 @@ import org.bukkit.event.entity.EntityDeathEvent;
 
 public class Vindicator implements Listener {
 
-    public static Component vindicatorName = ComponentUtils.component("Виндикатор", TextColor.color(200,60,60));
+    public static net.kyori.adventure.text.Component vindicatorName = DComponent.create("Виндикатор", TextColor.color(200,60,60));
     private final HashMap<UUID, Double> dealDamagers = new HashMap<>();
     private static final double multiplier = 2.5;
 

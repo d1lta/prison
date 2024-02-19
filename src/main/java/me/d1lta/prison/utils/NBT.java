@@ -24,6 +24,11 @@ public class NBT {
         return nbtItem.getInteger(a);
     }
 
+    public static String getIntFromString(ItemStack stack, String a) {
+        NBTItem nbtItem = new NBTItem(stack);
+        return String.valueOf(nbtItem.getInteger(a));
+    }
+
     public static String getStringNBT(ItemStack stack, String a) {
         NBTItem nbtItem = new NBTItem(stack);
         return nbtItem.getString(a);
