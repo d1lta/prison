@@ -7,14 +7,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import me.d1lta.prison.boosters.BlockBoostHandler;
-import me.d1lta.prison.boosters.BoostersYAML;
 import me.d1lta.prison.chests.DefaultChest;
 import me.d1lta.prison.chests.EnderChest;
 import me.d1lta.prison.commands.AdmJedis;
 import me.d1lta.prison.commands.AutoSell;
 import me.d1lta.prison.commands.Base;
 import me.d1lta.prison.commands.Blockstats;
-import me.d1lta.prison.commands.Boosters;
 import me.d1lta.prison.commands.Debug;
 import me.d1lta.prison.commands.EnchantmentList;
 import me.d1lta.prison.commands.Faction;
@@ -31,39 +29,36 @@ import me.d1lta.prison.commands.Warzone;
 import me.d1lta.prison.commands.WorldCreate;
 import me.d1lta.prison.commands.WorldTp;
 import me.d1lta.prison.enchants.enchantments.armor.CatGrace;
-import me.d1lta.prison.enchants.enchantments.instruments.Archaeology;
 import me.d1lta.prison.enchants.enchantments.armor.Fiery;
-import me.d1lta.prison.enchants.enchantments.instruments.Hammer;
+import me.d1lta.prison.enchants.enchantments.armor.Ninja;
 import me.d1lta.prison.enchants.enchantments.armor.Sacred;
-import me.d1lta.prison.enchants.enchantments.sword.Vampirism;
+import me.d1lta.prison.enchants.enchantments.armor.Strenghtening;
+import me.d1lta.prison.enchants.enchantments.instruments.Archaeology;
+import me.d1lta.prison.enchants.enchantments.instruments.Hammer;
 import me.d1lta.prison.enchants.enchantments.sword.Blindness;
 import me.d1lta.prison.enchants.enchantments.sword.Boxer;
 import me.d1lta.prison.enchants.enchantments.sword.Confusion;
 import me.d1lta.prison.enchants.enchantments.sword.Fury;
-import me.d1lta.prison.enchants.enchantments.armor.Ninja;
-import me.d1lta.prison.enchants.enchantments.armor.Strenghtening;
 import me.d1lta.prison.enchants.enchantments.sword.Toxic;
+import me.d1lta.prison.enchants.enchantments.sword.Vampirism;
 import me.d1lta.prison.enchants.enchantments.sword.Vortex;
 import me.d1lta.prison.enums.Factions;
 import me.d1lta.prison.events.BlockBreak;
 import me.d1lta.prison.events.BlockPlace;
-import me.d1lta.prison.events.DisableBlockPhysics;
-import me.d1lta.prison.events.ElderDustCombing;
+import me.d1lta.prison.events.EntityDamage;
+import me.d1lta.prison.events.EntityDamageByEntity;
 import me.d1lta.prison.events.EntityDeath;
-import me.d1lta.prison.events.ItemDrop;
-import me.d1lta.prison.events.PVPEvents;
+import me.d1lta.prison.events.EntitySpawn;
+import me.d1lta.prison.events.InventoryClick;
+import me.d1lta.prison.events.PhysicsEvents;
 import me.d1lta.prison.events.PlayerDeath;
-import me.d1lta.prison.events.PlayerFaction;
-import me.d1lta.prison.events.ElderEnchanting;
-import me.d1lta.prison.events.onJoin;
-import me.d1lta.prison.events.onSpawnEntity;
-import me.d1lta.prison.items.AdminStick;
-import me.d1lta.prison.items.VaultAccess;
+import me.d1lta.prison.events.PlayerDropItem;
+import me.d1lta.prison.events.PlayerInteract;
+import me.d1lta.prison.events.PlayerInteractAtEntity;
+import me.d1lta.prison.events.PlayerJoin;
+import me.d1lta.prison.events.PlayerMove;
+import me.d1lta.prison.events.PlayerQuit;
 import me.d1lta.prison.mines.MinesTimer;
-import me.d1lta.prison.mobs.bosses.Vindicator;
-import me.d1lta.prison.mobs.traders.ElderVillager;
-import me.d1lta.prison.mobs.traders.StartVillager;
-import me.d1lta.prison.mobs.traders.Trainer;
 import me.d1lta.prison.utils.LittlePlayer;
 import me.d1lta.prison.warzone.WarzoneCapture;
 import me.d1lta.prison.worldGenerators.VoidGen;
@@ -78,11 +73,9 @@ import redis.clients.jedis.JedisPool;
 
 public final class Main extends JavaPlugin {
 
-    public static BoostersYAML boosters;
     public static Plugin plugin;
     public static Config config;
     public static JedisPool pool;
-
     @Override
     public void onEnable() {
         pool = new JedisPool("localhost", 6379);
@@ -93,7 +86,6 @@ public final class Main extends JavaPlugin {
             return;
         }
         plugin = this;
-        boosters = new BoostersYAML(this);
         config = new Config(this);
         Bukkit.setSpawnRadius(0);
         registerCommands();
@@ -105,13 +97,14 @@ public final class Main extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        pool.close();
         Main.config.getConfig().getConfigurationSection("warzonepoints").getKeys(false).forEach(it -> {
             WarzoneCapture.getPoint(WarzoneCapture.getCentralPoint(it)).refreshColor(WarzoneCapture.getCentralPoint(it));
             WarzoneCapture.getCentralPoint(it).getBlock().setType(Factions.NO_FACTION.getWarzoneGlassMat());
         });
         BlockBoostHandler.applyToDBEveryone();
+        PlayerValues.save();
         Bukkit.getLogger().warning("DISABLED PRISON");
+        pool.close();
     }
 
     AtomicInteger count = new AtomicInteger(0);
@@ -142,18 +135,28 @@ public final class Main extends JavaPlugin {
                 EnderChest.initLoc();
                 EnderChest.spawnChest();
             }
-        },40L);
+        }, 40L);
     }
 
     private void registerEvents() {
         List<Listener> events = List.of(
-                new EnchantmentList(),
-                new PrisonEvents(),
-                new AdminStick(),
-                new PVPEvents(),
-                new ElderDustCombing(),
-                new ElderEnchanting(),
-                new Vampirism(),
+                new BlockBreak(),
+                new BlockPlace(),
+                new EntityDamage(),
+                new EntityDamageByEntity(),
+                new EntityDeath(),
+                new EntitySpawn(),
+                new InventoryClick(),
+                new PhysicsEvents(),
+                new PlayerDeath(),
+                new PlayerDropItem(),
+                new PlayerInteract(),
+                new PlayerInteractAtEntity(),
+                new PlayerJoin(),
+                new PlayerMove(),
+                new PlayerQuit(),
+
+                new Vampirism(), // TODO: убрать это всё в один метод
                 new CatGrace(),
                 new Archaeology(),
                 new Hammer(),
@@ -166,31 +169,7 @@ public final class Main extends JavaPlugin {
                 new Ninja(),
                 new Strenghtening(),
                 new Toxic(),
-                new Vortex(),
-                new onJoin(),
-                new BlockBreak(),
-                new DisableBlockPhysics(),
-                new BlockPlace(),
-                new onSpawnEntity(),
-                new Level(),
-                new PlayerDeath(),
-                new Mine(),
-                new Blockstats(),
-                new Upgrade(),
-                new Upgrades(),
-                new EntityDeath(),
-                new DefaultChest(),
-                new EnderChest(),
-                new VaultAccess(),
-                new Faction(),
-                new PlayerFaction(),
-                new ItemDrop(),
-                new WarzoneCapture(),
-                new Boosters(),
-                new Vindicator(null),
-                new StartVillager(null),
-                new ElderVillager(null),
-                new Trainer(null));
+                new Vortex());
         Bukkit.getPluginManager().registerEvents(config, plugin);
         events.forEach(it -> Bukkit.getPluginManager().registerEvents(it, plugin));
     }
@@ -217,8 +196,6 @@ public final class Main extends JavaPlugin {
                 "base", new Base(),
                 "gift", new Gift(),
                 "warzone", new Warzone(),
-                "boosters", new Boosters()));
-        commands.putAll(Map.of(
                 "enchantments", new EnchantmentList()
         ));
         commands.forEach((cmd, executor) -> getServer().getPluginCommand(cmd).setExecutor(executor));

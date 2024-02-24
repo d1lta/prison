@@ -8,11 +8,15 @@ import java.util.Map.Entry;
 import java.util.Objects;
 import me.d1lta.prison.Main;
 import me.d1lta.prison.enums.Enchantments;
-import me.d1lta.prison.utils.DComponent;
+import me.d1lta.prison.utils.CheckUtils;
 import me.d1lta.prison.utils.ConfigUtils;
+import me.d1lta.prison.utils.DComponent;
+import me.d1lta.prison.utils.DComponent.CValues;
 import me.d1lta.prison.utils.LittlePlayer;
 import me.d1lta.prison.utils.NBT;
 import me.d1lta.prison.utils.NumberUtils;
+import me.d1lta.prison.utils.Translate;
+import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -22,9 +26,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
@@ -32,20 +33,16 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 
-public class Upgrade implements CommandExecutor, Listener {
+public class Upgrade implements CommandExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (sender instanceof Player) {
             LittlePlayer pl = new LittlePlayer(((Player) sender).getUniqueId());
-            if (pl.getItemInMainHand() == null || pl.getItemInMainHand().getType().equals(Material.AIR)) {
-                return true;
-            }
+            if (!CheckUtils.checkForNull(pl.getItemInMainHand())) { return true; }
             ItemStack stack = pl.getItemInMainHand();
             String type = NBT.getStringNBT(stack, "type");
-            if (type == null || type.equals("")) {
-                return true;
-            }
+            if (type == null || type.isEmpty()) { return true; }
             int maxlvl = Main.config.getConfig().getConfigurationSection("upgrades." + type).getKeys(false).size();
             int currentlvl = NBT.getIntNBT(stack, "level");
             if (args.length == 1 && args[0].equals("max") && pl.isOp()) {
@@ -56,53 +53,16 @@ public class Upgrade implements CommandExecutor, Listener {
                 return true;
             }
             if (currentlvl < maxlvl) {
-                openUI(pl, type, currentlvl + 1, true, getEnchants(pl.getItemInMainHand()));
-                return true;
+                openUI(pl, type, currentlvl + 1, getEnchants(pl.getItemInMainHand()));
             } else {
                 pl.sendMessage("Предмет уже максимального уровня!");
-                return true;
             }
+            return true;
         }
         return false;
     }
 
-    @EventHandler
-    public void onInteract(InventoryClickEvent e) {
-        if (e.getInventory().getType().equals(InventoryType.HOPPER)) {
-            if (e.getCurrentItem() == null || e.getCurrentItem().getType() == Material.AIR) {
-                e.setCancelled(true);
-                return;
-            }
-        }
-        if (e.getView().title().equals(
-                DComponent.create("Улучшение предмета", TextColor.color(255,255,0)))) {
-            e.setCancelled(true);
-            if (Objects.equals(e.getCurrentItem(), getUpgradeButton())) {
-                LittlePlayer pl = new LittlePlayer(e.getWhoClicked().getUniqueId());
-                String type = NBT.getStringNBT(pl.getItemInMainHand(), "type");
-                int currentlvl = NBT.getIntNBT(pl.getItemInMainHand(), "level");
-                if (checkCondition(pl, type, currentlvl + 1)) {
-                    for (String it : Main.config.getConfig().getStringList("upgrades." + type + ".level_" + currentlvl + ".requirements")) {
-                        String[] parts = it.split(":");
-                        if (parts[0].equalsIgnoreCase("money")) {
-                            pl.removeMoney(Integer.parseInt(parts[1]));
-                            break;
-                        }
-                    }
-                    ItemStack clone = pl.getItemInMainHand().clone();
-                    pl.getItemInMainHand().setAmount(0);
-                    pl.getInventory().setItem(pl.getHeldItemSlot(), getPrisonItem(pl, type, currentlvl + 1, false, getEnchants(clone)));
-                    pl.sendMessage("Предмет улучшен!");
-                    pl.closeInventory();
-                } else {
-                    pl.sendMessage("Требования не выполнены!");
-                    pl.closeInventory();
-                }
-            }
-        }
-    }
-
-    private static boolean checkCondition(LittlePlayer pl, String type, int lvl) {
+    public static boolean checkCondition(LittlePlayer pl, String type, int lvl) {
         for (String it : Main.config.getConfig().getStringList("upgrades." + type + ".level_" + lvl + ".requirements")) {
             String[] parts = it.split(":");
             Object query = switch (parts[0].toLowerCase()) {
@@ -117,9 +77,9 @@ public class Upgrade implements CommandExecutor, Listener {
         return true;
     }
 
-    private void openUI(LittlePlayer pl, String type, int lvl, boolean upgrade, Map<String, Integer> enchants) {
-        Inventory inventory = Bukkit.createInventory(null, InventoryType.HOPPER, DComponent.create("Улучшение предмета", TextColor.color(255,255,0)));
-        inventory.setItem(1, getPrisonItem(pl, type, lvl, upgrade, enchants));
+    private void openUI(LittlePlayer pl, String type, int lvl, Map<String, Integer> enchants) {
+        Inventory inventory = Bukkit.createInventory(null, InventoryType.HOPPER, CValues.get("Улучшение предмета", 255, 255, 0).create());
+        inventory.setItem(1, getPrisonItem(pl, type, lvl, true, enchants));
         inventory.setItem(3, getUpgradeButton());
         for (int i = 0; i <= 4; i++) {
             if (inventory.getItem(i) == null) {
@@ -137,15 +97,11 @@ public class Upgrade implements CommandExecutor, Listener {
         return stack;
     }
 
-    private static ItemStack getUpgradeButton() {
+    public static ItemStack getUpgradeButton() {
         ItemStack stack = new ItemStack(Material.EXPERIENCE_BOTTLE);
         ItemMeta meta = stack.getItemMeta();
         meta.displayName(DComponent.create("Улучшить предмет", TextColor.color(100, 222, 117)));
-        meta.lore(List.of(
-                DComponent.create(""),
-                DComponent.create("Улучшить предмет до"),
-                DComponent.create("следующего уровня", TextColor.color(243, 182, 56))
-        ));
+        meta.lore(List.of(DComponent.create(""), CValues.get("Улучшить предмет до").create(), CValues.get("следующего уровня", 243, 182, 56).create()));
         stack.setItemMeta(meta);
         return stack;
     }
@@ -180,31 +136,27 @@ public class Upgrade implements CommandExecutor, Listener {
         return tool;
     }
 
-    public static List<net.kyori.adventure.text.Component> itemLore(int lvl, Map<String, Integer> enchants) {
-        List<net.kyori.adventure.text.Component> components = new ArrayList<>();
-        if (enchants != null && enchants.size() > 0) {
+    public static List<Component> itemLore(int lvl, Map<String, Integer> enchants) {
+        List<Component> components = new ArrayList<>();
+        if (enchants != null && !enchants.isEmpty()) {
             components.add(DComponent.create(""));
-            components.add(
-                    DComponent.create("Древние зачарования:").color(TextColor.color(176, 0, 190)));
+            components.add(CValues.get("Древние зачарования:", 180, 0, 190).create());
             enchants.forEach((k,v) -> components.add(Enchantments.getEnchantment(k).getColoredNameWithLevel(v)));
-            //enchants.forEach((k,v) -> components.add(EnchTranslate.translateWithColor(k).append(ComponentUtils.component(" " + RomanNumeration.get(v), EnchTranslate.getColor(k)))));
         }
         components.add(DComponent.create(""));
-        components.add(DComponent.create("Уровень предмета >> ").append(
-                DComponent.create(String.valueOf(lvl), TextColor.color(250, 249, 86))));
+        components.add(DComponent.create(CValues.get("Уровень предмета >> "), CValues.get(String.valueOf(lvl), 250, 249, 86)));
         return components;
     }
 
-    public static List<net.kyori.adventure.text.Component> itemUpgradeLore(LittlePlayer pl, String type, int lvl, Map<String, Integer> enchants) {
-        List<net.kyori.adventure.text.Component> lore = new ArrayList<>();
+    public static List<Component> itemUpgradeLore(LittlePlayer pl, String type, int lvl, Map<String, Integer> enchants) {
+        List<Component> lore = new ArrayList<>();
         lore.add(DComponent.create(""));
-        if (enchants.size() > 0) {
-            lore.add(DComponent.create("Древние зачарования:").color(TextColor.color(176, 0, 190)));
+        if (!enchants.isEmpty()) {
+            lore.add(CValues.get("Древние зачарования:", 176, 0, 190).create());
             enchants.forEach((k,v) -> lore.add(Enchantments.getEnchantment(k).getColoredNameWithLevel(v)));
-            //enchants.forEach((k,v) -> lore.add(EnchTranslate.translateWithColor(k).append(ComponentUtils.component(" " + RomanNumeration.get(v), EnchTranslate.getColor(k)))));
-            lore.add(DComponent.create(""));
+            lore.add(CValues.get("").create());
         }
-        lore.add(DComponent.create("Требования: ").color(TextColor.color(250, 249, 86)));
+        lore.add(CValues.get("Требования: ", 250, 250, 90).create());
         for (String it : Main.config.getConfig().getStringList("upgrades." + type + ".level_" + lvl + ".requirements")) {
             String[] parts = it.split(":");
             Object query = switch (parts[0].toLowerCase()) {
@@ -212,27 +164,26 @@ public class Upgrade implements CommandExecutor, Listener {
                 case "rats" -> pl.getRats();
                 default -> pl.getBlocks(parts[0]);
             };
-            net.kyori.adventure.text.Component can;
+            CValues checker;
             if (Double.parseDouble(String.valueOf(query)) < Double.parseDouble(parts[1])) {
-                can = DComponent.create(" ×",TextColor.color(255, 82, 68));
+                checker = CValues.get(" ×", 255, 82, 68);
             } else {
-                can = DComponent.create(" ✓",TextColor.color(85, 255, 31));
+                checker = CValues.get(" ✓", 85, 255, 31);
             }
-            lore.add(DComponent.create( translate(parts[0]) + " >> ", TextColor.color(255,255,255)).append(
-                            DComponent.create(NumberUtils.withK((int) Double.parseDouble(query.toString())), TextColor.color(250, 249, 86))).append(
-                            DComponent.create("/", TextColor.color(74,74,74))).append(
-                            DComponent.create(parts[1], TextColor.color(0,255,80))).append(can));
+            lore.add(DComponent.create(
+                    CValues.get(Translate.upgrade(parts[0]) + " >> ", 255,255,255),
+                    CValues.get(NumberUtils.withK((int) Double.parseDouble(query.toString())), 250, 249, 86),
+                    CValues.get("/", 74, 74, 74), CValues.get(parts[1], 0, 255, 80), checker
+            ));
         }
-        lore.add(DComponent.create(""));
-        lore.add(DComponent.create("Уровень предмета >> ").append(
-                DComponent.create(String.valueOf(lvl), TextColor.color(250, 249, 86))
-        ));
-        lore.add(DComponent.create("После улучшения предмета", TextColor.color(59, 59, 59)));
-        lore.add(DComponent.create("древние зачарования сохраняются", TextColor.color(59, 59, 59)));
+        lore.add(CValues.get("").create());
+        lore.add(DComponent.create(CValues.get("Уровень предмета >> "), CValues.get(String.valueOf(lvl), 250, 250, 90)));
+        lore.add(CValues.get("После улучшения предмета", 60, 60, 60).create());
+        lore.add(CValues.get("древние зачарования сохраняются", 60, 60, 60).create());
         return lore;
     }
 
-    private static Map<String, Integer> getEnchants(ItemStack item) {
+    public static Map<String, Integer> getEnchants(ItemStack item) {
         Map<String, Integer> map = new HashMap<>();
         NBT.getKeys(item).forEach(it -> {
             for (Enchantments e: Enchantments.values()) {
@@ -240,30 +191,7 @@ public class Upgrade implements CommandExecutor, Listener {
                     map.put(it, NBT.getIntNBT(item, it));
                 }
             }
-//            if (it.equals("hammer")) {
-//                map.put(it, NBT.getIntNBT(item, it));
-//            }
-//            if (it.equals("vampirism")) {
-//                map.put(it, NBT.getIntNBT(item, it));
-//            }
         });
         return map;
-    }
-
-    private static String translate(String s) {
-            return switch (s.toLowerCase()) {
-                case "money" -> "Денег";
-                case "sand" -> "Песок";
-                case "dirt" -> "Земля";
-                case "gravel" -> "Гравий";
-                case "stone" -> "Камень";
-                case "coal_ore" -> "Уголь";
-                case "iron_ore" -> "Железо";
-                case "gold_ore" -> "Золото";
-                case "white_wool" -> "Шерсть";
-                case "cobweb" -> "Паутина";
-                case "rats" -> "Крыс";
-                default -> s;
-        };
     }
 }

@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/Config.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/Jedis.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/PrisonEvents.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/Sell.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/Teleport.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/Vova.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/archive/Mine.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/archive/Upgrade.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/boosters/BlockBoosts.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/boosters/Boost.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/chests/DefaultChest.java" charset="UTF-8" />
@@ -25,7 +24,6 @@
     <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/commands/Upgrade.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/commands/Upgrades.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/commands/Warzone.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/enchants/EnchTranslate.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/enchants/EnchantmentBook.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/enchants/book/ArchaeologyBook.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/enchants/book/BlindnessBook.java" charset="UTF-8" />
@@ -42,13 +40,23 @@
     <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/enchants/book/VampirismBook.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/enchants/book/VortexBook.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/enchants/enchantments/instruments/Hammer.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/entities/bosses/Vindicator.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/entities/mobs/PrisonBat.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/entities/mobs/PrisonRat.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/entities/mobs/PrisonZombie.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/entities/traders/ElderVillager.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/entities/traders/StartVillager.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/entities/traders/TrainerVillager.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/enums/Enchantments.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/enums/Factions.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/events/BlockBreak.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/events/ElderEnchanting.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/events/EntityDamage.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/events/EntityDeath.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/events/InventoryClick.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/events/PVPEvents.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/events/onInteract.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/events/onJoin.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/events/PlayerInteractAtEntity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/events/PlayerJoin.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/items/AdminStick.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/items/Apple.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/items/Arrow.java" charset="UTF-8" />
@@ -61,13 +69,8 @@
     <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/items/ToiletPaper.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/items/VaultAccess.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/mines/AllowedBlocks.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/mobs/PZombie.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/mobs/Rat.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/mobs/bosses/Vindicator.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/mobs/traders/ElderVillager.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/mobs/traders/StartVillager.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/mobs/traders/Trainer.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/todo" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/utils/BossUtils.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/utils/CheckUtils.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/utils/DComponent.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/me/d1lta/prison/warzone/Point.java" charset="UTF-8" />

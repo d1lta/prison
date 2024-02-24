@@ -3,8 +3,7 @@ package me.d1lta.prison.enchants.book;
 import java.util.List;
 import me.d1lta.prison.enchants.EnchantmentBook;
 import me.d1lta.prison.enums.Enchantments;
-import me.d1lta.prison.utils.DComponent;
-import net.kyori.adventure.text.format.TextColor;
+import me.d1lta.prison.utils.DComponent.CValues;
 import org.bukkit.Material;
 
 public class VampirismBook extends EnchantmentBook {
@@ -22,9 +21,9 @@ public class VampirismBook extends EnchantmentBook {
 
     public VampirismBook(int lvl, int chance) {
         super(Enchantments.VAMPIRISM, lvl, chance, List.of(
-                DComponent.create("- - - - - - - - - - - - - - - - -", TextColor.color(129, 129, 122)),
-                DComponent.create("Тупая чарка которая делает тебя жирухой", TextColor.color(255, 196, 129)),
-                DComponent.create("- - - - - - - - - - - - - - - - -", TextColor.color(129, 129, 122))
+                CValues.get("- - - - - - - - - - - - - - - - -", 129, 129, 129),
+                CValues.get("я вампир", 255, 196, 129),
+                CValues.get("- - - - - - - - - - - - - - - - -", 129, 129, 129)
         ), applicableTo);
     }
 

@@ -16,14 +16,7 @@ public class BlockBoostHandler {
         if (pl.getFaction().equals(WarzoneCapture.blocks.capturedBy)) { // warzone booster
             multiplier += BlocksPoint.multiplier - 1; // 1.2
         }
-        if (BlockBoosts.localBoosters.containsKey(pl.uuid)) { // localBoost
-            multiplier += BlockBoosts.localBoosters.get(pl.uuid) - 1;
-        }
-        if (BlockBoosts.globalBoost) { // globalBoost
-            multiplier += BlockBoosts.globalBoostMultiplier - 1;
-        }
         if (multiplier < 1) { multiplier = 1; }
-        pl.sendMessage("your booster: " + multiplier + ". your blocks: " + blocks.get(pl.uuid));
         return multiplier;
     }
 
@@ -41,11 +34,11 @@ public class BlockBoostHandler {
 
     public static void applyToDB(LittlePlayer pl) {
         pl.addBlocks((int) ((blocks.get(pl.uuid) * getBlocksMultiplier(pl)) - blocks.get(pl.uuid)));
-        pl.sendMessage("added " + (int) ((blocks.get(pl.uuid) * getBlocksMultiplier(pl)) - blocks.get(pl.uuid)) + " blocks from booster");
         blocks.remove(pl.uuid);
     }
 
     public static void applyToDBEveryone() {
+        if (blocks.isEmpty()) { return; }
         for(UUID uuid: blocks.keySet()) {
             applyToDB(new LittlePlayer(uuid));
         }

@@ -5,8 +5,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 import me.d1lta.prison.Main;
 import me.d1lta.prison.enums.Enchantments;
 import me.d1lta.prison.utils.DComponent;
+import me.d1lta.prison.utils.DComponent.CValues;
 import me.d1lta.prison.utils.LittlePlayer;
-import net.kyori.adventure.text.format.TextColor;
+import me.d1lta.prison.utils.NBT;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -15,53 +16,65 @@ import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public class ElderChest implements Listener {
 
-    int taskID = 0;
+    private static final int countOfBooks = 9;
 
     public void elderCase(Boolean advanced, LittlePlayer pl) {
-        Inventory inv = Bukkit.createInventory(null, 27, DComponent.create("супер кейс", TextColor.color(130, 133, 134)));
-        final int countOfBooks = 9;
+        Inventory inv = Bukkit.createInventory(null, 27, CValues.get("Древний сундук", 46, 46, 46).create());
+        ItemStack[] contents = inv.getContents();
         for (int i = 0; i < countOfBooks; i++) {
-            inv.setItem(9 + i, Enchantments.values()[new Random().nextInt(1, Enchantments.values().length)].getBook(advancedLvl(advanced), chance(advanced)).getBook());
+            contents[i + 9] = Enchantments.values()[new Random().nextInt(1, Enchantments.values().length)].getBook(advancedLvl(advanced), chance(advanced)).getBook();
         }
-        for (int j = 0; j < 9; j++) {
-            inv.setItem(j, new ItemStack(filler()));
-            inv.setItem(j+18, new ItemStack(filler()));
-        }
-        inv.setItem(22, new ItemStack(arrow()));
-        AtomicInteger i = new AtomicInteger(0);
+        contents = addFillers(contents.clone());
+        contents[22] = new ItemStack(arrow());
+        inv.setContents(contents);
         pl.openInventory(inv);
-        taskID = Bukkit.getScheduler().runTaskTimer(Main.plugin, () -> {
-            if (i.get() < 18) {
-                ItemStack[] contents = inv.getContents();
-                for (int j = 0; j < 9; j++) {
-                    if (j != 8) {
-                        contents[9 + j] = inv.getItem(10 + j);
-                    } else {
+        contents = null;
+        AtomicInteger i = new AtomicInteger(0);
+
+        new BukkitRunnable() {
+
+            @Override
+            public void run() {
+                if (i.get() < 18) {
+                    ItemStack[] contents = inv.getContents();
+                    for (int j = 0; j < 9; j++) {
+                        if (j != 8) {
+                            contents[9 + j] = inv.getItem(10 + j);
+                            continue;
+                        }
                         contents[17] = inv.getItem(9);
                     }
+                    contents = addFillers(contents.clone());
+                    contents[22] = new ItemStack(arrow());
+                    inv.setContents(contents);
+                    pl.playSound(Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1);
+                    i.set(i.get() + 1);
+                } else {
+                    pl.giveItem(inv.getItem(13));
+                    EnderChest.opening.remove(pl.uuid);
+                    Bukkit.getOnlinePlayers().stream().map(Entity::getUniqueId).forEach(it -> new LittlePlayer(it).sendMessage(
+                            DComponent.create(
+                                    CValues.get(pl.getName(), pl.getFaction().getColor()),
+                                    CValues.get(" достал из древнего сундука ", 255, 255, 255),
+                                    CValues.get(inv.getItem(13).getItemMeta().lore().get(0), Enchantments.getEnchantment(NBT.getStringNBT(inv.getItem(13), "type")).getTextColor()),
+                                    CValues.get("!", 255, 255, 255)
+                            )));
+                    this.cancel();
                 }
-                for (int j = 0; j < 9; j++) {
-                    contents[j] = new ItemStack(filler());
-                    contents[j+18] = new ItemStack(filler());
-                }
-                contents[22] = new ItemStack(arrow());
-                inv.setContents(contents);
-                pl.playSound(Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1);
-                i.set(i.get() + 1);
-            } else {
-                pl.giveItem(inv.getItem(13));
-                Bukkit.getScheduler().cancelTask(taskID);
-                EnderChest.opening.remove(pl.uuid);
-                Bukkit.getOnlinePlayers().stream().map(Entity::getUniqueId).forEach(it -> new LittlePlayer(it).sendMessage(
-                        DComponent.create(pl.getName(), TextColor.color(pl.getFaction().getColor())).append(
-                                DComponent.create(" достал из древнего сундука ", TextColor.color(201, 201, 193)).append(
-                                        inv.getItem(13).getItemMeta().lore().get(0)).append(
-                                                DComponent.create("!", TextColor.color(201, 201, 193))))));
             }
-        }, 5L, 5L).getTaskId();
+        }.runTaskTimer(Main.plugin, 5L, 5L);
+    }
+
+    private static ItemStack[] addFillers(ItemStack[] arr) {
+        for (int j = 0; j < 9; j++) {
+            arr[j] = new ItemStack(filler());
+            arr[j+18] = new ItemStack(filler());
+        }
+        return arr;
     }
 
     private static ItemStack arrow() {
@@ -124,5 +137,4 @@ public class ElderChest implements Listener {
             }
         }
     }
-
 }

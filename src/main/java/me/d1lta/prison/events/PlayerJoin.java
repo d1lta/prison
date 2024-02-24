@@ -3,6 +3,8 @@ package me.d1lta.prison.events;
 import java.util.UUID;
 import me.d1lta.prison.Jedis;
 import me.d1lta.prison.Main;
+import me.d1lta.prison.PlayerValues;
+import me.d1lta.prison.commands.AutoSell;
 import me.d1lta.prison.enums.Factions;
 import me.d1lta.prison.enums.LevelBoosts;
 import me.d1lta.prison.PrisonEvents;
@@ -13,7 +15,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-public class onJoin implements Listener {
+public class PlayerJoin implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
@@ -180,9 +182,17 @@ public class onJoin implements Listener {
         if (Jedis.get(uuid + ".lvl") == null) {
             Jedis.set(uuid + ".lvl", "0");
         }
+        if (Jedis.get(uuid + ".autosell") == null) {
+            Jedis.set(uuid + ".autosell", "false");
+        }
 
+        if (Jedis.get(uuid + ".autosell").equals("true")) {
+            AutoSell.uuids.add(uuid);
+        }
         LevelBoosts.get(new LittlePlayer(uuid).getLevel()).applyToPlayer(new LittlePlayer(uuid));
         new PrisonEvents().applyEvents(new LittlePlayer(uuid));
+
+        PlayerValues.setValues(uuid);
 
         Bukkit.getWorlds().forEach(it -> {
             if (it.getName().equals("hub")) {

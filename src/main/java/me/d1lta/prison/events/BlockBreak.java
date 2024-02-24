@@ -1,6 +1,8 @@
 package me.d1lta.prison.events;
 
+
 import java.util.Random;
+import me.d1lta.prison.Main;
 import me.d1lta.prison.Sell;
 import me.d1lta.prison.boosters.BlockBoostHandler;
 import me.d1lta.prison.commands.AutoSell;
@@ -34,9 +36,10 @@ public class BlockBreak implements Listener {
 
     public static void simulate(LittlePlayer pl, Location loc) {
         Material mat = loc.getBlock().getType();
-        pl.getInventory().addItem(MineUtils.getPrisonBlock(mat));
         if (AutoSell.uuids.contains(pl.uuid)) {
-            Sell.sell(pl);
+            Sell.sell(pl, Main.config.getConfig().getDouble("prices." + mat.name().toLowerCase()));
+        } else {
+            pl.getInventory().addItem(MineUtils.getPrisonBlock(mat));
         }
         pl.addBlock();
         pl.addBlock(mat);
@@ -46,4 +49,6 @@ public class BlockBreak implements Listener {
             pl.sendMessage("Вы нашли ключ!");
         }
     }
+
 }
+

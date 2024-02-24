@@ -35,41 +35,10 @@ public class MineUtils {
     }
 
     public static ItemStack getPrisonBlock(Material mat) {
-        return switch (mat) {
-            case DIRT -> AllowedBlocks.dirt();
-            case GRAVEL -> AllowedBlocks.gravel();
-            case SAND -> AllowedBlocks.sand();
-            case STONE -> AllowedBlocks.stone();
-            case COAL_ORE -> AllowedBlocks.coal_ore();
-            case IRON_ORE -> AllowedBlocks.iron_ore();
-            case GOLD_ORE -> AllowedBlocks.gold_ore();
-            case WHITE_CONCRETE_POWDER -> AllowedBlocks.white_concrete_block();
-            case LIGHT_GRAY_CONCRETE_POWDER -> AllowedBlocks.light_gray_concrete_powder();
-            case NETHERRACK -> AllowedBlocks.netherrack();
-            case SOUL_SAND -> AllowedBlocks.soul_sand();
-            case NETHER_QUARTZ_ORE -> AllowedBlocks.nether_quartz_ore();
-            case SANDSTONE -> AllowedBlocks.sandstone();
-            case RED_SANDSTONE -> AllowedBlocks.red_sandstone();
-            case QUARTZ_BLOCK -> AllowedBlocks.quartz_block();
-            case PRISMARINE -> AllowedBlocks.prismarine();
-            case PRISMARINE_BRICKS -> AllowedBlocks.prismarine_bricks();
-            case PURPUR_BLOCK -> AllowedBlocks.purpur_block();
-            case PURPUR_PILLAR -> AllowedBlocks.purpur_pillar();
-            case END_STONE_BRICKS -> AllowedBlocks.end_stone_bricks();
-            case WHITE_WOOL -> AllowedBlocks.white_wool();
-            case COBWEB -> AllowedBlocks.cobweb();
-            case TERRACOTTA -> AllowedBlocks.terracotta();
-            case BROWN_GLAZED_TERRACOTTA -> AllowedBlocks.brown_glazed_terracotta();
-            case ICE -> AllowedBlocks.ice();
-            case PACKED_ICE -> AllowedBlocks.packed_ice();
-            case PURPLE_TERRACOTTA -> AllowedBlocks.purple_terracotta();
-            case OBSIDIAN -> AllowedBlocks.obsidian();
-            case IRON_BLOCK -> AllowedBlocks.iron_block();
-            case LAPIS_BLOCK -> AllowedBlocks.lapis_block();
-            case GOLD_BLOCK -> AllowedBlocks.gold_block();
-            case DIAMOND_BLOCK -> AllowedBlocks.diamond_block();
-            default -> new ItemStack(Material.AIR);
-        };
+        if (AllowedBlocks.blockMats.contains(mat)) {
+            return AllowedBlocks.getBlock(mat);
+        }
+        return new ItemStack(Material.AIR);
     }
 
     public static boolean isAllowedToBreakBlock(Location blockLocation) {

@@ -1,6 +1,8 @@
 package me.d1lta.prison.commands;
 
-import me.d1lta.prison.Main;
+import static me.d1lta.prison.utils.NumberUtils.getValueD;
+import static me.d1lta.prison.utils.NumberUtils.getValueF;
+
 import me.d1lta.prison.Teleport;
 import me.d1lta.prison.enums.Factions;
 import me.d1lta.prison.utils.LittlePlayer;
@@ -27,21 +29,10 @@ public class Warzone implements CommandExecutor {
                 return true;
             }
             String path = "spawnpoints.warzone." + pl.getFaction().getConfigName() + ".";
-            Teleport.tp(
-                    pl, pl.getLocation(), new Location(Bukkit.getWorld("warzone"), getValueD(path, "x"), getValueD(path, "y"), getValueD(path, "z"),
-                            getValueF(path, "yaw"), getValueF(path, "pitch"))
-            );
+            Teleport.tp(pl, pl.getLocation(), new Location(Bukkit.getWorld("warzone"), getValueD(path, "x"), getValueD(path, "y"), getValueD(path, "z"),
+                            getValueF(path, "yaw"), getValueF(path, "pitch")));
             return true;
         }
         return false;
-    }
-
-    private Double getValueD(String path, String value) {
-        Bukkit.broadcastMessage(path + value + ": " + Main.config.getConfig().get(path + value));
-        return Double.parseDouble(String.valueOf(Main.config.getConfig().get(path + value)));
-    }
-
-    private Float getValueF(String path, String value) {
-        return Float.parseFloat(String.valueOf(Main.config.getConfig().get(path + value)));
     }
 }

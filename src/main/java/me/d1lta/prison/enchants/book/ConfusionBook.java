@@ -3,8 +3,7 @@ package me.d1lta.prison.enchants.book;
 import java.util.List;
 import me.d1lta.prison.enchants.EnchantmentBook;
 import me.d1lta.prison.enums.Enchantments;
-import me.d1lta.prison.utils.DComponent;
-import net.kyori.adventure.text.format.TextColor;
+import me.d1lta.prison.utils.DComponent.CValues;
 import org.bukkit.Material;
 
 public class ConfusionBook extends EnchantmentBook {
@@ -22,10 +21,10 @@ public class ConfusionBook extends EnchantmentBook {
 
     public ConfusionBook(int lvl, int chance) {
         super(Enchantments.CONFUSION, lvl, chance, List.of(
-                DComponent.create("- - - - - - - - - - - - - - - - -", TextColor.color(129, 129, 122)),
-                DComponent.create("Тупая чарка которая заражает", TextColor.color(255, 196, 129)),
-                DComponent.create("твоего врага СПИД-ом. Убийственно.", TextColor.color(255, 196, 129)),
-                DComponent.create("- - - - - - - - - - - - - - - - -", TextColor.color(129, 129, 122))
+                CValues.get("- - - - - - - - - - - - - - - - -", 129, 129, 129),
+                CValues.get("Тупая чарка которая заражает", 255, 196, 129),
+                CValues.get("твоего врага СПИД-ом. Убийственно.", 255, 196, 129),
+                CValues.get("- - - - - - - - - - - - - - - - -", 129, 129, 129)
         ), applicableTo);
     }
 

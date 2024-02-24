@@ -1,26 +1,21 @@
 package me.d1lta.prison.events;
 
+import static me.d1lta.prison.PrisonEvents.checkDebuffs;
+
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import me.d1lta.prison.Main;
 import me.d1lta.prison.utils.LittlePlayer;
 import me.d1lta.prison.utils.LocationUtils;
 import me.d1lta.prison.utils.NBT;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class PlayerDeath implements Listener {
-
 
     @EventHandler
     public void onDeath(PlayerDeathEvent e) {
@@ -34,7 +29,7 @@ public class PlayerDeath implements Listener {
                 stacks.add(stack);
             }
         }
-        Bukkit.getScheduler().runTaskLater(Main.plugin, () -> {
+        Bukkit.getScheduler().runTaskLater(Main.plugin, () -> {  // TODO: переписать этот кал
             new LittlePlayer(e.getPlayer().getUniqueId()).addDeath();
             if (e.getPlayer().getKiller() != null) {
                 new LittlePlayer(e.getPlayer().getKiller().getUniqueId()).addKill();
@@ -63,5 +58,8 @@ public class PlayerDeath implements Listener {
                 }
             }
         }, 2L);
+        Bukkit.getScheduler().runTaskLater(Main.plugin, () -> {
+            checkDebuffs(new LittlePlayer(e.getPlayer().getUniqueId()));
+        }, 5L);
     }
 }

@@ -3,8 +3,7 @@ package me.d1lta.prison.enchants.book;
 import java.util.List;
 import me.d1lta.prison.enchants.EnchantmentBook;
 import me.d1lta.prison.enums.Enchantments;
-import me.d1lta.prison.utils.DComponent;
-import net.kyori.adventure.text.format.TextColor;
+import me.d1lta.prison.utils.DComponent.CValues;
 import org.bukkit.Material;
 
 public class BlindnessBook extends EnchantmentBook {
@@ -22,10 +21,10 @@ public class BlindnessBook extends EnchantmentBook {
 
     public BlindnessBook(int lvl, int chance) {
         super(Enchantments.BLINDNESS, lvl, chance, List.of(
-                DComponent.create("- - - - - - - - - - - - - - - - -", TextColor.color(129, 129, 122)),
-                DComponent.create("Тупая чарка которая делает", TextColor.color(255, 196, 129)),
-                DComponent.create("твоего врага слепым дедом", TextColor.color(255, 196, 129)),
-                DComponent.create("- - - - - - - - - - - - - - - - -", TextColor.color(129, 129, 122))
+                CValues.get("- - - - - - - - - - - - - - - - -", 129, 129, 122),
+                CValues.get("Тупая чарка которая делает", 129, 129, 122),
+                CValues.get("твоего врага слепым", 129, 129, 122),
+                CValues.get("- - - - - - - - - - - - - - - - -", 129, 129, 122)
         ), applicableTo);
     }
 

@@ -1,5 +1,7 @@
 package me.d1lta.prison.chests;
 
+import static me.d1lta.prison.utils.LocationUtils.getFacing;
+
 import java.util.Objects;
 import java.util.Random;
 import me.d1lta.prison.Main;
@@ -7,29 +9,24 @@ import me.d1lta.prison.items.Apple;
 import me.d1lta.prison.items.Armor;
 import me.d1lta.prison.items.Arrow;
 import me.d1lta.prison.items.Chicken;
-import me.d1lta.prison.items.Key;
+import me.d1lta.prison.items.ElderStar;
 import me.d1lta.prison.items.ToiletPaper;
 import me.d1lta.prison.items.Tool;
 import me.d1lta.prison.items.VaultAccess;
 import me.d1lta.prison.items.Weapon;
-import me.d1lta.prison.utils.DComponent;
+import me.d1lta.prison.utils.DComponent.CValues;
 import me.d1lta.prison.utils.LittlePlayer;
-import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Directional;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-public class DefaultChest implements Listener {
+public class DefaultChest {
 
-    private static Location loc;
+    public static Location loc;
     private static final String path = "chests.case.";
 
     public static void initLoc() {
@@ -47,33 +44,8 @@ public class DefaultChest implements Listener {
         loc.getBlock().setBlockData(blockData);
     }
 
-    private static BlockFace getFacing(String face) {
-        return switch (face) {
-            case "east" -> BlockFace.EAST;
-            case "south" -> BlockFace.SOUTH;
-            case "west" -> BlockFace.WEST;
-            default -> BlockFace.NORTH;
-        };
-    }
-
-
-    @EventHandler
-    public void onOpen(PlayerInteractEvent e) {
-        if (e.getClickedBlock() == null) {
-            return;
-        }
-        if (e.getClickedBlock().getLocation().equals(loc) && e.getClickedBlock().getType().equals(Material.CHEST)) {
-            e.setCancelled(true);
-            if (e.getPlayer().getInventory().getItemInMainHand().isSimilar(Key.getKey())) {
-                LittlePlayer pl = new LittlePlayer(e.getPlayer().getUniqueId());
-                pl.getItemInMainHand().setAmount(pl.getItemInMainHand().getAmount() - 1);
-                openUI(pl);
-            }
-        }
-    }
-
-    private void openUI(LittlePlayer pl) {
-        Inventory inventory = Bukkit.createInventory(null, 27, DComponent.create("Кейс", TextColor.color(130, 133, 134)));
+    public static void openCaseUI(LittlePlayer pl) {
+        Inventory inventory = Bukkit.createInventory(null, 27, CValues.get("Кейс", 130, 133, 134).create());
         for (String it : Main.config.getConfig().getConfigurationSection("items").getKeys(false)) {
             int i = new Random().nextInt(1, 101);
             if (i <= Main.config.getConfig().getInt("items." + it + ".chance")) {
@@ -83,7 +55,7 @@ public class DefaultChest implements Listener {
         pl.openInventory(refresh(inventory));
     }
 
-    private ItemStack getItem(String type, int amount) {
+    private static ItemStack getItem(String type, int amount) {
         ItemStack stack = switch (type) {
             case "apple" -> Apple.getApple();
             case "chicken" -> Chicken.getChicken();
@@ -97,6 +69,7 @@ public class DefaultChest implements Listener {
             case "boots" -> Armor.boots();
             case "sword" -> Weapon.sword();
             case "bow" -> Weapon.bow();
+            case "star" -> ElderStar.getStar();
             default -> Apple.getApple();
         };
         stack.setAmount(amount);
@@ -104,25 +77,25 @@ public class DefaultChest implements Listener {
     }
 
     private static Inventory refresh(Inventory inv) {
-        Inventory newinv = Bukkit.createInventory(null, 27, DComponent.create("Кейс", TextColor.color(130, 133, 134)));
+        Inventory newInv = Bukkit.createInventory(null, 27, CValues.get("Кейс", 130, 133, 134).create());
         for (ItemStack stack : inv.getContents()) {
             if (stack == null) {
                 continue;
             }
             int slot = new Random().nextInt(1, 27);
-            if (newinv.getItem(slot) != null) {
-                newinv.setItem(slot, stack);
+            if (newInv.getItem(slot) != null) {
+                newInv.setItem(slot, stack);
             } else {
-                if (newinv.getItem(slot) != null) {
+                if (newInv.getItem(slot) != null) {
                     slot = new Random().nextInt(1, 27);
-                    newinv.setItem(slot, stack);
+                    newInv.setItem(slot, stack);
                 } else {
                     slot = new Random().nextInt(1, 27);
-                    newinv.setItem(slot, stack);
+                    newInv.setItem(slot, stack);
                 }
             }
         }
-        return newinv;
+        return newInv;
     }
 
 }

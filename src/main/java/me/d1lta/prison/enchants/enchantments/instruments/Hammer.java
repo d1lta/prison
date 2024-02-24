@@ -1,10 +1,11 @@
 package me.d1lta.prison.enchants.enchantments.instruments;
 
+import static me.d1lta.prison.events.BlockBreak.simulate;
+
 import java.util.Random;
 import javax.annotation.Nullable;
 import me.d1lta.prison.enchants.Enchantment;
 import me.d1lta.prison.enums.Enchantments;
-import me.d1lta.prison.events.BlockBreak;
 import me.d1lta.prison.mines.AllowedBlocks;
 import me.d1lta.prison.utils.LittlePlayer;
 import me.d1lta.prison.utils.MineUtils;
@@ -14,7 +15,6 @@ import org.bukkit.Sound;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.inventory.ItemStack;
 
 public class Hammer implements Enchantment, Listener {
 
@@ -62,11 +62,11 @@ public class Hammer implements Enchantment, Listener {
                     continue;
                 }
                 if (MineUtils.isAllowedToBreakBlock(location)) {
-                    if (!AllowedBlocks.blocks.stream().map(ItemStack::getType).toList().contains(location.getBlock().getType())) {
+                    if (!AllowedBlocks.blockMats.contains(location.getBlock().getType())) {
                         continue;
                     }
                     summoner.playSound(Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1L, 1L);
-                    BlockBreak.simulate(summoner, location);
+                    simulate(summoner, location);
                     location.getBlock().setType(Material.AIR);
                 }
             }

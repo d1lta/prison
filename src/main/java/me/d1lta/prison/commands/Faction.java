@@ -2,21 +2,17 @@ package me.d1lta.prison.commands;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import me.d1lta.prison.Jedis;
 import me.d1lta.prison.enums.Factions;
-import me.d1lta.prison.utils.DComponent;
+import me.d1lta.prison.utils.DComponent.CValues;
 import me.d1lta.prison.utils.LittlePlayer;
 import me.d1lta.prison.utils.NBT;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -25,54 +21,18 @@ import org.jetbrains.annotations.NotNull;
 
 public class Faction implements CommandExecutor, Listener {
 
-    net.kyori.adventure.text.Component title = DComponent.create("Выбор фракции");
-
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (sender instanceof Player) {
             LittlePlayer pl = new LittlePlayer(((Player) sender).getUniqueId());
             openUI(pl);
+            return true;
         }
         return false;
     }
 
-    @EventHandler
-    public void onInteract(InventoryClickEvent e) {
-        if (e.getView().title().equals(title)) {
-            if (e.getCurrentItem() == null || e.getCurrentItem().getType() == Material.AIR) {
-                return;
-            }
-            e.setCancelled(true);
-            LittlePlayer pl = new LittlePlayer(e.getWhoClicked().getUniqueId());
-            Factions chosen = Factions.getFaction(NBT.getStringNBT(e.getCurrentItem(), "f"));
-            if (Objects.equals(chosen, getPlayerFaction(pl))) { // leave from faction
-                changeFraction(pl, Factions.NO_FACTION, true);
-            } else if (getPlayerFaction(pl).equals(Factions.NO_FACTION)) { // no faction -> to faction
-                changeFraction(pl, chosen, false);
-            } else if (!getPlayerFaction(pl).equals(Factions.NO_FACTION) && !getPlayerFaction(pl).equals(chosen)) { // change faction
-                changeFraction(pl, chosen, true);
-            }
-            pl.closeInventory();
-        }
-    }
-
-    private static void changeFraction(LittlePlayer pl, Factions faction, boolean money) {
-        if (money) {
-            if (pl.getMoney() >= 10000.00) {
-                pl.removeMoney(10000.00);
-                Jedis.set(pl.uuid + ".faction", faction.getName());
-                pl.sendMessage("change faction");
-            } else {
-                pl.sendMessage("no money");
-            }
-        } else {
-            Jedis.set(pl.uuid + ".faction", faction.getName());
-            pl.sendMessage("no faction -> to faction");
-        }
-    }
-
     private void openUI(LittlePlayer pl) {
-        Inventory inv = Bukkit.createInventory(null, InventoryType.HOPPER, title);
+        Inventory inv = Bukkit.createInventory(null, InventoryType.HOPPER, CValues.get("Выбор фракции", 100, 100, 100).create());
         for (ItemStack stack: getFactions(pl)) { inv.addItem(stack); }
         pl.openInventory(inv);
 
@@ -93,33 +53,27 @@ public class Faction implements CommandExecutor, Listener {
         return stacks;
     }
 
-    private static List<net.kyori.adventure.text.Component> getLore(LittlePlayer pl, Factions faction) {
-        boolean isPlayerFaction = isPlayerFaction(pl, faction);
-        List<net.kyori.adventure.text.Component> lore = new ArrayList<>();
-        if (isPlayerFaction) {
-            lore.add(DComponent.create("Нажмите ЛКМ чтобы выйти из фракции"));
-            lore.add(DComponent.create("Стоимость: 10000$"));
+    private static List<Component> getLore(LittlePlayer pl, Factions faction) {
+        List<Component> lore = new ArrayList<>();
+        if (pl.getFaction().equals(faction)) {
+            lore.add(CValues.get("Нажмите", 255, 255, 255).create()
+                    .append(CValues.get(" ЛКМ ", 255, 170, 0).create())
+                    .append(CValues.get("чтобы выйти из фракции", 255, 255, 255).create()));
+            lore.add(CValues.get("Стоимость: ", 255, 255, 255).create()
+                    .append(CValues.get("10.000$", 255, 170, 0).create()));
         } else {
-            if (isPlayerNoFaction(pl)) {
-                lore.add(DComponent.create("Нажмите ЛКМ чтобы вступить в фракцию"));
+            if (pl.getFaction().equals(Factions.NO_FACTION)) {
+                lore.add(CValues.get("Нажмите", 255, 255, 255).create()
+                        .append(CValues.get(" ЛКМ ", 255, 170, 0).create())
+                        .append(CValues.get("чтобы вступить в фракцию", 255, 255, 255).create()));
             } else {
-                lore.add(DComponent.create("Нажмите ЛКМ чтобы сменить фракцию"));
-                lore.add(DComponent.create("Стоимость: 10000$"));
+                lore.add(CValues.get("Нажмите", 255, 255, 255).create()
+                        .append(CValues.get(" ЛКМ ", 255, 170, 0).create())
+                        .append(CValues.get("чтобы сменить фракцию", 255, 255, 255).create()));
+                lore.add(CValues.get("Стоимость: ", 255, 255, 255).create()
+                        .append(CValues.get("10.000$", 255, 170, 0).create()));
             }
         }
         return lore;
-    }
-
-    private static Factions getPlayerFaction(LittlePlayer pl) {
-        return pl.getFaction();
-    }
-
-    private static boolean isPlayerNoFaction(LittlePlayer pl) {
-        return pl.getFaction().getName().equals("Без фракции");
-    }
-
-    private static boolean isPlayerFaction(LittlePlayer pl, Factions faction) {
-        return pl.getFaction().getName().equals(faction.getName());
-
     }
 }

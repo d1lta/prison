@@ -2,17 +2,17 @@ package me.d1lta.prison.enums;
 
 public enum TrainerSkills {
 
-    LEVEL_0(0, 0.0, 0.0, 4000),
-    LEVEL_1(1, 0.2, 1.5, 4250),
-    LEVEL_2(2, 0.4, 3.0, 4500),
-    LEVEL_3(3, 0.6, 4.5, 5000),
-    LEVEL_4(4, 0.8, 6, 5500),
-    LEVEL_5(5, 1.0, 7.5, 6000),
-    LEVEL_6(6, 1.2, 9, 6250),
-    LEVEL_7(7, 1.4, 10.5, 6500),
-    LEVEL_8(8, 1.6, 12, 7000),
-    LEVEL_9(9, 1.8, 13.5, 7500),
-    LEVEL_10(10, 2.0, 15, 8000);
+    LEVEL_0(0, 1.0, 0.0, 4000),
+    LEVEL_1(1, 1.05, 1.5, 4250),
+    LEVEL_2(2, 1.1, 3.0, 4500),
+    LEVEL_3(3, 1.15, 4.5, 5000),
+    LEVEL_4(4, 1.2, 6, 5500),
+    LEVEL_5(5, 1.25, 7.5, 6000),
+    LEVEL_6(6, 1.3, 9, 6250),
+    LEVEL_7(7, 1.35, 10.5, 6500),
+    LEVEL_8(8, 1.4, 12, 7000),
+    LEVEL_9(9, 1.45, 13.5, 7500),
+    LEVEL_10(10, 1.5, 15, 8000);
 
     private final int lvl;
     private final double strength_boost;

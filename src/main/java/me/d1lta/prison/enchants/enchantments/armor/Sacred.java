@@ -21,9 +21,9 @@ public class Sacred implements Enchantment, Listener {
     public void onPlayerHurt(EntityDamageByEntityEvent e) {
         if (!isAllowable(e.getEntity(), e.getDamager(), e.getEntity().getWorld().getName())) { return; }
         List<Integer> lvlProcks = new ArrayList<>();
-        if (new LittlePlayer(e.getEntity().getUniqueId()).getArmor().size() == 0) { return; }
+        if (new LittlePlayer(e.getEntity().getUniqueId()).getArmor().isEmpty()) { return; }
         for (ItemStack stack: new LittlePlayer(e.getEntity().getUniqueId()).getArmor()) {
-            if (checkForAction(ench, stack, 140, 100, 70)) {
+            if (checkForAction(ench, stack, 60, 40, 20)) {
                 lvlProcks.add(NBT.getIntNBT(stack, ench.getName()));
             }
         }

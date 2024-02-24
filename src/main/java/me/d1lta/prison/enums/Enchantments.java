@@ -17,7 +17,9 @@ import me.d1lta.prison.enchants.book.StrenghteningBook;
 import me.d1lta.prison.enchants.book.ToxicBook;
 import me.d1lta.prison.enchants.book.VortexBook;
 import me.d1lta.prison.utils.DComponent;
-import me.d1lta.prison.utils.RomanNumeration;
+import me.d1lta.prison.utils.DComponent.CValues;
+import me.d1lta.prison.utils.NumberUtils;
+import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Material;
 
@@ -65,7 +67,7 @@ public enum Enchantments {
         return textColor;
     }
 
-    public net.kyori.adventure.text.Component getColoredName() {
+    public Component getColoredName() {
         return DComponent.create(this.localisation, this.textColor);
     }
 
@@ -73,9 +75,8 @@ public enum Enchantments {
         return getBook(this.name, lvl, chance);
     }
 
-    public net.kyori.adventure.text.Component getColoredNameWithLevel(int lvl) {
-        return DComponent.create(this.localisation, this.textColor).append(
-                DComponent.create(" " + RomanNumeration.get(lvl), this.textColor));
+    public Component getColoredNameWithLevel(int lvl) {
+        return DComponent.create(CValues.get(this.localisation, this.textColor), CValues.get(String.format(" %s", NumberUtils.getRomanNumber(lvl)), this.textColor));
     }
 
     public static EnchantmentBook getBook(String enchantment, int lvl, int chance) {

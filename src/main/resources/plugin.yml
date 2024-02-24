@@ -11,6 +11,7 @@ commands:
   wcreate:
   wtp:
   giveitem:
+    aliases: ["items"]
   sell:
   autosell:
   upgrade:
@@ -27,5 +28,4 @@ commands:
   base:
   gift:
   warzone:
-  boosters:
   enchantments:

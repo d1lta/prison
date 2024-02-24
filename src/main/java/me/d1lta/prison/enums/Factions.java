@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import me.d1lta.prison.utils.DComponent;
 import me.d1lta.prison.utils.LittlePlayer;
+import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -37,7 +38,7 @@ public enum Factions {
 
     public String getConfigName() { return configName; }
 
-    public net.kyori.adventure.text.Component getComponent() { return DComponent.create(name, color); }
+    public Component getComponent() { return DComponent.create(name, color); }
 
     public Material getWarzoneBlockMat() {
         return switch (this) {
@@ -83,7 +84,7 @@ public enum Factions {
     }
 
     public static boolean isPlayersInSingleFaction(List<LittlePlayer> list) {
-        if (list.size() == 0) { return false; }
+        if (list.isEmpty()) { return false; }
         Factions faction = list.get(0).getFaction();
         for (LittlePlayer pl: list) {
             if (!pl.getFaction().equals(faction)) {

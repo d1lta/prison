@@ -13,16 +13,19 @@ public class Sell {
             if (i != null) {
                 ItemStack stack = i.clone();
                 stack.setAmount(1);
-                if (AllowedBlocks.blocks.contains(stack)) {
+                if (AllowedBlocks.getBlock(stack.getType()).equals(stack)) {
                     money = money + Main.config.getConfig().getDouble("prices." + stack.getType().name().toLowerCase()) * i.getAmount();
                     i.setAmount(0);
                 }
             }
         }
-
-
         money = pl.addMoney(money, "sell");
         pl.sendLittleTitle(new TextComponent("Вы продали блоков на " + money + " монет."));
+    }
+
+    public static void sell(LittlePlayer pl, double amount) {
+        pl.addMoney(amount, "sell");
+        pl.sendLittleTitle(new TextComponent("Вы продали блоков на " + amount + " монет."));
     }
 
 }

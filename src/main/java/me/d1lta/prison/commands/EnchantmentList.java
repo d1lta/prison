@@ -1,22 +1,17 @@
 package me.d1lta.prison.commands;
 
 import me.d1lta.prison.enums.Enchantments;
-import me.d1lta.prison.utils.CheckUtils;
-import me.d1lta.prison.utils.DComponent;
+import me.d1lta.prison.utils.DComponent.CValues;
 import me.d1lta.prison.utils.LittlePlayer;
-import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
 
-public class EnchantmentList implements CommandExecutor, Listener {
+public class EnchantmentList implements CommandExecutor{
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
@@ -28,7 +23,7 @@ public class EnchantmentList implements CommandExecutor, Listener {
                 chance = Integer.parseInt(args[1]);
             }
             LittlePlayer pl = new LittlePlayer(((Player) sender).getUniqueId());
-            Inventory inventory = Bukkit.createInventory(null, 54, DComponent.create("Древние зачарования", TextColor.color(255, 254, 0)));
+            Inventory inventory = Bukkit.createInventory(null, 54, CValues.get("Древние зачарования", 255, 255, 0).create());
             for (Enchantments ench : Enchantments.values()) {
                 if (ench.equals(Enchantments.NULL)) { continue; }
                 inventory.addItem(ench.getBook(lvl, chance).getBook());
@@ -39,14 +34,4 @@ public class EnchantmentList implements CommandExecutor, Listener {
         return true;
     }
 
-    @EventHandler
-    public void onInventoryClick(InventoryClickEvent e) {
-        if (e.getView().title().equals(
-                DComponent.create("Древние зачарования", TextColor.color(255, 254, 0)))) {
-            if (CheckUtils.checkForNull(e.getCurrentItem())) {
-                e.getWhoClicked().getInventory().addItem(e.getCurrentItem());
-            }
-            e.setCancelled(true);
-        };
-    }
 }

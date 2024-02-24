@@ -6,7 +6,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockFadeEvent;
 import org.bukkit.event.block.BlockPhysicsEvent;
 
-public class DisableBlockPhysics implements Listener {
+public class PhysicsEvents implements Listener {
 
     List<String> disabledWorlds = List.of(
             "hub", "concrete", "icehills", "vault", "hell"

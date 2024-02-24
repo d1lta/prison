@@ -3,8 +3,7 @@ package me.d1lta.prison.enchants.book;
 import java.util.List;
 import me.d1lta.prison.enchants.EnchantmentBook;
 import me.d1lta.prison.enums.Enchantments;
-import me.d1lta.prison.utils.DComponent;
-import net.kyori.adventure.text.format.TextColor;
+import me.d1lta.prison.utils.DComponent.CValues;
 import org.bukkit.Material;
 
 public class FuryBook extends EnchantmentBook {
@@ -22,10 +21,10 @@ public class FuryBook extends EnchantmentBook {
 
     public FuryBook(int lvl, int chance) {
         super(Enchantments.FURY, lvl, chance, List.of(
-                DComponent.create("- - - - - - - - - - - - - - - - -", TextColor.color(129, 129, 122)),
-                DComponent.create("Тупая чарка которая делает", TextColor.color(255, 196, 129)),
-                DComponent.create("тебя злым как чёрт. Злая чарка.", TextColor.color(255, 196, 129)),
-                DComponent.create("- - - - - - - - - - - - - - - - -", TextColor.color(129, 129, 122))
+                CValues.get("- - - - - - - - - - - - - - - - -", 129, 129, 129),
+                CValues.get("Тупая чарка которая делает", 255, 196, 129),
+                CValues.get("тебя злым как чёрт, очень злым.", 255, 196, 129),
+                CValues.get("- - - - - - - - - - - - - - - - -", 129, 129, 129)
         ), applicableTo);
     }
 
