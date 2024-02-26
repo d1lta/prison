@@ -65,6 +65,7 @@ public class Level implements CommandExecutor {
     }
 
     private void openUI(LittlePlayer pl, int lvl) {
+        if (lvl == 25) { return; }
         Inventory UI = Bukkit.createInventory(null, InventoryType.HOPPER, CValues.get("Уровень", 100, 100, 100).create());
         List<String> requirements = Main.config.getConfig().getStringList("levels.level_" + (lvl + 1) + ".requirements");
         String[] parts;

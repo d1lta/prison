@@ -16,6 +16,7 @@ public class Translate {
             case "gold_ore" -> "Золото";
             case "white_wool" -> "Шерсть";
             case "cobweb" -> "Паутина";
+            case "oak_wood" -> "Дерево";
             case "rats" -> "Крыс";
             default -> s;
         };
@@ -23,6 +24,7 @@ public class Translate {
 
     public static String block(Material material) {
         switch (material) {
+            case OAK_WOOD -> { return "Дерево"; }
             case DIRT -> { return  "Грязь"; }
             case GRAVEL -> { return  "Гравий"; }
             case SAND -> { return  "Песок"; }

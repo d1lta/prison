@@ -246,6 +246,20 @@ public class LittlePlayer {
 
     public void changeAutoSell() { Jedis.set(uuid + ".autosell", String.valueOf(!Boolean.parseBoolean(Jedis.get(uuid + ".autosell")))); }
 
+    public Integer getSkillLvl(String type) { return Integer.parseInt(Jedis.get(uuid + ".skills." + type)); }
+
+    public void addSkillLvl(String type) { Jedis.set(uuid + ".skills." + type, String.valueOf(getSkillLvl(type) + 1)); }
+
+    public void setSkillLvl(String type, int lvl) { Jedis.set(uuid + ".skills." + type, String.valueOf(lvl)); }
+    public Integer getAppliedSkills() { return getSkillLvl("rat") + getSkillLvl("armor") + getSkillLvl("potion") + getSkillLvl("key"); }
+
+    public void forgetSkills() {
+        setSkillLvl("rat", 0);
+        setSkillLvl("armor", 0);
+        setSkillLvl("potion", 0);
+        setSkillLvl("key", 0);
+    }
+
     public void updateTrainerSkills() {
         String chance = String.valueOf(TrainerSkills.getSkills(getNeedsLvl()).getNeeds_chance());
         Jedis.set(uuid + ".toilet_chance_max", chance);

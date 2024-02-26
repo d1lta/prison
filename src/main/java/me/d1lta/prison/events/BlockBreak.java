@@ -1,6 +1,8 @@
 package me.d1lta.prison.events;
 
 
+import static me.d1lta.prison.Main.wood;
+
 import java.util.Random;
 import me.d1lta.prison.Main;
 import me.d1lta.prison.Sell;
@@ -9,6 +11,7 @@ import me.d1lta.prison.commands.AutoSell;
 import me.d1lta.prison.items.Key;
 import me.d1lta.prison.utils.LittlePlayer;
 import me.d1lta.prison.utils.MineUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -20,8 +23,21 @@ public class BlockBreak implements Listener {
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent e) {
+        LittlePlayer pl = new LittlePlayer(e.getPlayer().getUniqueId());
+        if (e.getBlock().getLocation().getWorld().getName().equals("hub")) {
+            if (e.getBlock().getType().equals(Material.OAK_WOOD)) {
+                Location loc = e.getBlock().getLocation();
+                simulate(pl, loc);
+                wood.add(loc);
+                Bukkit.getScheduler().runTaskLater(Main.plugin, () -> {
+                    loc.getBlock().setType(Material.OAK_WOOD);
+                    wood.remove(loc);
+                }, 200L);
+                e.getBlock().setType(Material.AIR);
+            }
+        }
         if (MineUtils.isAllowedToBreakBlock(e.getBlock().getLocation())) {
-            simulate(new LittlePlayer(e.getPlayer().getUniqueId()), e.getBlock().getLocation());
+            simulate(pl, e.getBlock().getLocation());
             if (e.getBlock().getType().equals(Material.ICE)) {
                 e.getBlock().setType(Material.AIR);
             }

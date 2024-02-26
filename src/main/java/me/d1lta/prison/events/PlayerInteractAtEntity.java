@@ -14,7 +14,6 @@ public class PlayerInteractAtEntity implements Listener {
     @EventHandler
     public void onInteract(PlayerInteractAtEntityEvent e) {
         LittlePlayer pl = new LittlePlayer(e.getPlayer().getUniqueId());
-
         if (e.getRightClicked() instanceof Villager) { // Торговцы
             if (e.getRightClicked().name().equals(ElderVillager.name)) { // Древний житель
                 ElderVillager.openInv(pl);

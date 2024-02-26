@@ -1,5 +1,7 @@
 package me.d1lta.prison.utils;
 
+import java.util.ArrayList;
+import java.util.List;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -23,6 +25,14 @@ public class DComponent {
             component = component.append(create(val.text, val.color));
         }
         return component;
+    }
+
+    public static List<Component> createList(CValues ...values) {
+        List<Component> list = new ArrayList<>();
+        for (CValues val: values) {
+            list.add(val.create());
+        }
+        return list;
     }
 
     public static Component create(CValues value) {

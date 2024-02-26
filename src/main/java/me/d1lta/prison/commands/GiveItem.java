@@ -8,6 +8,7 @@ import me.d1lta.prison.items.ElderDust;
 import me.d1lta.prison.items.ElderKey;
 import me.d1lta.prison.items.ElderStar;
 import me.d1lta.prison.items.Key;
+import me.d1lta.prison.items.OblivionDust;
 import me.d1lta.prison.items.ToiletPaper;
 import me.d1lta.prison.items.Tool;
 import me.d1lta.prison.items.VaultAccess;
@@ -47,7 +48,7 @@ public class GiveItem implements CommandExecutor {
         List.of(Tool.shovel(), Tool.pickaxe(), Tool.rare_pickaxe(), Tool.axe(), Tool.shears(),
                 Armor.helmet(), Armor.chestplate(), Armor.leggings(), Armor.boots(), Weapon.bow(), Weapon.sword(),
                 VaultAccess.getAccess(), ToiletPaper.getPaper(), Key.getKey(), ElderStar.getStar(), ElderKey.getKey(),
-                BrokenElderKey.getKey(), ElderDust.getDust(100), Chicken.getChicken()).forEach(inventory::addItem);
+                BrokenElderKey.getKey(), ElderDust.getDust(100), Chicken.getChicken(), OblivionDust.getOblivionDust()).forEach(inventory::addItem);
         pl.openInventory(inventory);
     }
 

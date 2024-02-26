@@ -4,6 +4,7 @@ import javax.annotation.Nullable;
 import me.d1lta.prison.enchants.Enchantment;
 import me.d1lta.prison.enums.Enchantments;
 import me.d1lta.prison.utils.LittlePlayer;
+import me.d1lta.prison.utils.MineUtils;
 import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,13 +19,13 @@ public class Archaeology implements Enchantment, Listener {
     @EventHandler
     public void onBlockBreak(BlockBreakEvent e) {
         if (checkForAction(ench, e.getPlayer().getInventory().getItemInMainHand(), 150, 100 ,50)) {
-            action(null, new LittlePlayer(e.getPlayer().getUniqueId()), null, getLVL(e.getPlayer().getInventory().getItemInMainHand(), ench), 0);
+            action(e.getBlock().getLocation(), new LittlePlayer(e.getPlayer().getUniqueId()), null, getLVL(e.getPlayer().getInventory().getItemInMainHand(), ench), 0);
         }
     }
 
     @Override
-    public void action(@Nullable Location location, LittlePlayer summoner, @Nullable LittlePlayer victim, int lvl,
-            double damage) {
+    public void action(Location location, LittlePlayer summoner, @Nullable LittlePlayer victim, int lvl, double damage) {
+        if (!MineUtils.isAllowedToBreakBlock(location)) { return; }
         if (summoner.getEffects().stream().map(PotionEffect::getType).toList().contains(PotionEffectType.FAST_DIGGING)) {
             summoner.removeEffect(PotionEffectType.FAST_DIGGING);
         }

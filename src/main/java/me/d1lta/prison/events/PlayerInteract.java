@@ -1,9 +1,11 @@
 package me.d1lta.prison.events;
 
-import static me.d1lta.prison.chests.DefaultChest.loc;
+import static me.d1lta.prison.chests.DefaultChest.defaultChestLoc;
 import static me.d1lta.prison.chests.DefaultChest.openCaseUI;
+import static me.d1lta.prison.chests.EnderChest.enderChestLoc;
 import static me.d1lta.prison.chests.EnderChest.openChest;
 import static me.d1lta.prison.chests.EnderChest.opening;
+import static me.d1lta.prison.items.OblivionDust.getOblivionDust;
 import static me.d1lta.prison.items.VaultAccess.getAccess;
 
 import me.d1lta.prison.items.Key;
@@ -25,11 +27,25 @@ public class PlayerInteract implements Listener {
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent e) {
         LittlePlayer pl = new LittlePlayer(e.getPlayer().getUniqueId());
-        if (e.getPlayer().getInventory().getItemInMainHand().equals(getAccess())) { onVaultAccess(e, pl); }
-        onToiletPaper(e, pl);
-        onSleep(e, pl);
-        onCase(e, pl);
-        onEnderChest(e, pl);
+        if (pl.getItemInMainHand().equals(getAccess())) {
+            onVaultAccess(e, pl);
+        } else if (pl.getItemInMainHand().isSimilar(getOblivionDust())) {
+            onOblivionDust(e, pl);
+        } else {
+            onToiletPaper(e, pl);
+            onSleep(e, pl);
+            onCase(e, pl);
+            onEnderChest(e, pl);
+        }
+    }
+
+    private void onOblivionDust(PlayerInteractEvent e, LittlePlayer pl) {
+        if (!CheckUtils.checkForNull(e.getItem())) { return; }
+        if (!NBT.getStringNBT(pl.getItemInMainHand(), "type").equals("oblivion")) { return; }
+        pl.forgetSkills();
+        ItemStack stack = e.getItem();
+        e.getPlayer().getInventory().getItemInMainHand().setAmount(stack.getAmount() - 1);
+        pl.sendMessage(CValues.get("Вы забыли все навыки!").create());
     }
 
     private void onVaultAccess(PlayerInteractEvent e, LittlePlayer pl) {
@@ -64,18 +80,19 @@ public class PlayerInteract implements Listener {
         }
     }
 
-    private void onCase(PlayerInteractEvent e, LittlePlayer pl) {
-        if (e.getClickedBlock() == null) { return; }
-        if (!e.getClickedBlock().getLocation().equals(loc) || !e.getClickedBlock().getType().equals(Material.CHEST)) { return; }
+    private boolean onCase(PlayerInteractEvent e, LittlePlayer pl) {
+        if (e.getClickedBlock() == null) { return false; }
+        if (!e.getClickedBlock().getLocation().equals(defaultChestLoc) || !e.getClickedBlock().getType().equals(Material.CHEST)) { return false; }
         e.setCancelled(true);
-        if (!e.getPlayer().getInventory().getItemInMainHand().isSimilar(Key.getKey())) { return; }
+        if (!e.getPlayer().getInventory().getItemInMainHand().isSimilar(Key.getKey())) { return false; }
         pl.getItemInMainHand().setAmount(pl.getItemInMainHand().getAmount() - 1);
         openCaseUI(pl);
+        return true;
     }
 
     private void onEnderChest(PlayerInteractEvent e, LittlePlayer pl) {
         if (e.getClickedBlock() == null) { return; }
-        if (!e.getClickedBlock().getLocation().equals(loc) && !e.getClickedBlock().getType().equals(Material.ENDER_CHEST)) { return; }
+        if (!e.getClickedBlock().getLocation().equals(enderChestLoc) && !e.getClickedBlock().getType().equals(Material.ENDER_CHEST)) { return; }
         ItemStack stack = pl.getItemInMainHand();
         if (!CheckUtils.checkForNull(stack)) { return; }
         if (opening.contains(pl.uuid)) {

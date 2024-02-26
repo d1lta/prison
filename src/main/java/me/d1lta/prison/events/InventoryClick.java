@@ -6,18 +6,23 @@ import static me.d1lta.prison.commands.Upgrade.getEnchants;
 import static me.d1lta.prison.commands.Upgrade.getPrisonItem;
 import static me.d1lta.prison.commands.Upgrade.getUpgradeButton;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
 import java.util.Set;
 import me.d1lta.prison.Main;
 import me.d1lta.prison.Teleport;
 import me.d1lta.prison.commands.Mine;
+import me.d1lta.prison.commands.Skills;
 import me.d1lta.prison.enchants.EnchantmentBook;
 import me.d1lta.prison.entities.traders.ElderVillager;
 import me.d1lta.prison.entities.traders.StartVillager;
 import me.d1lta.prison.entities.traders.TrainerVillager;
 import me.d1lta.prison.enums.Enchantments;
 import me.d1lta.prison.enums.Factions;
+import me.d1lta.prison.enums.LevelBoosts;
 import me.d1lta.prison.items.Apple;
 import me.d1lta.prison.items.BrokenElderKey;
 import me.d1lta.prison.items.ElderDust;
@@ -29,6 +34,7 @@ import me.d1lta.prison.utils.EventMethods;
 import me.d1lta.prison.utils.LittlePlayer;
 import me.d1lta.prison.utils.LocationUtils;
 import me.d1lta.prison.utils.NBT;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -39,38 +45,84 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class InventoryClick implements Listener {
 
+    private final Class<?> classObj = this.getClass();
+    private static final Map<Component, String> methods = new HashMap<>();
+
+    private void invokeMethod(String name, InventoryClickEvent e,  LittlePlayer pl) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        classObj.getDeclaredMethod(name, InventoryClickEvent.class, LittlePlayer.class).invoke(this, e, pl);
+    }
+
+    public static void appendMethods() {
+        if (methods.isEmpty()) {
+            methods.putAll(Map.of(
+                    ElderVillager.title, "elderVillager",
+                    StartVillager.title, "startVillager",
+                    TrainerVillager.title, "trainer",
+                    CValues.get("Статистика", 100, 100, 100).create(), "statistics",
+                    CValues.get("Древние зачарования", 255, 255, 0).create(), "elderEnchantments",
+                    CValues.get("Выбор фракции", 100, 100, 100).create(), "faction",
+                    CValues.get("Уровень", 100, 100, 100).create(), "lvl",
+                    CValues.get("Шахты", 100, 100, 100).create(), "mine",
+                    CValues.get("Предметы", 100, 100, 100).create(), "items",
+                    DComponent.create("Список улучшений."), "upgrades"
+            ));
+            methods.putAll(Map.of(
+                    CValues.get("Древний сундук", 46, 46, 46).create(), "elderCase",
+                    CValues.get("Улучшение предмета", 255, 255, 0).create(), "upgrade",
+                    Skills.titleValue.create(), "skills"
+            ));
+        }
+    }
+
     @EventHandler
-    public void onInventoryClick(InventoryClickEvent e) {
+    public void onInventoryClick(InventoryClickEvent e) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException {
         LittlePlayer pl = new LittlePlayer(e.getWhoClicked().getUniqueId());
-        if (e.getView().title().equals(ElderVillager.title)) { // Древний житель
-            elderVillager(e, pl);
-        } else if (e.getView().title().equals(StartVillager.title)) { // Стартовый житель
-            startVillager(e, pl);
-        } else if (e.getView().title().equals(TrainerVillager.title)) { // Тренер
-            trainer(e, pl);
-        } else if (e.getView().title().equals(CValues.get("Статистика", 100, 100, 100).create()) && e.getCurrentItem() != null) { // blockstats
-            e.setCancelled(true);
-        } else if (e.getView().title().equals(CValues.get("Древние зачарования", 255, 255, 0).create())) { // Древние зачарования
-            if (CheckUtils.checkForNull(e.getCurrentItem())) { e.getWhoClicked().getInventory().addItem(e.getCurrentItem()); }
-            e.setCancelled(true);
-        } else if (e.getView().title().equals(CValues.get("Выбор фракции", 100, 100, 100).create())) { // Фракции
-            faction(e, pl);
-        } else if (e.getView().title().equals(CValues.get("Уровень", 100, 100, 100).create())) { // Повышение уровня
-            lvl(e, pl);
-        } else if (e.getView().title().equals(CValues.get("Шахты", 100, 100, 100).create())) { // Меню шахт
-            mine(e, pl);
-        } else if (e.getView().title().equals(CValues.get("Предметы", 100, 100, 100).create())) { // меню предметов
-            if (CheckUtils.checkForNull(e.getCurrentItem())) { e.getWhoClicked().getInventory().addItem(e.getCurrentItem()); }
-            e.setCancelled(true);
-        } else if (e.getView().title().equals(DComponent.create("Список улучшений."))) { // /upgrades
-            e.setCancelled(true);
-        } else if (e.getView().title().equals(CValues.get("Древний сундук", 46, 46, 46).create())) {
-            e.setCancelled(true);
-        } else if (e.getInventory().getType().equals(InventoryType.CRAFTING)) { // Наложение древних чар
+        if (e.getInventory().getType().equals(InventoryType.CRAFTING)) {
             elderBook(e, pl);
             dustCombing(e);
-        } else if (e.getInventory().getType().equals(InventoryType.HOPPER)) {
-            upgrade(e, pl);
+        } else if (methods.containsKey(e.getView().title())) {
+            invokeMethod(methods.get(e.getView().title()), e, pl);
+        }
+    }
+
+    private void skills(InventoryClickEvent e, LittlePlayer pl) {
+        e.setCancelled(true);
+        if (!CheckUtils.checkForNull(e.getCurrentItem())) { return; }
+        int skills = LevelBoosts.get(pl.getLevel()).skills - pl.getAppliedSkills();
+        if (skills == 0) { return; }
+        String skill = NBT.getStringNBT(e.getCurrentItem(), "skill");
+        if (NBT.getStringNBT(e.getCurrentItem(), "learned").equals("true")) { return; }
+        pl.addSkillLvl(skill);
+        ItemStack checker = Skills.getLearnedSkillLevel(pl.getSkillLvl(skill), pl.getSkillLvl(skill), skill);
+        e.getCurrentItem().setType(checker.getType());
+        e.getCurrentItem().setItemMeta(checker.getItemMeta());
+    }
+
+    private void elderCase(InventoryClickEvent e, LittlePlayer pl) {
+        e.setCancelled(true);
+    }
+
+    private void upgrades(InventoryClickEvent e, LittlePlayer pl) {
+        e.setCancelled(true);
+    }
+
+    private void items(InventoryClickEvent e, LittlePlayer pl) {
+        if (CheckUtils.checkForNull(e.getCurrentItem())) {
+            e.getWhoClicked().getInventory().addItem(e.getCurrentItem());
+        }
+        e.setCancelled(true);
+    }
+
+    private void elderEnchantments(InventoryClickEvent e, LittlePlayer pl) {
+        if (CheckUtils.checkForNull(e.getCurrentItem())) {
+            e.getWhoClicked().getInventory().addItem(e.getCurrentItem());
+        }
+        e.setCancelled(true);
+    }
+
+    private void statistics(InventoryClickEvent e, LittlePlayer pl) {
+        if (CheckUtils.checkForNull(e.getCurrentItem())) {
+            e.setCancelled(true);
         }
     }
 
@@ -96,7 +148,6 @@ public class InventoryClick implements Listener {
             }
         }
         pl.sendMessage(CValues.get("У вас недостаточно звёзд!", 167, 167, 167).create());
-        pl.sendMessage("Недостаточно звёзд!");
     }
 
     private void startVillager(InventoryClickEvent e, LittlePlayer pl) {
@@ -230,30 +281,28 @@ public class InventoryClick implements Listener {
             e.setCancelled(true);
             return;
         }
-        if (e.getView().title().equals(CValues.get("Улучшение предмета", 255, 255, 0).create())) {
-            if (Objects.equals(e.getCurrentItem(), getUpgradeButton())) {
-                String type = NBT.getStringNBT(pl.getItemInMainHand(), "type");
-                int currentlvl = NBT.getIntNBT(pl.getItemInMainHand(), "level");
-                if (checkCondition(pl, type, currentlvl + 1)) {
-                    for (String it : Main.config.getConfig().getStringList("upgrades." + type + ".level_" + currentlvl + ".requirements")) {
-                        String[] parts = it.split(":");
-                        if (parts[0].equalsIgnoreCase("money")) {
-                            pl.removeMoney(Integer.parseInt(parts[1]));
-                            break;
-                        }
+        if (Objects.equals(e.getCurrentItem(), getUpgradeButton())) {
+            String type = NBT.getStringNBT(pl.getItemInMainHand(), "type");
+            int currentlvl = NBT.getIntNBT(pl.getItemInMainHand(), "level");
+            if (checkCondition(pl, type, currentlvl + 1)) {
+                for (String it : Main.config.getConfig().getStringList("upgrades." + type + ".level_" + currentlvl + ".requirements")) {
+                    String[] parts = it.split(":");
+                    if (parts[0].equalsIgnoreCase("money")) {
+                        pl.removeMoney(Integer.parseInt(parts[1]));
+                        break;
                     }
-                    ItemStack clone = pl.getItemInMainHand().clone();
-                    pl.getItemInMainHand().setAmount(0);
-                    pl.getInventory().setItem(pl.getHeldItemSlot(), getPrisonItem(pl, type, currentlvl + 1, false, getEnchants(clone)));
-                    pl.sendMessage("Предмет улучшен!");
-                    pl.closeInventory();
-                } else {
-                    pl.sendMessage("Требования не выполнены!");
-                    pl.closeInventory();
                 }
+                ItemStack clone = pl.getItemInMainHand().clone();
+                pl.getItemInMainHand().setAmount(0);
+                pl.getInventory().setItem(pl.getHeldItemSlot(), getPrisonItem(pl, type, currentlvl + 1, false, getEnchants(clone)));
+                pl.sendMessage("Предмет улучшен!");
+                pl.closeInventory();
+            } else {
+                pl.sendMessage("Требования не выполнены!");
+                pl.closeInventory();
             }
-            e.setCancelled(true);
         }
+        e.setCancelled(true);
     }
 }
 

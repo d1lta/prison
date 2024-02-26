@@ -179,13 +179,27 @@ public class PlayerJoin implements Listener {
         if (Jedis.get(uuid + ".blocks.diamond_block") == null) {
             Jedis.set(uuid + ".blocks.diamond_block", "0");
         }
+        if (Jedis.get(uuid + ".blocks.oak_wood") == null) {
+            Jedis.set(uuid + ".blocks.oak_wood", "0");
+        }
+        if (Jedis.get(uuid + ".skills.rat") == null) {
+            Jedis.set(uuid + ".skills.rat", "0");
+        }
+        if (Jedis.get(uuid + ".skills.armor") == null) {
+            Jedis.set(uuid + ".skills.armor", "0");
+        }
+        if (Jedis.get(uuid + ".skills.potion") == null) {
+            Jedis.set(uuid + ".skills.potion", "0");
+        }
+        if (Jedis.get(uuid + ".skills.key") == null) {
+            Jedis.set(uuid + ".skills.key", "0");
+        }
         if (Jedis.get(uuid + ".lvl") == null) {
             Jedis.set(uuid + ".lvl", "0");
         }
         if (Jedis.get(uuid + ".autosell") == null) {
             Jedis.set(uuid + ".autosell", "false");
         }
-
         if (Jedis.get(uuid + ".autosell").equals("true")) {
             AutoSell.uuids.add(uuid);
         }

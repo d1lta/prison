@@ -18,11 +18,11 @@ public class PrisonEvents {
     static public void effectEveryone() {
         Bukkit.getScheduler().runTaskTimer(Main.plugin, () -> {
             switch (new Random().nextInt(1,4)) {
-                case 1 -> Bukkit.getOnlinePlayers().stream().parallel().map(Entity::getUniqueId).forEach(it ->
+                case 1 -> Bukkit.getOnlinePlayers().stream().map(Entity::getUniqueId).forEach(it ->
                         addEffect(new LittlePlayer(it), "Внезапное событие!", "Сила", PotionEffectType.INCREASE_DAMAGE));
-                case 2 -> Bukkit.getOnlinePlayers().stream().parallel().map(Entity::getUniqueId).forEach(it ->
+                case 2 -> Bukkit.getOnlinePlayers().stream().map(Entity::getUniqueId).forEach(it ->
                         addEffect(new LittlePlayer(it), "Внезапное событие!", "Скорость", PotionEffectType.SPEED));
-                case 3 -> Bukkit.getOnlinePlayers().stream().parallel().map(Entity::getUniqueId).forEach(it ->
+                case 3 -> Bukkit.getOnlinePlayers().stream().map(Entity::getUniqueId).forEach(it ->
                         addEffect(new LittlePlayer(it), "Внезапное событие!", "Регенерация", PotionEffectType.REGENERATION));
             }
         }, 300 * 20L, 300 * 20L);

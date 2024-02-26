@@ -2,6 +2,7 @@ package me.d1lta.prison;
 
 import static me.d1lta.prison.PrisonEvents.effectEveryone;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,7 @@ import me.d1lta.prison.commands.GiveItem;
 import me.d1lta.prison.commands.Level;
 import me.d1lta.prison.commands.Mine;
 import me.d1lta.prison.commands.SellCmd;
+import me.d1lta.prison.commands.Skills;
 import me.d1lta.prison.commands.Spawn;
 import me.d1lta.prison.commands.SummonMob;
 import me.d1lta.prison.commands.Upgrade;
@@ -63,6 +65,8 @@ import me.d1lta.prison.utils.LittlePlayer;
 import me.d1lta.prison.warzone.WarzoneCapture;
 import me.d1lta.prison.worldGenerators.VoidGen;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.WorldCreator;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.entity.Entity;
@@ -76,6 +80,8 @@ public final class Main extends JavaPlugin {
     public static Plugin plugin;
     public static Config config;
     public static JedisPool pool;
+    public static List<Location> wood = new ArrayList<>();
+
     @Override
     public void onEnable() {
         pool = new JedisPool("localhost", 6379);
@@ -93,6 +99,7 @@ public final class Main extends JavaPlugin {
         worldLoader();
         timer();
         effectEveryone();
+        InventoryClick.appendMethods();
     }
 
     @Override
@@ -103,6 +110,7 @@ public final class Main extends JavaPlugin {
         });
         BlockBoostHandler.applyToDBEveryone();
         PlayerValues.save();
+        wood.forEach(it -> it.getBlock().setType(Material.OAK_WOOD));
         Bukkit.getLogger().warning("DISABLED PRISON");
         pool.close();
     }
@@ -197,6 +205,9 @@ public final class Main extends JavaPlugin {
                 "gift", new Gift(),
                 "warzone", new Warzone(),
                 "enchantments", new EnchantmentList()
+        ));
+        commands.putAll(Map.of(
+                "skills", new Skills()
         ));
         commands.forEach((cmd, executor) -> getServer().getPluginCommand(cmd).setExecutor(executor));
     }

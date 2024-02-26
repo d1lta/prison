@@ -10,6 +10,7 @@ import me.d1lta.prison.items.Armor;
 import me.d1lta.prison.items.Arrow;
 import me.d1lta.prison.items.Chicken;
 import me.d1lta.prison.items.ElderStar;
+import me.d1lta.prison.items.OblivionDust;
 import me.d1lta.prison.items.ToiletPaper;
 import me.d1lta.prison.items.Tool;
 import me.d1lta.prison.items.VaultAccess;
@@ -26,11 +27,11 @@ import org.bukkit.inventory.ItemStack;
 
 public class DefaultChest {
 
-    public static Location loc;
+    public static Location defaultChestLoc;
     private static final String path = "chests.case.";
 
     public static void initLoc() {
-        loc = new Location(
+        defaultChestLoc = new Location(
                 Bukkit.getWorld(Objects.requireNonNull(Main.config.getConfig().getString(path + "world"))),
                 Main.config.getConfig().getDouble(path + "x"),
                 Main.config.getConfig().getDouble(path + "y"),
@@ -38,10 +39,10 @@ public class DefaultChest {
     }
 
     public static void spawnChest() {
-        loc.getWorld().getBlockAt(loc).setType(Material.CHEST);
-        BlockData blockData = loc.getBlock().getBlockData();
+        defaultChestLoc.getWorld().getBlockAt(defaultChestLoc).setType(Material.CHEST);
+        BlockData blockData = defaultChestLoc.getBlock().getBlockData();
         ((Directional) blockData).setFacing(getFacing(Objects.requireNonNull(Main.config.getConfig().getString(path + "facing"))));
-        loc.getBlock().setBlockData(blockData);
+        defaultChestLoc.getBlock().setBlockData(blockData);
     }
 
     public static void openCaseUI(LittlePlayer pl) {
@@ -70,6 +71,7 @@ public class DefaultChest {
             case "sword" -> Weapon.sword();
             case "bow" -> Weapon.bow();
             case "star" -> ElderStar.getStar();
+            case "oblivion_dust" -> OblivionDust.getOblivionDust();
             default -> Apple.getApple();
         };
         stack.setAmount(amount);

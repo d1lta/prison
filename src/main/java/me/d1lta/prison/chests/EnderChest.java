@@ -17,22 +17,22 @@ import org.bukkit.inventory.ItemStack;
 
 public class EnderChest {
 
-    private static Location loc;
+    public static Location enderChestLoc;
     private static final String path = "chests.ender_chest.";
     public static final List<UUID> opening = new ArrayList<>();
 
     public static void initLoc() {
-        loc = new Location(Bukkit.getWorld(Objects.requireNonNull(Main.config.getConfig().getString(path + "world"))),
+        enderChestLoc = new Location(Bukkit.getWorld(Objects.requireNonNull(Main.config.getConfig().getString(path + "world"))),
                 Main.config.getConfig().getDouble(path + "x"),
                 Main.config.getConfig().getDouble(path + "y"),
                 Main.config.getConfig().getDouble(path + "z"));
     }
 
     public static void spawnChest() {
-        loc.getWorld().getBlockAt(loc).setType(Material.ENDER_CHEST);
-        BlockData blockData = loc.getBlock().getBlockData();
+        enderChestLoc.getWorld().getBlockAt(enderChestLoc).setType(Material.ENDER_CHEST);
+        BlockData blockData = enderChestLoc.getBlock().getBlockData();
         ((Directional) blockData).setFacing(getFacing(Objects.requireNonNull(Main.config.getConfig().getString(path + "facing"))));
-        loc.getBlock().setBlockData(blockData);
+        enderChestLoc.getBlock().setBlockData(blockData);
     }
 
     public static void openChest(LittlePlayer pl, Boolean advanced, ItemStack keyStack) {

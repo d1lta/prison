@@ -17,7 +17,8 @@ public class AllowedBlocks {
             Material.WHITE_CONCRETE_POWDER, Material.LIGHT_GRAY_CONCRETE_POWDER, Material.NETHER_QUARTZ_ORE, Material.SOUL_SAND, Material.NETHERRACK,
             Material.SANDSTONE, Material.RED_SANDSTONE, Material.QUARTZ_BLOCK, Material.PRISMARINE_BRICKS, Material.PRISMARINE,
             Material.PURPUR_BLOCK, Material.PURPUR_PILLAR, Material.END_STONE_BRICKS, Material.WHITE_WOOL, Material.COBWEB, Material.TERRACOTTA, Material.BROWN_GLAZED_TERRACOTTA,
-            Material.ICE, Material.PACKED_ICE, Material.PURPLE_TERRACOTTA, Material.OBSIDIAN, Material.LAPIS_BLOCK, Material.IRON_BLOCK, Material.GOLD_BLOCK, Material.DIAMOND_BLOCK);
+            Material.ICE, Material.PACKED_ICE, Material.PURPLE_TERRACOTTA, Material.OBSIDIAN, Material.LAPIS_BLOCK, Material.IRON_BLOCK, Material.GOLD_BLOCK, Material.DIAMOND_BLOCK,
+            Material.OAK_WOOD);
 
 
     public static ItemStack getBlock(Material material) {
